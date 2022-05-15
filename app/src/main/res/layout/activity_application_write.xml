@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Activity_Application_Write">
+
+    <LinearLayout
+        android:gravity="center"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@color/thema2">
+
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="신청서 작성"
+            android:textSize="40dp"
+            android:gravity="left"
+            android:textColor="@color/thema5"/>
+
+        <EditText
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/ApplicationWrite_hospitalsearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="병원 검색"
+            android:textColorHint="@color/thema3"
+            android:textColor="@color/thema4"
+            android:ems="20"
+            android:textSize="30dp"
+            android:background="@drawable/border"
+            android:padding="5dp"/>
+
+        <!--검색된 병원 정보 보여줄 공간-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundborder"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ApplicationWrite_hospitalimage"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+
+            <TextView
+                android:id="@+id/ApplicationWrite_hospitaldate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="개원 일자"
+                android:gravity="right"
+                android:textSize="15dp"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+                 <TextView
+                    android:id="@+id/ApplicationWrite_hospitalname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="병원 이름"
+                     android:layout_weight="10"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/ApplicationWrite_hospitalcategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="병원 구분"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ApplicationWrite_hospitallocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="병원 위치"
+                android:textSize="15dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/ApplicationWrite_hospitalphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="병원 전화번호"
+                android:textSize="15dp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ApplicationWrite_username"
+                android:layout_marginVertical="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용자"
+                android:textColor="@color/thema4"
+                android:textSize="30dp"
+                android:background="@drawable/border"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/ApplicationWrite_userphone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginVertical="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="010-0000-0000"
+                android:textColor="@color/thema4"
+                android:textSize="20dp"
+                android:background="@drawable/border"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:id="@+id/ApplicationWrite_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="직책"
+            android:textColorHint="@color/thema3"
+            android:textColor="@color/thema4"
+            android:ems="20"
+            android:textSize="20dp"
+            android:background="@drawable/border"
+            android:padding="5dp"/>
+
+        <EditText
+            android:layout_marginVertical="5dp"
+            android:id="@+id/ApplicationWrite_department"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="소속"
+            android:textColorHint="@color/thema3"
+            android:textColor="@color/thema4"
+            android:ems="20"
+            android:textSize="20dp"
+            android:background="@drawable/border"
+            android:padding="5dp"/>
+
+        <RadioGroup
+            android:id="@+id/ApplicationWrite_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:text="직원"
+                android:id="@+id/ApplicationWrite_radiogroup_worker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"/>
+            <RadioButton
+                android:text="관리자"
+                android:id="@+id/ApplicationWrite_radiogroup_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"/>
+        </RadioGroup>
+
+        <Button
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:id="@+id/ApplicationWrite_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="작성 완료"
+            android:textColor="@color/thema4"
+            android:background="@drawable/roundborder"
+            android:textSize="40dp"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
