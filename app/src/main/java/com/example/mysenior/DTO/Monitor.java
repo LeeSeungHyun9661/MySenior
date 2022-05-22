@@ -1,4 +1,4 @@
-package com.example.mysinor.DTO;
+package com.example.mysenior.DTO;
 
 public class Monitor {
     String m_id; //모니터 ID

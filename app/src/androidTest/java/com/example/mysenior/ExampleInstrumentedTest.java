@@ -1,4 +1,4 @@
-package com.example.mysinor;
+package com.example.mysenior;
 
 import android.content.Context;
 

@@ -1,8 +1,8 @@
-package com.example.mysinor.Activity;
+package com.example.mysenior.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.mysinor.R;
+import com.example.mysenior.R;
 
 public class Activity_Regist extends AppCompatActivity {
 

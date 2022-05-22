@@ -1,4 +1,4 @@
-package com.example.mysinor.DTO;
+package com.example.mysenior.DTO;
 
 import java.util.Date;
 
