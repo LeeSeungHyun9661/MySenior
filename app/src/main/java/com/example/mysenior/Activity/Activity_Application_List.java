@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.example.mysenior.R;
 
 public class Activity_Application_List extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

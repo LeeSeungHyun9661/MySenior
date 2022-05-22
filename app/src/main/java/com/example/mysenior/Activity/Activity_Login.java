@@ -2,6 +2,7 @@ package com.example.mysenior.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,9 +33,11 @@ public class Activity_Login extends AppCompatActivity {
         login_id_input = (EditText) findViewById(R.id.login_id_input);
         login_pw_input = (EditText) findViewById(R.id.login_pw_input);
 
+        //로그인버튼
         login_loginbutton = (Button) findViewById(R.id.login_loginbutton);
         login_loginbutton.setOnClickListener(loginClickListener);
 
+        //회원가입버튼
         login_regist = (Button) findViewById(R.id.login_regist);
         login_regist.setOnClickListener(registerClickListener);
     }
@@ -48,7 +51,6 @@ public class Activity_Login extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     try {
-                        Log.w("RESPONSE ERROR",response);
                         JSONObject jsonResponse = new JSONObject(response);
                         boolean success = jsonResponse.getBoolean("success");
                         if(success){
@@ -56,6 +58,9 @@ public class Activity_Login extends AppCompatActivity {
                             String u_id = jsonResponse.getString("u_id");
                             String u_name = jsonResponse.getString("u_name");
                             User user = new User(u_id,u_name);
+                            Intent intent = new Intent(getApplicationContext(), Activity_Application_List.class);
+                            intent.putExtra("User", user);
+
                         }else{
                             Toast.makeText(getApplicationContext(), "로그인 정보가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
                             return;

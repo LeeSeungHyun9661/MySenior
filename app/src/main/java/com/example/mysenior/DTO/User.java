@@ -1,6 +1,8 @@
 package com.example.mysenior.DTO;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     String u_id; //사용자ID
     String u_name; //사용자 이름
