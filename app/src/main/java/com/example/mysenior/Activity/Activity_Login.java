@@ -2,8 +2,6 @@ package com.example.mysenior.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,9 +56,10 @@ public class Activity_Login extends AppCompatActivity {
                             String u_id = jsonResponse.getString("u_id");
                             String u_name = jsonResponse.getString("u_name");
                             User user = new User(u_id,u_name);
-                            Intent intent = new Intent(getApplicationContext(), Activity_Application_List.class);
+                            Intent intent = new Intent(getApplicationContext(), Activity_Authority_List.class);
                             intent.putExtra("User", user);
-
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(getApplicationContext(), "로그인 정보가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
                             return;

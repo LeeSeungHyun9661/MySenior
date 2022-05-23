@@ -6,10 +6,11 @@ import android.os.Bundle;
 
 import com.example.mysenior.R;
 
-public class Activity_Application_List extends AppCompatActivity {
+public class Activity_Authority_Write extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_application_list);
+        setContentView(R.layout.activity_authority_write);
     }
 }

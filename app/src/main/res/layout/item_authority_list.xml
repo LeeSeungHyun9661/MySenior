@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:background="@drawable/roundborder_thema_2">
+    
+    <LinearLayout
+        android:id="@+id/item_authority_layout_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
+
+        <ImageView
+            android:id="@+id/item_authority_list_h_image"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="10dp"
+            android:src="@drawable/hospital_test"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:background="@drawable/square_background_border_black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginVertical="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_authority_list_h_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="세명병원"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/border"/>
+
+            <TextView
+                android:id="@+id/item_authority_list_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="간호사"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/border"/>
+
+            <TextView
+                android:id="@+id/item_authority_list_department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="3병동"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/border"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_authority_layout_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <Button
+            android:id="@+id/item_authority_list_enter"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="입장하기"
+            android:textSize="20dp"
+            android:background="@drawable/roundborder"/>
+
+        <CheckBox
+            android:id="@+id/item_authority_list_auto_enter"
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="자동 선택"/>
+
+        <Button
+            android:id="@+id/item_authority_list_delete"
+            android:layout_weight="4.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

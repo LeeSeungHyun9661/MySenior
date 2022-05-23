@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Activity_Application_List">
+    tools:context=".Activity.Activity_Authority_List">
 
     <LinearLayout
         android:gravity="center"
@@ -15,27 +15,33 @@
         android:orientation="vertical"
         android:background="@color/thema2">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
+            android:layout_weight="8"
             android:layout_margin="10dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="병원 목록"
             android:textSize="40dp"
-            android:gravity="left"
+            android:layout_marginRight="30dp"
             android:textColor="@color/thema5"/>
         <Button
-            android:id="@+id/ApplicationList_applocationwrite"
+            android:layout_weight="1"
+            android:id="@+id/authorityList_authority_write"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="신청서 작성"
+            android:text="병원 추가"
             android:background="@drawable/roundborder"/>
-
+    </LinearLayout>
         <ListView
             android:layout_marginTop="10dp"
-            android:id="@+id/ApplicationList_listview"
+            android:id="@+id/authorityList_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

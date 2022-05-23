@@ -13,10 +13,10 @@
         android:theme="@style/Theme.MySenior"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.example.mysenior.Activity.Activity_Application_Write"
+            android:name="com.example.mysenior.Activity.Activity_Authority_Write"
             android:exported="false" />
         <activity
-            android:name="com.example.mysenior.Activity.Activity_Application_List"
+            android:name="com.example.mysenior.Activity.Activity_Authority_List"
             android:exported="false" />
         <activity
             android:name="com.example.mysenior.Activity.Activity_Regist"
