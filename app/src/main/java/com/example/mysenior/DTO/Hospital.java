@@ -1,8 +1,9 @@
 package com.example.mysenior.DTO;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Hospital {
+public class Hospital implements Serializable {
     
     String h_id; //병원 ID
     String h_name; //병원 이름
@@ -29,6 +30,6 @@ public class Hospital {
     public String getH_category() {return h_category;}
     public String getH_location() {return h_location;}
     public String getH_phone() {return h_phone;}
-    public String getH_image() {return h_image;}
+    public int getH_image() {return 0;}
     public Date getH_date() {return h_date;}
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mysenior">
-    <uses-permission android:name="android.permission.INTERNET" /><!--DB 연동을 위한 인터넷 권한 요청-->
 
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,21 +13,29 @@
         android:theme="@style/Theme.MySenior"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.example.mysenior.Activity.Activity_Authority_Write"
+            android:name=".Activity.Activity_Authority_Search"
             android:exported="false" />
         <activity
-            android:name="com.example.mysenior.Activity.Activity_Authority_List"
+            android:name=".Activity.Activity_Hospital"
+            android:exported="false"
+            android:label="@string/title_activity_hospital"
+            android:theme="@style/Theme.MySenior.NoActionBar" />
+        <activity
+            android:name=".Activity.Activity_Authority_Write"
             android:exported="false" />
         <activity
-            android:name="com.example.mysenior.Activity.Activity_Regist"
+            android:name=".Activity.Activity_Authority_List"
             android:exported="false" />
         <activity
-            android:name="com.example.mysenior.Activity.Activity_Login"
+            android:name=".Activity.Activity_Regist"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Activity_Login"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

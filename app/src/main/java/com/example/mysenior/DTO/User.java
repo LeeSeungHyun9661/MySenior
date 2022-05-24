@@ -9,7 +9,7 @@ public class User implements Serializable {
     String h_id; //사용자 현재 접근중인 병원 ID
     String position; //사용자 직책
     String department; //사용자 소속
-    boolean isAdmin; //사용자가 관리자인지 아닌지
+    int isAdmin; //사용자가 관리자인지 아닌지
 
     //기본적인 사용자 클래스 생성자
     public User(String u_id,String u_name) {
@@ -18,7 +18,7 @@ public class User implements Serializable {
     }
 
     //병원 아이디로 접근하고 나서 직책과 소속, 병원 ID, 관리자인지 설정할때 쓸 함수
-    public void setHospitalAccess(String h_id,String position, String department, boolean isAdmin){
+    public void setHospitalAccess(String h_id,String position, String department, int isAdmin){
         this.department = department;
         this.h_id = h_id;
         this.position = position;
@@ -37,8 +37,8 @@ public class User implements Serializable {
     public String getDepartment() {return department;}
     public void setDepartment(String department) {this.department = department;}
 
-    public boolean isAdmin() {return isAdmin;}
-    public void setAdmin(boolean admin) {isAdmin = admin;}
+    public int isAdmin() {return isAdmin;}
+    public void setAdmin(int admin) {isAdmin = admin;}
 
     public String getU_id() {return u_id;}
     public void setU_id(String u_id) {this.u_id = u_id;}
