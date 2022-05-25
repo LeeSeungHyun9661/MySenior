@@ -24,13 +24,11 @@ public class Adapter_authority_listview extends BaseAdapter {
     Context context = null;
     LayoutInflater layoutInflater = null;
     ArrayList<Authority> authorityArrayList;
-    User user;
 
-    public Adapter_authority_listview(Context context, ArrayList<Authority> authorityArrayList, User user) {
+    public Adapter_authority_listview(Context context, ArrayList<Authority> authorityArrayList) {
         this.authorityArrayList = authorityArrayList;
         this.context = context;
         this.layoutInflater =  LayoutInflater.from(context);
-        this.user = user;
     }
 
     @Override
@@ -70,8 +68,6 @@ public class Adapter_authority_listview extends BaseAdapter {
             item_authority_list_position.setBackgroundResource(R.drawable.border_disable);
             view.setBackgroundResource(R.drawable.roundborder_disable);
         }
-
-
         return view;
     }
 

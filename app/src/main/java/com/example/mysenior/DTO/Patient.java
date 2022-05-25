@@ -1,8 +1,9 @@
 package com.example.mysenior.DTO;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Patient {
+public class Patient implements Serializable {
     String h_id; //소속 병원 ID
     String p_id; //환자 고유 ID
     String p_name; //환자 이름
@@ -14,10 +15,15 @@ public class Patient {
     String p_addr; //환자 주소
     String p_qr; //환자 고유 QR코드
     int p_age; //환자 나이
+    String p_image;
     Date p_birth; //환자 생일
 
+    public String getP_image() {
+        return p_image;
+    }
+
     //생성자
-    public Patient(String h_id, String p_id, String p_name, String p_gender, String p_ward, String p_NOK, String p_NOK_phone, String p_admin, String p_addr, String p_qr, int p_age, Date p_birth) {
+    public Patient(String h_id, String p_id, String p_name, String p_gender, String p_ward, String p_NOK, String p_NOK_phone, String p_admin, String p_addr,String p_image, String p_qr, int p_age, Date p_birth) {
         this.h_id = h_id;
         this.p_id = p_id;
         this.p_name = p_name;
@@ -29,6 +35,7 @@ public class Patient {
         this.p_addr = p_addr;
         this.p_qr = p_qr;
         this.p_age = p_age;
+        this.p_image = p_image;
         this.p_birth = p_birth;
     }
 

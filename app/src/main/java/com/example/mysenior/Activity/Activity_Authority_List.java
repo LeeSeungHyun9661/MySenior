@@ -62,7 +62,7 @@ public class Activity_Authority_List extends AppCompatActivity {
     private void getAuthorityArrayList() {
         String u_id = user.getU_id();
         authorityArrayList = new ArrayList<>();
-        authorityList_listview_adapter = new Adapter_authority_listview(this, authorityArrayList, user);
+        authorityList_listview_adapter = new Adapter_authority_listview(this, authorityArrayList);
         authorityList_listview.setAdapter(authorityList_listview_adapter);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
