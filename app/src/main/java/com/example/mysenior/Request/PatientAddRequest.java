@@ -13,11 +13,12 @@ public class PatientAddRequest extends StringRequest {
     final static private String URL = "https://dippingai.com/mysenior/addPatient.php";
     private Map<String, String> parameters;
 
-    public PatientAddRequest(String h_id, String p_name,String p_age,String p_gender,String p_birth,String p_ward,String p_NOK,String p_NOK_phone,String p_admin,String p_addr, Response.Listener<String> listener) {
+    public PatientAddRequest(String h_id, String p_name,String p_id, String p_age,String p_gender,String p_birth,String p_ward,String p_NOK,String p_NOK_phone,String p_admin,String p_addr, Response.Listener<String> listener) {
         super(Request.Method.POST, URL, listener, null);
         parameters = new HashMap<>();
         parameters.put("h_id", h_id);
         parameters.put("p_name", p_name);
+        parameters.put("p_id", p_id);
         parameters.put("p_age", p_age);
         parameters.put("p_gender", p_gender);
         parameters.put("p_birth", p_birth);

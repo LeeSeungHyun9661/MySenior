@@ -55,6 +55,7 @@ public class Fragment_patient extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        System.out.print("Fragment Start");
         View view = inflater.inflate(R.layout.fragment_patient, container, false);
 
         fragment_patient_search = (EditText) view.findViewById(R.id.fragment_patient_search);
@@ -120,6 +121,7 @@ public class Fragment_patient extends Fragment {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.w("Response : ",response);
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("patient");
@@ -146,9 +148,9 @@ public class Fragment_patient extends Fragment {
                 }
             }
         };
-        PatientSearchRequest patientRequest = new PatientSearchRequest(h_id,search, responseListener);
+        PatientSearchRequest patientSearchRequest = new PatientSearchRequest(h_id,search, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        queue.add(patientRequest);
+        queue.add(patientSearchRequest);
     }
 
     TextWatcher patientSearchTextWatcher = new TextWatcher() {
@@ -163,8 +165,11 @@ public class Fragment_patient extends Fragment {
         @Override
         public void afterTextChanged(Editable editable) {
             String search = fragment_patient_search.getText().toString();
+            Log.w("Search : ",search);
             if(search.length() >= 2){
                 searchPatient(search);
+            }else{
+                getPatient();
             }
             fragment_patient_gridview.setOnItemClickListener(searchGridViewItemClickListener);
         }

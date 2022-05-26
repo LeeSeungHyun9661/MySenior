@@ -32,7 +32,7 @@ import java.util.GregorianCalendar;
 
 public class Activity_Patient_Add extends Activity {
 
-    EditText patient_name,patient_age,patient_ward,patient_NOK,patient_NOK_phone,patient_admin,patient_addr;
+    EditText patient_name,patient_pid,patient_age,patient_ward,patient_NOK,patient_NOK_phone,patient_admin,patient_addr;
     RadioGroup patient_radiogroup;
     RadioButton patient_radiobutton_male, patient_radiobutton_female;
     TextView patient_birthday;
@@ -60,6 +60,7 @@ public class Activity_Patient_Add extends Activity {
         mMinute = cal.get(Calendar.MINUTE);
 
         patient_name = (EditText) findViewById(R.id.patient_add_name);
+        patient_pid = (EditText) findViewById(R.id.patient_add_pid);
         patient_age = (EditText) findViewById(R.id.patient_add_age);
         patient_ward = (EditText) findViewById(R.id.patient_add_ward);
         patient_NOK = (EditText) findViewById(R.id.patient_add_NOK);
@@ -85,6 +86,7 @@ public class Activity_Patient_Add extends Activity {
         public void onClick(View view) {
             String h_id = user.getH_id();
             String p_name = patient_name.getText().toString();
+            String p_id = patient_pid.getText().toString();
             String p_age = patient_age.getText().toString();
             String p_gender = gender;
             String p_birth = patient_birthday.getText().toString();
@@ -94,7 +96,7 @@ public class Activity_Patient_Add extends Activity {
             String p_admin = patient_admin.getText().toString();
             String p_addr = patient_addr.getText().toString();
 
-            if (p_name.equals("") || p_age.equals("") || p_gender.equals("") || p_birth.equals("") || p_ward.equals("") || p_NOK.equals("") || p_NOK_phone.equals("") || p_admin.equals("") || p_addr.equals("")) {
+            if (p_name.equals("") || p_id.equals("") || p_age.equals("") || p_gender.equals("") || p_birth.equals("") || p_ward.equals("") || p_NOK.equals("") || p_NOK_phone.equals("") || p_admin.equals("") || p_addr.equals("")) {
                 Toast.makeText(getApplicationContext(), "환자 정보를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
             }else{
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -116,9 +118,9 @@ public class Activity_Patient_Add extends Activity {
                         }
                     }
                 };
-                PatientAddRequest authorityAddRequest = new PatientAddRequest(h_id, p_name, p_age, p_gender, p_birth, p_ward,p_NOK,p_NOK_phone,p_admin,p_addr, responseListener);
+                PatientAddRequest patientAddRequest = new PatientAddRequest(h_id, p_name,p_id, p_age, p_gender, p_birth, p_ward,p_NOK,p_NOK_phone,p_admin,p_addr, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Add.this);
-                queue.add(authorityAddRequest);
+                queue.add(patientAddRequest);
             }
         }
     };
