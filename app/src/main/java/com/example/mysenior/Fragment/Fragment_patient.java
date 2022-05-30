@@ -47,7 +47,7 @@ public class Fragment_patient extends Fragment {
     Button fragment_patient_add;
     GridView fragment_patient_gridview;
     ArrayList<Patient> patientArrayList;
-    Adapter_patient_gridview patient_listview_adapter;
+    Adapter_patient_gridview patient_gridview_adapter;
 
     public Fragment_patient(User user){
         this.user = user;
@@ -55,7 +55,6 @@ public class Fragment_patient extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        System.out.print("Fragment Start");
         View view = inflater.inflate(R.layout.fragment_patient, container, false);
 
         fragment_patient_search = (EditText) view.findViewById(R.id.fragment_patient_search);
@@ -71,13 +70,14 @@ public class Fragment_patient extends Fragment {
     public void onResume() {
         super.onResume();
         getPatient();
+        fragment_patient_gridview.setOnItemClickListener(searchGridViewItemClickListener);
     }
 
     private void getPatient() {
         String h_id = user.getH_id();
         patientArrayList = new ArrayList<>();
-        patient_listview_adapter = new Adapter_patient_gridview(getActivity(), patientArrayList);
-        fragment_patient_gridview.setAdapter(patient_listview_adapter);
+        patient_gridview_adapter = new Adapter_patient_gridview(getActivity(), patientArrayList);
+        fragment_patient_gridview.setAdapter(patient_gridview_adapter);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -99,11 +99,11 @@ public class Fragment_patient extends Fragment {
                         String p_qr = item.getString("p_qr");
                         String p_image = item.getString("p_image");
                         int p_age = Integer.parseInt(item.getString("p_age"));
-                        Date p_birth =  new SimpleDateFormat("yyyy-MM-dd").parse(item.getString("p_birth"));
+                        String p_birth =  item.getString("p_birth");
                         patientArrayList.add(new Patient(h_id, p_id, p_name, p_gender, p_ward, p_NOK, p_NOK_phone, p_admin, p_addr,p_image, p_qr, p_age, p_birth));
-                        patient_listview_adapter.notifyDataSetChanged();
+                        patient_gridview_adapter.notifyDataSetChanged();
                     }
-                } catch (JSONException | ParseException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -116,8 +116,8 @@ public class Fragment_patient extends Fragment {
     private void searchPatient(String search) {
         String h_id = user.getH_id();
         patientArrayList = new ArrayList<>();
-        patient_listview_adapter = new Adapter_patient_gridview(getActivity(), patientArrayList);
-        fragment_patient_gridview.setAdapter(patient_listview_adapter);
+        patient_gridview_adapter = new Adapter_patient_gridview(getActivity(), patientArrayList);
+        fragment_patient_gridview.setAdapter(patient_gridview_adapter);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -139,11 +139,11 @@ public class Fragment_patient extends Fragment {
                         String p_qr = item.getString("p_qr");
                         String p_image = item.getString("p_image");
                         int p_age = Integer.parseInt(item.getString("p_age"));
-                        Date p_birth =  new SimpleDateFormat("yyyy-MM-dd").parse(item.getString("p_birth"));
+                        String p_birth =  item.getString("p_birth");
                         patientArrayList.add(new Patient(h_id, p_id, p_name, p_gender, p_ward, p_NOK, p_NOK_phone, p_admin, p_addr,p_image, p_qr, p_age, p_birth));
-                        patient_listview_adapter.notifyDataSetChanged();
+                        patient_gridview_adapter.notifyDataSetChanged();
                     }
-                } catch (JSONException | ParseException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

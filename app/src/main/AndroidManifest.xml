@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mysenior" >
+    package="com.example.mysenior">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,44 +11,66 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MySenior"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
         <activity
-            android:windowSoftInputMode="adjustNothing"
-            android:name=".Activity.Activity_Patient_Detail"
-            android:exported="false" />
-        <activity
-            android:windowSoftInputMode="adjustNothing"
-            android:name=".Activity.Activity_Patient_Add"
+            android:name=".Activity.Activity_Patient_Fix"
+            android:exported="false"
             android:theme="@android:style/Theme.Dialog"
-            android:exported="false" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustNothing"
+            android:name=".Activity.Activity_Worker_Detail"
+            android:exported="false"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.Activity_Authority_Check"
+            android:exported="false"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.Activity_Patient_Detail"
+            android:exported="false"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".Activity.Activity_Patient_Add"
+            android:exported="false"
+            android:theme="@android:style/Theme.Dialog"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
             android:name=".Activity.Activity_Authority_Search"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustNothing"
             android:name=".Activity.Activity_Hospital"
             android:exported="false"
             android:label="@string/title_activity_hospital"
-            android:theme="@style/Theme.MySenior.NoActionBar" />
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustNothing"
             android:name=".Activity.Activity_Authority_Write"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustNothing"
             android:name=".Activity.Activity_Authority_List"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustNothing"
             android:name=".Activity.Activity_Regist"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustNothing"
             android:name=".Activity.Activity_Login"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="500dp"
@@ -17,7 +18,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_name"
+            android:id="@+id/patient_fix_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -30,7 +31,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_pid"
+            android:id="@+id/patient_fix_pid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -44,7 +45,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_age"
+            android:id="@+id/patient_fix_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -57,14 +58,14 @@
 
         <RadioGroup
             android:layout_weight="1"
-            android:id="@+id/patient_add_radiogroup"
+            android:id="@+id/patient_fix_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
             <RadioButton
                 android:text="남자"
-                android:id="@+id/patient_add_radiobutton_male"
+                android:id="@+id/patient_fix_radiobutton_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
@@ -72,7 +73,7 @@
                 android:textSize="15dp"/>
             <RadioButton
                 android:text="여자"
-                android:id="@+id/patient_add_radiobutton_female"
+                android:id="@+id/patient_fix_radiobutton_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/thema4"
@@ -87,7 +88,7 @@
             android:orientation="horizontal"
             android:layout_marginVertical="5dp">
             <TextView
-                android:id="@+id/patient_add_birthday"
+                android:id="@+id/patient_fix_birthday"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/border"
@@ -98,7 +99,7 @@
                 android:textSize="20dp" />
 
             <Button
-                android:id="@+id/patient_add_calender"
+                android:id="@+id/patient_fix_calender"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:text="날짜"
@@ -107,7 +108,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_ward"
+            android:id="@+id/patient_fix_ward"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -119,7 +120,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_NOK"
+            android:id="@+id/patient_fix_NOK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -131,7 +132,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_NOK_phone"
+            android:id="@+id/patient_fix_NOK_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -144,7 +145,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_admin"
+            android:id="@+id/patient_fix_admin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -158,7 +159,7 @@
 
         <EditText
             android:layout_weight="1"
-            android:id="@+id/patient_add_addr"
+            android:id="@+id/patient_fix_addr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
@@ -170,10 +171,10 @@
 
         <Button
             android:layout_weight="0.5"
-            android:id="@+id/patient_add_regist"
+            android:id="@+id/patient_fix_regist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="환자 등록"/>
+            android:text="수정 완료"/>
 
     </LinearLayout>
 

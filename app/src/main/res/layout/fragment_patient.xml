@@ -9,7 +9,8 @@
         android:layout_gravity="center_horizontal"
         android:background="@color/thema2"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <EditText
             android:id="@+id/fragment_patient_search"

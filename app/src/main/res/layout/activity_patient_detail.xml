@@ -13,7 +13,8 @@
         android:background="@color/thema2"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/patient_detail_image"
@@ -307,6 +308,7 @@
         </LinearLayout>
 
         <ListView
+            android:layout_weight="1"
             android:id="@+id/patient_detail_log_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

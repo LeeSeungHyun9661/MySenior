@@ -8,20 +8,25 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:background="@color/thema2"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <EditText
+            android:id="@+id/fragment_worker_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="직원 검색"
+            android:textSize="30dp"
             android:background="@drawable/border"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="직원 추가하기"/>
-        <ListView
+            android:text="신청 확인"/>
+        <GridView
+            android:id="@+id/fragment_worker_gridview"
+            android:numColumns="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

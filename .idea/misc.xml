@@ -16,6 +16,7 @@
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/drawable/square_background_border_red.xml" value="0.312" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_application_list.xml" value="0.2" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_application_write.xml" value="0.14" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_authority_check.xml" value="0.30055579307396324" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_authority_list.xml" value="0.17361740707162285" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_authority_search.xml" value="0.1" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_authority_write.xml" value="0.264" />
@@ -24,18 +25,20 @@
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_main.xml" value="0.15946985891406584" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_patient_add.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_patient_detail.xml" value="0.2" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_patient_fix.xml" value="0.30055579307396324" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_regist.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_monitor.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_patient.xml" value="0.22" />
-        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_roster.xml" value="0.1633176571184267" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_roster.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_work.xml" value="0.1633176571184267" />
-        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_worker.xml" value="0.30055579307396324" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_worker.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_application_list.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_authority_list.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_authority_search.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_calendar_list.xml" value="0.264" />
-        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_patient_list.xml" value="0.4185185185185185" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_patient_list.xml" value="0.75" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_worker_list.xml" value="1.0" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySinor/app/src/main/res/drawable/border.xml" value="0.2915" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySinor/app/src/main/res/drawable/roundborder.xml" value="0.2915" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySinor/app/src/main/res/layout/activity_application_list.xml" value="0.30055579307396324" />

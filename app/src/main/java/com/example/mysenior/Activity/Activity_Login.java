@@ -55,7 +55,8 @@ public class Activity_Login extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
                             String u_id = jsonResponse.getString("u_id");
                             String u_name = jsonResponse.getString("u_name");
-                            User user = new User(u_id,u_name);
+                            String u_image = jsonResponse.getString("u_image");
+                            User user = new User(u_id,u_name,u_image);
                             Intent intent = new Intent(getApplicationContext(), Activity_Authority_List.class);
                             intent.putExtra("User", user);
                             startActivity(intent);

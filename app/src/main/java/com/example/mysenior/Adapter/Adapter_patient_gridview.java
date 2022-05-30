@@ -51,15 +51,11 @@ public class Adapter_patient_gridview extends BaseAdapter {
         TextView item_patient_name = (TextView)view.findViewById(R.id.item_patient_name);
         TextView item_patient_gender = (TextView)view.findViewById(R.id.item_patient_gender);
         TextView item_patient_age = (TextView)view.findViewById(R.id.item_patient_age);
-        TextView item_patient_ward = (TextView)view.findViewById(R.id.item_patient_ward);
-        TextView item_patient_admin = (TextView)view.findViewById(R.id.item_patient_admin);
 
         item_patient_image.setImageResource(getImageResorce(patientArrayList.get(position).getP_image()));
         item_patient_name.setText(patientArrayList.get(position).getP_name());
         item_patient_gender.setText(patientArrayList.get(position).getP_gender());
         item_patient_age.setText(Integer.toString(patientArrayList.get(position).getP_age()));
-        item_patient_ward.setText(patientArrayList.get(position).getP_ward());
-        item_patient_admin.setText(patientArrayList.get(position).getP_admin());
 
         return view;
     }

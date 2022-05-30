@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/item_patient_layout_info"
+        android:id="@+id/item_worker_layout_info"
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:background="@color/thema2"
@@ -12,7 +12,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/item_patient_image"
+            android:id="@+id/item_worker_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/square_background_border_black"
@@ -21,14 +21,14 @@
             android:src="@drawable/hospital_test" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
-            android:gravity="center|bottom">
+            android:gravity="left|bottom">
 
             <TextView
-                android:id="@+id/item_patient_name"
+                android:id="@+id/item_worker_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
@@ -38,27 +38,15 @@
                 android:textSize="15dp" />
 
             <TextView
-                android:id="@+id/item_patient_gender"
-                android:layout_width="wrap_content"
+                android:id="@+id/item_worker_position"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/border"
                 android:ellipsize="marquee"
                 android:singleLine="true"
-                android:text="남"
+                android:text="직책"
                 android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/item_patient_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/border"
-                android:ellipsize="marquee"
-                android:singleLine="true"
-                android:text="50"
-                android:textSize="12dp" />
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

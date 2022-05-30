@@ -16,14 +16,14 @@ public class Patient implements Serializable {
     String p_qr; //환자 고유 QR코드
     int p_age; //환자 나이
     String p_image;
-    Date p_birth; //환자 생일
+    String p_birth; //환자 생일
 
     public String getP_image() {
         return p_image;
     }
 
     //생성자
-    public Patient(String h_id, String p_id, String p_name, String p_gender, String p_ward, String p_NOK, String p_NOK_phone, String p_admin, String p_addr,String p_image, String p_qr, int p_age, Date p_birth) {
+    public Patient(String h_id, String p_id, String p_name, String p_gender, String p_ward, String p_NOK, String p_NOK_phone, String p_admin, String p_addr,String p_image, String p_qr, int p_age, String p_birth) {
         this.h_id = h_id;
         this.p_id = p_id;
         this.p_name = p_name;
@@ -84,7 +84,7 @@ public class Patient implements Serializable {
         return p_age;
     }
 
-    public Date getP_birth() {
+    public String getP_birth() {
         return p_birth;
     }
 }
