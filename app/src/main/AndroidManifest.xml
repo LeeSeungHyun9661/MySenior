@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MySenior"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.Activity_Patient_Log"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Activity_Patient_Fix"
             android:exported="false"
             android:theme="@android:style/Theme.Dialog"
