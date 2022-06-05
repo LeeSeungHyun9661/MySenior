@@ -21,8 +21,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:clipToOutline="true"
-            android:src="@drawable/patient_image_test"
+            android:src="@drawable/patient"
             android:layout_margin="10dp"/>
 
         <LinearLayout

@@ -1,6 +1,7 @@
 package com.example.mysenior.Adapter;
 
 import android.content.Context;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mysenior.DTO.Authority;
 import com.example.mysenior.DTO.Patient;
 import com.example.mysenior.DTO.User;
@@ -52,14 +54,15 @@ public class Adapter_patient_gridview extends BaseAdapter {
         TextView item_patient_gender = (TextView)view.findViewById(R.id.item_patient_gender);
         TextView item_patient_age = (TextView)view.findViewById(R.id.item_patient_age);
 
-        item_patient_image.setImageResource(getImageResorce(patientArrayList.get(position).getP_image()));
+        if(patientArrayList.get(position).getP_image().equals("")){
+            item_patient_image.setImageResource(R.drawable.patient);
+        }else{
+            item_patient_image.setImageBitmap(patientArrayList.get(position).getP_imageBitmap());
+        }
         item_patient_name.setText(patientArrayList.get(position).getP_name());
         item_patient_gender.setText(patientArrayList.get(position).getP_gender());
         item_patient_age.setText(Integer.toString(patientArrayList.get(position).getP_age()));
 
         return view;
-    }
-    public int getImageResorce(String url){
-        return 0;
     }
 }

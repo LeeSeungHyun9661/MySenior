@@ -1,5 +1,12 @@
 package com.example.mysenior.DTO;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import com.bumptech.glide.Glide;
+import com.example.mysenior.R;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,10 +24,6 @@ public class Patient implements Serializable {
     int p_age; //환자 나이
     String p_image;
     String p_birth; //환자 생일
-
-    public String getP_image() {
-        return p_image;
-    }
 
     //생성자
     public Patient(String h_id, String p_id, String p_name, String p_gender, String p_ward, String p_NOK, String p_NOK_phone, String p_admin, String p_addr,String p_image, String p_qr, int p_age, String p_birth) {
@@ -86,5 +89,19 @@ public class Patient implements Serializable {
 
     public String getP_birth() {
         return p_birth;
+    }
+
+    public String getP_image() {
+        return p_image;
+    }
+    public Bitmap getP_imageBitmap() {
+        try {
+            byte[] encodeByte = Base64.decode(p_image, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

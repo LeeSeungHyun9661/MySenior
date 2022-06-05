@@ -64,10 +64,6 @@ public class User implements Serializable {
         this.department = department;
     }
 
-    public int isAdmin() {
-        return isAdmin;
-    }
-
     public void setAdmin(int admin) {
         isAdmin = admin;
     }
