@@ -1,8 +1,12 @@
 package com.example.mysenior.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.example.mysenior.Adapter.PagerAdapter;
@@ -40,6 +44,16 @@ public class Activity_Hospital extends AppCompatActivity {
         TabLayout tab = findViewById(R.id.tabLayout);
         tab.setupWithViewPager(viewPager);
 
-
     };
+
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setMessage((CharSequence) "종료할까요?").setPositiveButton("예", (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            public void onClick(DialogInterface dialog, int whichButton) {
+                moveTaskToBack(true);
+                finishAndRemoveTask();
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+        }).show();
+    }
 }

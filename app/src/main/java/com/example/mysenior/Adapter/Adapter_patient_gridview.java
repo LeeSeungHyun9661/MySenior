@@ -2,6 +2,7 @@ package com.example.mysenior.Adapter;
 
 import android.content.Context;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,11 +55,9 @@ public class Adapter_patient_gridview extends BaseAdapter {
         TextView item_patient_gender = (TextView)view.findViewById(R.id.item_patient_gender);
         TextView item_patient_age = (TextView)view.findViewById(R.id.item_patient_age);
 
-        if(patientArrayList.get(position).getP_image().equals("")){
-            item_patient_image.setImageResource(R.drawable.patient);
-        }else{
-            item_patient_image.setImageBitmap(patientArrayList.get(position).getP_imageBitmap());
-        }
+        if (patientArrayList.get(position).getP_image().equals("null")) item_patient_image.setImageResource(R.drawable.patient);
+        else item_patient_image.setImageBitmap(patientArrayList.get(position).getP_imageBitmap());
+
         item_patient_name.setText(patientArrayList.get(position).getP_name());
         item_patient_gender.setText(patientArrayList.get(position).getP_gender());
         item_patient_age.setText(Integer.toString(patientArrayList.get(position).getP_age()));

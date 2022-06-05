@@ -15,10 +15,8 @@
             android:id="@+id/item_patient_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/square_background_border_black"
-            android:clipToOutline="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/hospital_test" />
+            android:src="@drawable/patient" />
 
         <LinearLayout
             android:layout_width="wrap_content"

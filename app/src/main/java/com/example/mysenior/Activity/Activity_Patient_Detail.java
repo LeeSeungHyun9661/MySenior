@@ -84,7 +84,6 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("User");
         patient = (Patient) intent.getSerializableExtra("Patient");
-
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -92,7 +91,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                     Intent intent = result.getData();
                     patient = (Patient) intent.getSerializableExtra("Patient");
 
-                    if (patient.getP_image().equals("")) {
+                    if (patient.getP_image() == null) {
                         patient_detail_image.setImageResource(R.drawable.patient);
                     } else {
                         patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
@@ -113,12 +112,11 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         });
 
         patient_detail_image = (ImageView) findViewById(R.id.patient_detail_image);
-        if (patient.getP_image().equals("")) {
-            patient_detail_image.setImageResource(R.drawable.patient);
-        } else {
-            patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
-        }
         patient_detail_image.setOnClickListener(patientChangeImageClickListener);
+        patient_detail_image.setImageResource(R.drawable.patient);
+
+        if (patient.getP_image().equals("null")) patient_detail_image.setImageResource(R.drawable.patient);
+        else patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
 
         patient_detail_fix = (TextView) findViewById(R.id.patient_detail_fix);
         patient_detail_fix.setOnClickListener(patientFixOnClickListener);
@@ -198,11 +196,9 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         Bitmap bm;
         String bms;
 
-        if(requestCode == REQUEST_CODE)
-        {
-            if(resultCode == RESULT_OK)
-            {
-                try{
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                try {
                     InputStream in = getContentResolver().openInputStream(data.getData());
                     Bitmap img = resize(BitmapFactory.decodeStream(in));
 
@@ -228,17 +224,14 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                             }
                         }
                     };
-                    PatientImageRequest patientImageRequest = new PatientImageRequest(patient.getP_id(),bms, responseListener);
+                    PatientImageRequest patientImageRequest = new PatientImageRequest(patient.getP_id(), bms, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Detail.this);
                     queue.add(patientImageRequest);
 
-                }catch(Exception e)
-                {
+                } catch (Exception e) {
 
                 }
-            }
-            else if(resultCode == RESULT_CANCELED)
-            {
+            } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
             }
         }

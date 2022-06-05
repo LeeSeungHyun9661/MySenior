@@ -31,11 +31,11 @@ public class Activity_Login extends AppCompatActivity {
         login_id_input = (EditText) findViewById(R.id.login_id_input);
         login_pw_input = (EditText) findViewById(R.id.login_pw_input);
 
-        //로그인버튼
+        //로그인버튼 설정
         login_loginbutton = (Button) findViewById(R.id.login_loginbutton);
         login_loginbutton.setOnClickListener(loginClickListener);
 
-        //회원가입버튼
+        //회원가입버튼 설정
         login_regist = (Button) findViewById(R.id.login_regist);
         login_regist.setOnClickListener(registerClickListener);
     }

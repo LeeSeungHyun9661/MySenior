@@ -121,7 +121,6 @@ public class Fragment_patient extends Fragment {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.w("Response : ",response);
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("patient");
@@ -165,11 +164,8 @@ public class Fragment_patient extends Fragment {
         @Override
         public void afterTextChanged(Editable editable) {
             String search = fragment_patient_search.getText().toString();
-            Log.w("Search : ",search);
             if(search.length() >= 2){
                 searchPatient(search);
-            }else{
-                getPatient();
             }
             fragment_patient_gridview.setOnItemClickListener(searchGridViewItemClickListener);
         }
