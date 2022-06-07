@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Activity_Authority_Search extends AppCompatActivity {
-    public static Activity activity;
+    public static Activity activity_authority_search;
     EditText authoritySearch_hospitalsearch;
     Button authoritySearch_nextStep;
     ListView authoritySearch_Listview;
@@ -48,10 +48,9 @@ public class Activity_Authority_Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authority_search);
+        activity_authority_search = Activity_Authority_Search.this;
 
-        Intent intent = getIntent();
         hospotalSearch = new ArrayList<>();
-
         authoritySearch_nextStep = (Button) findViewById(R.id.authoritySearch_nextStep);
 
         authoritySearch_hospitalsearch = (EditText) findViewById(R.id.authoritySearch_hospitalsearch);
@@ -127,6 +126,7 @@ public class Activity_Authority_Search extends AppCompatActivity {
                             return;
                         }else{
                             Intent intent = new Intent(getApplicationContext(), Activity_Authority_Write.class);
+                            intent.putExtra("Hospital",hospotalSearch.get(i));
                             startActivity(intent);
                         }
                     } catch (JSONException e) {

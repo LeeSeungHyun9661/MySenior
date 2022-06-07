@@ -14,11 +14,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="근무표 새로고침"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="일별 근무 인원 확인하기"/>
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView

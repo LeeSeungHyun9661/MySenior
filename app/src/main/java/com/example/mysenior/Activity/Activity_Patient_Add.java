@@ -105,10 +105,10 @@ public class Activity_Patient_Add extends Activity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                Toast.makeText(getApplicationContext(), "가입 신청 성공", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "환자 추가 성공", Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
-                                Toast.makeText(getApplicationContext(), "가입 신청 실패", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "환자 추가 실패", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         } catch (JSONException e) {

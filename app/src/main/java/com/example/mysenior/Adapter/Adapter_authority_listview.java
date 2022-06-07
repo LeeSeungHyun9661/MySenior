@@ -59,14 +59,14 @@ public class Adapter_authority_listview extends BaseAdapter {
         TextView item_authority_list_position = (TextView)view.findViewById(R.id.item_authority_list_position);
 
         item_authority_list_h_image.setImageResource(getImageResorce(hospitalArrayList.get(position).getH_image()));
+        if (hospitalArrayList.get(position).getH_image().equals("null")) item_authority_list_h_image.setImageResource(R.drawable.no_image);
+        else item_authority_list_h_image.setImageBitmap(hospitalArrayList.get(position).getH_imageBitmap());
 
         item_authority_list_h_name.setText(hospitalArrayList.get(position).getH_name());
-
         item_authority_list_department.setText(authorityArrayList.get(position).getDepartment());
         item_authority_list_position.setText(authorityArrayList.get(position).getPosition());
 
         if(authorityArrayList.get(position).isCheck()){
-            view.setBackgroundResource(R.drawable.roundborder_thema_2);
         }else{
             item_authority_list_h_name.setBackgroundResource(R.drawable.border_disable);
             item_authority_list_department.setBackgroundResource(R.drawable.border_disable);

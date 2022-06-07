@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MySenior"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.Activity_Worker_Add"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Activity_Patient_Log"
             android:exported="false" />
         <activity
@@ -72,6 +75,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

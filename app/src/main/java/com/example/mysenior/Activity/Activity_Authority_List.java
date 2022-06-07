@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Activity_Authority_List extends AppCompatActivity {
-
     ArrayList<Authority> authorityArrayList;
     ArrayList<Hospital> hospitalArrayList;
     Adapter_authority_listview authorityList_listview_adapter;
@@ -47,10 +46,6 @@ public class Activity_Authority_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authority_list);
         authorityArrayList = new ArrayList<>();
-
-
-        System.out.print(Global.getInstance().getUser().toString());
-
         authorityList_authority_write = (Button) findViewById(R.id.authorityList_authority_write);
         authorityList_authority_write.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +100,6 @@ public class Activity_Authority_List extends AppCompatActivity {
     }
 
     private void getAuthority_HospitalArrayList() {
-        String u_id = Global.getInstance().getUser().getU_id();
         authorityArrayList = new ArrayList<>();
         hospitalArrayList = new ArrayList<>();
         authorityList_listview_adapter = new Adapter_authority_listview(this, authorityArrayList,hospitalArrayList);
@@ -135,7 +129,6 @@ public class Activity_Authority_List extends AppCompatActivity {
 
                         Authority authority = new Authority(a_id, u_id, h_id, position, department, ischeck, isadmin);
                         authorityArrayList.add(authority);
-
                         Hospital hospital = new Hospital(h_id, h_name, h_category, h_location, h_phone, h_image, h_date);
                         hospitalArrayList.add(hospital);
 
@@ -148,7 +141,7 @@ public class Activity_Authority_List extends AppCompatActivity {
                 }
             }
         };
-        AuthorityRequest authorityRequest = new AuthorityRequest(u_id, responseListener);
+        AuthorityRequest authorityRequest = new AuthorityRequest(Global.getInstance().getUser().getU_id(), responseListener);
         RequestQueue queue = Volley.newRequestQueue(Activity_Authority_List.this);
         queue.add(authorityRequest);
     }

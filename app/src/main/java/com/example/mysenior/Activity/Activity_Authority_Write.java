@@ -20,11 +20,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.mysenior.DTO.Hospital;
-import com.example.mysenior.DTO.User;
 import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.AuthorityAddRequest;
-import com.example.mysenior.Request.RegistRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,38 +35,41 @@ public class Activity_Authority_Write extends Activity {
     RadioGroup authorityWrite_radiogroup;
     RadioButton authorityWrite_radiogroup_worker,authorityWrite_radiogroup_admin;
     boolean isAdmin;
-    Activity_Authority_Search activity_authority_search = (Activity_Authority_Search) Activity_Authority_Search.activity;
+    Hospital hospital;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authority_write);
-
         Intent intent = getIntent();
+        hospital = (Hospital) intent.getSerializableExtra("Hospital");
+
         isAdmin = false;
 
         authorityWrite_position = (EditText) findViewById(R.id.authorityWrite_position);
         authorityWrite_department = (EditText) findViewById(R.id.authorityWrite_department);
 
         authorityWrite_hospitalimage = (ImageView) findViewById(R.id.authorityWrite_hospitalimage);
-//        authorityWrite_hospitalimage.setImageResource(hospital.getH_image());
+        if (hospital.getH_image().equals("null")) authorityWrite_hospitalimage.setImageResource(R.drawable.no_image);
+        else authorityWrite_hospitalimage.setImageBitmap(hospital.getH_imageBitmap());
+
 
         authorityWrite_username = (TextView)findViewById(R.id.authorityWrite_username);
         authorityWrite_username.setText(Global.getInstance().getUser().getU_name());
 
         authorityWrite_hospitaldate = (TextView) findViewById(R.id.authorityWrite_hospitaldate);
-        authorityWrite_hospitaldate.setText(Global.getInstance().getHospital().getH_date());
+        authorityWrite_hospitaldate.setText(hospital.getH_date());
 
         authorityWrite_hospitalname = (TextView) findViewById(R.id.authorityWrite_hospitalname);
-        authorityWrite_hospitalname.setText(Global.getInstance().getHospital().getH_name());
+        authorityWrite_hospitalname.setText(hospital.getH_name());
 
         authorityWrite_hospitalcategory = (TextView) findViewById(R.id.authorityWrite_hospitalcategory);
-        authorityWrite_hospitalcategory.setText(Global.getInstance().getHospital().getH_category());
+        authorityWrite_hospitalcategory.setText(hospital.getH_category());
 
         authorityWrite_hospitallocation = (TextView) findViewById(R.id.authorityWrite_hospitallocation);
-        authorityWrite_hospitallocation.setText(Global.getInstance().getHospital().getH_location());
+        authorityWrite_hospitallocation.setText(hospital.getH_location());
 
         authorityWrite_hospitalphone = (TextView) findViewById(R.id.authorityWrite_hospitalphone);
-        authorityWrite_hospitalphone.setText(Global.getInstance().getHospital().getH_phone());
+        authorityWrite_hospitalphone.setText(hospital.getH_phone());
 
         authorityWrite_button = (Button) findViewById(R.id.authorityWrite_button);
         authorityWrite_button.setOnClickListener(authorityWriteonClickListener);
@@ -84,7 +85,7 @@ public class Activity_Authority_Write extends Activity {
         @Override
         public void onClick(View view) {
             String u_id = Global.getInstance().getUser().getU_id();
-            String h_id = Global.getInstance().getHospital().getH_id();
+            String h_id = hospital.getH_id();
             String department = authorityWrite_department.getText().toString();
             String position = authorityWrite_position.getText().toString();
             String admin;
@@ -105,7 +106,7 @@ public class Activity_Authority_Write extends Activity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                Toast.makeText(getApplicationContext(), "가입 신청 성공", Toast.LENGTH_SHORT).show();
+                                Activity_Authority_Search activity_authority_search = (Activity_Authority_Search)Activity_Authority_Search.activity_authority_search;
                                 activity_authority_search.finish();
                                 finish();
                             } else {

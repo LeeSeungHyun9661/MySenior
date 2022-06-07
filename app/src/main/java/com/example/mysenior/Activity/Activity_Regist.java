@@ -75,7 +75,7 @@ public class Activity_Regist extends Activity {
             String u_pw = register_pw_input.getText().toString();
             String u_name = register_name_input.getText().toString();
             String u_email = register_email_input.getText().toString();
-            if (checkID && checkPW && checkPWsame && (!u_name.equals("")) && (u_email.equals(""))) {
+            if (checkID && checkPW && checkPWsame && (!u_name.equals("")) && (!u_email.equals(""))) {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

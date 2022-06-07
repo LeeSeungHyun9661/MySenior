@@ -194,7 +194,6 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bm;
         String bms;
-
         if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 try {

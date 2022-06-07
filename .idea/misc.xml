@@ -28,11 +28,13 @@
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_patient_fix.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_patient_log.xml" value="0.22" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_regist.xml" value="0.33" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_worker_add.xml" value="0.1" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_worker_denied.xml" value="0.1" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/activity_worker_detail.xml" value="0.22" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_monitor.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_patient.xml" value="0.22" />
-        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_roster.xml" value="0.25" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_roster.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_work.xml" value="0.1633176571184267" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_worker.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_application_list.xml" value="0.33" />
@@ -41,6 +43,8 @@
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_calendar_list.xml" value="0.264" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_patient_list.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_patient_log.xml" value="0.5" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_worker_authority.xml" value="0.1" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_worker_denied.xml" value="0.33" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_worker_list.xml" value="0.75" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySinor/app/src/main/res/drawable/border.xml" value="0.2915" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySinor/app/src/main/res/drawable/roundborder.xml" value="0.2915" />
