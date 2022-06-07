@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/item_patient_layout_info"
@@ -29,7 +29,6 @@
                 android:id="@+id/item_patient_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border"
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:text="김둘리"
@@ -40,7 +39,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/border"
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:text="남"
@@ -51,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/border"
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:text="50"

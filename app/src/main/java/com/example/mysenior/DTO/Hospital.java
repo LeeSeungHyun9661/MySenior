@@ -1,5 +1,9 @@
 package com.example.mysenior.DTO;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -23,13 +27,26 @@ public class Hospital implements Serializable {
         this.h_image = h_image;
         this.h_date = h_date;
     }
-    
+
+    public Hospital() {
+    }
+
     //기본적인 게터 목록
     public String getH_id() {return h_id;}
     public String getH_name() {return h_name;}
     public String getH_category() {return h_category;}
     public String getH_location() {return h_location;}
     public String getH_phone() {return h_phone;}
-    public int getH_image() {return 0;}
-    public Date getH_date() {return h_date;}
+    public String getH_image() { return h_image;}
+    public Bitmap getH_imageBitmap() {
+        try {
+            byte[] encodeByte = Base64.decode(h_image, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+    public String getH_date() {return h_date.toString();}
 }

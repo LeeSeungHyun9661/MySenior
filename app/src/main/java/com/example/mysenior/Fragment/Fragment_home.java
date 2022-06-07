@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
 import com.example.mysenior.R;
 
@@ -21,13 +22,12 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Fragment_home extends Fragment {
-    User user;
+    Hospital hospital;
     TextView fragment_home_notification;
     Button fragment_home_notification_more;
     ListView fragment_home_detection_Listview, fragment_home_note_Listview;
 
-    public Fragment_home(User user){
-        this.user = user;
+    public Fragment_home(User user, Hospital hospital){
     }
 
     @Override

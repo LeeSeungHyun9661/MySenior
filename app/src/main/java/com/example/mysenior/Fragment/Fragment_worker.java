@@ -23,6 +23,7 @@ import com.example.mysenior.Activity.Activity_Patient_Detail;
 import com.example.mysenior.Activity.Activity_Worker_Detail;
 import com.example.mysenior.Adapter.Adapter_patient_gridview;
 import com.example.mysenior.Adapter.Adapter_worker_gridview;
+import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.Patient;
 import com.example.mysenior.DTO.User;
 import com.example.mysenior.R;
@@ -41,15 +42,16 @@ import java.util.Date;
 
 public class Fragment_worker extends Fragment {
     User user;
+    Hospital hospital;
     EditText fragment_worker_search;
     ArrayList<User> userArrayList;
     GridView fragment_worker_gridview;
     Adapter_worker_gridview worker_gridview_adapter;
 
-    public Fragment_worker(User user){
+    public Fragment_worker(User user, Hospital hospital) {
+        this.hospital = hospital;
         this.user = user;
     }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         System.out.print("Fragment Start");
         View view = inflater.inflate(R.layout.fragment_worker, container, false);
@@ -68,7 +70,7 @@ public class Fragment_worker extends Fragment {
     }
 
     private void getWorker() {
-        String h_id = user.getH_id();
+        String h_id = hospital.getH_id();
         userArrayList = new ArrayList<>();
         worker_gridview_adapter = new Adapter_worker_gridview(getActivity(), userArrayList);
         fragment_worker_gridview.setAdapter(worker_gridview_adapter);
@@ -103,7 +105,7 @@ public class Fragment_worker extends Fragment {
     }
 
     private void searchWorker(String search) {
-        String h_id = user.getH_id();
+        String h_id = hospital.getH_id();
         userArrayList = new ArrayList<>();
         worker_gridview_adapter = new Adapter_worker_gridview(getActivity(), userArrayList);
         fragment_worker_gridview.setAdapter(worker_gridview_adapter);

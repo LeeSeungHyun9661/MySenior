@@ -2,11 +2,15 @@ package com.example.mysenior.Fragment;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
 
 public class Fragment_roster extends Fragment {
     User user;
-    public Fragment_roster(User user){
+    Hospital hospital;
+
+    public Fragment_roster(User user, Hospital hospital) {
+        this.hospital = hospital;
         this.user = user;
     }
 }

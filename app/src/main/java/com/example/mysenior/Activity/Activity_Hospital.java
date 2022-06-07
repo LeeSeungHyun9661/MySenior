@@ -3,25 +3,31 @@ package com.example.mysenior.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.example.mysenior.Adapter.PagerAdapter;
+import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
 import com.example.mysenior.Fragment.Fragment_home;
 import com.example.mysenior.Fragment.Fragment_monitor;
 import com.example.mysenior.Fragment.Fragment_patient;
 import com.example.mysenior.Fragment.Fragment_roster;
 import com.example.mysenior.Fragment.Fragment_worker;
+import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class Activity_Hospital extends AppCompatActivity {
 
-    User user;
+    ImageView hospital_image;
+    TextView hospital_name;
     PagerAdapter adapter_viewpager;
 
 
@@ -29,16 +35,21 @@ public class Activity_Hospital extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital);
-        Intent intent = getIntent();
-        user = (User)intent.getSerializableExtra("User");
+
+        hospital_image = (ImageView) findViewById(R.id.hospital_image);
+        if (Global.getInstance().getHospital().getH_image().equals("null")) hospital_image.setImageResource(R.drawable.no_image);
+        else hospital_image.setImageBitmap(Global.getInstance().getHospital().getH_imageBitmap());
+
+        hospital_name = (TextView) findViewById(R.id.hospital_name);
+        hospital_name.setText(Global.getInstance().getHospital().getH_name());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         adapter_viewpager = new PagerAdapter(getSupportFragmentManager());
-        adapter_viewpager.addFragment(new Fragment_home(user),"홈");
-        adapter_viewpager.addFragment(new Fragment_patient(user),"환자");
-        adapter_viewpager.addFragment(new Fragment_worker(user),"직원");
-        adapter_viewpager.addFragment(new Fragment_roster(user),"근무");
-        adapter_viewpager.addFragment(new Fragment_monitor(user),"모니터");
+        adapter_viewpager.addFragment(new Fragment_home(Global.getInstance().getUser(),Global.getInstance().getHospital()),"홈");
+        adapter_viewpager.addFragment(new Fragment_patient(Global.getInstance().getUser(),Global.getInstance().getHospital()),"환자");
+        adapter_viewpager.addFragment(new Fragment_worker(Global.getInstance().getUser(),Global.getInstance().getHospital()),"직원");
+        adapter_viewpager.addFragment(new Fragment_roster(Global.getInstance().getUser(),Global.getInstance().getHospital()),"근무");
+        adapter_viewpager.addFragment(new Fragment_monitor(Global.getInstance().getUser(),Global.getInstance().getHospital()),"모니터");
         viewPager.setAdapter(adapter_viewpager);
 
         TabLayout tab = findViewById(R.id.tabLayout);

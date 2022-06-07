@@ -2,6 +2,7 @@ package com.example.mysenior.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Activity_Regist extends AppCompatActivity {
+public class Activity_Regist extends Activity {
     EditText register_id_input, register_pw_input, register_pw_check_input, register_name_input, register_email_input;
     ImageView register_id_image, register_pw_image,register_pw_check_image;
     TextView register_pw_info,register_id_info;

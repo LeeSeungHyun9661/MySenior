@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.mysenior.Adapter.Adapter_hospital_search_listview;
 import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
+import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.AuthorityCheckRequest;
 import com.example.mysenior.Request.HospitalSearchRequest;
@@ -42,16 +43,13 @@ public class Activity_Authority_Search extends AppCompatActivity {
     ListView authoritySearch_Listview;
     ArrayList<Hospital> hospotalSearch;
     Adapter_hospital_search_listview authoritySearchadapter;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = Activity_Authority_Search.this;
         setContentView(R.layout.activity_authority_search);
 
         Intent intent = getIntent();
-        user = (User)intent.getSerializableExtra("User");
         hospotalSearch = new ArrayList<>();
 
         authoritySearch_nextStep = (Button) findViewById(R.id.authoritySearch_nextStep);
@@ -83,7 +81,7 @@ public class Activity_Authority_Search extends AppCompatActivity {
 
     private void searchHospital(String search) {
         hospotalSearch = new ArrayList<>();
-        authoritySearchadapter = new Adapter_hospital_search_listview(this,hospotalSearch, user);
+        authoritySearchadapter = new Adapter_hospital_search_listview(this,hospotalSearch, Global.getInstance().getUser());
         authoritySearch_Listview.setAdapter(authoritySearchadapter);
         Response.Listener<String> responseListener  = new Response.Listener<String>() {
             @Override
@@ -129,8 +127,6 @@ public class Activity_Authority_Search extends AppCompatActivity {
                             return;
                         }else{
                             Intent intent = new Intent(getApplicationContext(), Activity_Authority_Write.class);
-                            intent.putExtra("User", user);
-                            intent.putExtra("Hospital",  hospotalSearch.get(i));
                             startActivity(intent);
                         }
                     } catch (JSONException e) {
@@ -138,7 +134,7 @@ public class Activity_Authority_Search extends AppCompatActivity {
                     }
                 }
             };
-            AuthorityCheckRequest authorityCheckRequest = new AuthorityCheckRequest(user.getU_id(),hospotalSearch.get(i).getH_id(),responseListener);
+            AuthorityCheckRequest authorityCheckRequest = new AuthorityCheckRequest(Global.getInstance().getUser().getU_id(),hospotalSearch.get(i).getH_id(),responseListener);
             RequestQueue queue = Volley.newRequestQueue(Activity_Authority_Search.this);
             queue.add(authorityCheckRequest);
         }

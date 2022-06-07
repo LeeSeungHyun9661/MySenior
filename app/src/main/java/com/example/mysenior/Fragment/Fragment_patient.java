@@ -25,6 +25,7 @@ import com.example.mysenior.Activity.Activity_Authority_Write;
 import com.example.mysenior.Activity.Activity_Patient_Add;
 import com.example.mysenior.Activity.Activity_Patient_Detail;
 import com.example.mysenior.Adapter.Adapter_patient_gridview;
+import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.Patient;
 import com.example.mysenior.DTO.User;
 import com.example.mysenior.R;
@@ -43,16 +44,17 @@ import java.util.Date;
 
 public class Fragment_patient extends Fragment {
     User user;
+    Hospital hospital;
     EditText fragment_patient_search;
     Button fragment_patient_add;
     GridView fragment_patient_gridview;
     ArrayList<Patient> patientArrayList;
     Adapter_patient_gridview patient_gridview_adapter;
 
-    public Fragment_patient(User user){
+    public Fragment_patient(User user, Hospital hospital){
+        this.hospital = hospital;
         this.user = user;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_patient, container, false);
@@ -74,7 +76,7 @@ public class Fragment_patient extends Fragment {
     }
 
     private void getPatient() {
-        String h_id = user.getH_id();
+        String h_id = hospital.getH_id();
         patientArrayList = new ArrayList<>();
         patient_gridview_adapter = new Adapter_patient_gridview(getActivity(), patientArrayList);
         fragment_patient_gridview.setAdapter(patient_gridview_adapter);
@@ -114,7 +116,7 @@ public class Fragment_patient extends Fragment {
     }
 
     private void searchPatient(String search) {
-        String h_id = user.getH_id();
+        String h_id = hospital.getH_id();
         patientArrayList = new ArrayList<>();
         patient_gridview_adapter = new Adapter_patient_gridview(getActivity(), patientArrayList);
         fragment_patient_gridview.setAdapter(patient_gridview_adapter);

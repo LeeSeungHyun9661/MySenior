@@ -35,12 +35,10 @@ public class Activity_Patient_Log extends AppCompatActivity {
     ListView patient_detail_log_listview;
     Adapter_log_listview patientlogadapter;
     ArrayList<Patient_Log> patient_logs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_log);
-
 
         Intent intent = getIntent();
         patient = (Patient) intent.getSerializableExtra("Patient");

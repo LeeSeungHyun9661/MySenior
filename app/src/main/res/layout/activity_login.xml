@@ -29,16 +29,7 @@
             android:text="My Senior"
             android:textSize="70dp"
             android:gravity="center"
-            android:textColor="@color/thema5"/>
-
-        <TextView
-            android:layout_weight="4"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/thema4"
-            android:text="LOGIN"
-            android:textSize="40dp"/>
+            android:textColor="@color/thema4"/>
 
         <EditText
             android:layout_weight="2"
@@ -51,9 +42,11 @@
             android:textColorHint="@color/thema3"
             android:textColor="@color/thema4"
             android:ems="20"
-            android:textSize="30dp"
-            android:background="@drawable/border"
-            android:padding="5dp"/>
+            android:textSize="20dp"
+            android:inputType="text"
+            android:lines="1"
+            android:padding="5dp"
+            android:imeOptions="actionNext"/>
 
         <EditText
             android:layout_weight="2"
@@ -66,9 +59,12 @@
             android:textColorHint="@color/thema3"
             android:textColor="@color/thema4"
             android:ems="20"
-            android:textSize="30dp"
-            android:background="@drawable/border"
-            android:padding="5dp"/>
+            android:textSize="20dp"
+            android:padding="5dp"
+            android:inputType="textPassword"
+            android:lines="1"
+            android:imeOptions="actionGo"
+            />
 
         <Button
             android:layout_weight="4"
@@ -81,29 +77,18 @@
             android:gravity="center"
             android:textColor="@color/thema4"
             android:background="@color/thema3"
-            android:textSize="40dp"
+            android:textSize="30dp"
             android:padding="10dp"/>
 
-        <View
-            android:layout_weight="1"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@color/thema4"/>
-
-        <Button
+        <TextView
             android:layout_weight="3"
             android:id="@+id/login_regist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="10dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:text="회원가입"
             android:textColor="@color/thema4"
-            android:background="@color/thema3"
             android:textSize="20dp"/>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -53,7 +53,9 @@ public class Adapter_hospital_search_listview extends BaseAdapter {
         TextView item_authority_search_h_category = (TextView)view.findViewById(R.id.item_authority_search_h_category);
         TextView item_authority_search_location = (TextView)view.findViewById(R.id.item_authority_search_location);
 
-        item_authority_search_h_image.setImageResource(hospitalArrayList.get(position).getH_image());
+        if (hospitalArrayList.get(position).getH_image().equals("null")) item_authority_search_h_image.setImageResource(R.drawable.no_image);
+        else item_authority_search_h_image.setImageBitmap(hospitalArrayList.get(position).getH_imageBitmap());
+
         item_authority_search_h_name.setText(hospitalArrayList.get(position).getH_name());
         item_authority_search_h_category.setText(hospitalArrayList.get(position).getH_category());
         item_authority_search_location.setText(hospitalArrayList.get(position).getH_location());

@@ -8,9 +8,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:background="@color/thema2"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/fragment_patient_search"
@@ -18,19 +17,20 @@
             android:layout_height="wrap_content"
             android:hint="환자 검색"
             android:textSize="30dp"
-            android:background="@drawable/border"/>
-
+            android:lines="1"/>
         <Button
-            android:id="@+id/fragment_patient_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="환자 추가하기"/>
+        android:id="@+id/fragment_patient_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="환자 추가하기"/>
 
         <GridView
             android:id="@+id/fragment_patient_gridView"
             android:numColumns="2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

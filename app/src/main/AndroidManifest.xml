@@ -23,7 +23,7 @@
         <activity
             android:name=".Activity.Activity_Worker_Detail"
             android:exported="false"
-            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:theme="@android:style/Theme.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Authority_Check"
@@ -48,13 +48,12 @@
         <activity
             android:name=".Activity.Activity_Hospital"
             android:exported="false"
-            android:label="@string/title_activity_hospital"
             android:theme="@style/Theme.MySenior.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Authority_Write"
             android:exported="false"
-            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:theme="@android:style/Theme.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Authority_List"
@@ -64,7 +63,7 @@
         <activity
             android:name=".Activity.Activity_Regist"
             android:exported="false"
-            android:theme="@style/Theme.MySenior.NoActionBar"
+            android:theme="@android:style/Theme.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Login"
@@ -73,7 +72,6 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

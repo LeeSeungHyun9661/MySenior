@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.mysenior.Activity.Activity_Authority_List;
 import com.example.mysenior.Activity.Activity_Hospital;
 import com.example.mysenior.DTO.Authority;
+import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
 import com.example.mysenior.R;
 
@@ -24,9 +25,11 @@ public class Adapter_authority_listview extends BaseAdapter {
     Context context = null;
     LayoutInflater layoutInflater = null;
     ArrayList<Authority> authorityArrayList;
+    ArrayList<Hospital> hospitalArrayList;
 
-    public Adapter_authority_listview(Context context, ArrayList<Authority> authorityArrayList) {
+    public Adapter_authority_listview(Context context, ArrayList<Authority> authorityArrayList,ArrayList<Hospital> hospitalArrayList) {
         this.authorityArrayList = authorityArrayList;
+        this.hospitalArrayList = hospitalArrayList;
         this.context = context;
         this.layoutInflater =  LayoutInflater.from(context);
     }
@@ -55,8 +58,10 @@ public class Adapter_authority_listview extends BaseAdapter {
         TextView item_authority_list_department = (TextView)view.findViewById(R.id.item_authority_list_department);
         TextView item_authority_list_position = (TextView)view.findViewById(R.id.item_authority_list_position);
 
-        item_authority_list_h_image.setImageResource(getImageResorce(authorityArrayList.get(position).getH_image()));
-        item_authority_list_h_name.setText(authorityArrayList.get(position).getH_name());
+        item_authority_list_h_image.setImageResource(getImageResorce(hospitalArrayList.get(position).getH_image()));
+
+        item_authority_list_h_name.setText(hospitalArrayList.get(position).getH_name());
+
         item_authority_list_department.setText(authorityArrayList.get(position).getDepartment());
         item_authority_list_position.setText(authorityArrayList.get(position).getPosition());
 

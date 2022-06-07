@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="500dp"
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     tools:context=".Activity.Activity_Patient_Add">
 
@@ -13,50 +14,46 @@
         android:background="@color/thema2"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="10dp">
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
-            android:ems="20"
+            android:ems="15"
+            android:lines="1"
             android:hint="환자 이름"
+            android:inputType="text"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp" />
+            android:textSize="15dp"/>
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_pid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
             android:ems="20"
+            android:lines="1"
+            android:inputType="numberDecimal"
             android:hint="환자 주민번호"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp" />
+            android:textSize="15dp"/>
 
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
             android:ems="20"
             android:hint="환자 나이"
+            android:inputType="numberDecimal"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp" />
+            android:textSize="15dp"
+            android:lines="1" />
 
         <RadioGroup
-            android:layout_weight="1"
             android:id="@+id/patient_add_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,9 +64,11 @@
                 android:id="@+id/patient_add_radiobutton_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
                 android:textColor="@color/thema4"
                 android:textSize="15dp"/>
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"/>
             <RadioButton
                 android:text="여자"
                 android:id="@+id/patient_add_radiobutton_female"
@@ -86,95 +85,87 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginVertical="5dp">
-            <TextView
+            <EditText
                 android:id="@+id/patient_add_birthday"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/border"
-                android:gravity="center"
-                android:ems="9"
+                android:layout_height="wrap_content"
+                android:ems="11"
+                android:hint="환자 생일"
                 android:textColor="@color/thema4"
-                android:textColorHint="@color/thema3"
-                android:textSize="20dp" />
+                android:textSize="15dp"
+                android:enabled="false"/>
 
             <Button
                 android:id="@+id/patient_add_calender"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:text="날짜"
-                android:textSize="10dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="날짜 선택"
+                android:textSize="10dp"
+                android:paddingHorizontal="5dp"/>
         </LinearLayout>
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_ward"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
             android:hint="환자 소속"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp" />
+            android:textSize="15dp"
+            android:lines="1"/>
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_NOK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
             android:hint="환자 보호자"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp" />
+            android:textSize="15dp"
+            android:lines="1" />
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_NOK_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
             android:hint="보호자 연락처"
+            android:ems="15"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp" />
+            android:textSize="15dp"
+            android:lines="1" />
 
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_admin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
             android:hint="담당자"
             android:ems="15"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp"/>
+            android:textSize="15dp"
+            android:lines="1"/>
 
 
         <EditText
-            android:layout_weight="1"
             android:id="@+id/patient_add_addr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
             android:hint="환자 주소"
+            android:ems="15"
             android:textColor="@color/thema4"
             android:textColorHint="@color/thema3"
-            android:textSize="20dp"/>
+            android:textSize="15dp"
+            android:lines="1"/>
 
         <Button
-            android:layout_weight="0.5"
             android:id="@+id/patient_add_regist"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="15dp"
             android:text="환자 등록"/>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

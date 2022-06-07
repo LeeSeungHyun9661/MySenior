@@ -49,6 +49,9 @@ public class Adapter_worker_gridview extends BaseAdapter {
         TextView item_worker_name = (TextView)view.findViewById(R.id.item_worker_name);
         TextView item_worker_position = (TextView)view.findViewById(R.id.item_worker_position);
 
+        if (workerArrayList.get(position).getU_image().equals("null")) item_worker_image.setImageResource(R.drawable.patient);
+        else item_worker_image.setImageBitmap(workerArrayList.get(position).getU_imageBitmap());
+
         item_worker_image.setImageResource(getImageResorce(workerArrayList.get(position).getU_image()));
         item_worker_name.setText(workerArrayList.get(position).getU_name());
         item_worker_position.setText(workerArrayList.get(position).getPosition());

@@ -1,5 +1,9 @@
 package com.example.mysenior.DTO;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -7,17 +11,18 @@ public class User implements Serializable {
     String a_id;
     String u_id; //사용자ID
     String u_name; //사용자 이름
-    String h_id; //사용자 현재 접근중인 병원 ID
     String position; //사용자 직책
     String department; //사용자 소속
     String u_image; //사용자 소속
     int isAdmin; //사용자가 관리자인지 아닌지
 
+    public User(){
+    }
+
     public User(String a_id, String u_id, String u_name, String h_id, String position, String department, String u_image, int isAdmin) {
         this.a_id = a_id;
         this.u_id = u_id;
         this.u_name = u_name;
-        this.h_id = h_id;
         this.position = position;
         this.department = department;
         this.u_image = u_image;
@@ -32,22 +37,11 @@ public class User implements Serializable {
     }
 
     //병원 아이디로 접근하고 나서 직책과 소속, 병원 ID, 관리자인지 설정할때 쓸 함수
-    public void setHospitalAccess(String h_id, String position, String department, int isAdmin) {
+    public void setHospitalAccess( String position, String department, int isAdmin) {
         this.department = department;
-        this.h_id = h_id;
         this.position = position;
         this.isAdmin = isAdmin;
     }
-
-    //기본적인 게터세터 목록
-    public String getH_id() {
-        return h_id;
-    }
-
-    public void setH_id(String h_id) {
-        this.h_id = h_id;
-    }
-
     public String getPosition() {
         return position;
     }
@@ -58,14 +52,6 @@ public class User implements Serializable {
 
     public String getDepartment() {
         return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public void setAdmin(int admin) {
-        isAdmin = admin;
     }
 
     public String getU_id() {
@@ -80,17 +66,23 @@ public class User implements Serializable {
         return u_name;
     }
 
-    public void setU_name(String u_name) {
-        this.u_name = u_name;
+
+    public int getIsAdmin() {
+        return isAdmin;
     }
 
     public String getU_image() {
         return u_image;
     }
 
-    public int getIsAdmin() {
-        return isAdmin;
+    public Bitmap getU_imageBitmap() {
+        try {
+            byte[] encodeByte = Base64.decode(u_image, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
-
-
 }

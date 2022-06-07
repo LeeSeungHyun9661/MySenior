@@ -1,81 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity.Activity_Authority_Write">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".Activity.Activity_Authority_Write"
+    android:layout_gravity="center">
 
     <LinearLayout
         android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_margin="10dp"
         android:background="@color/thema2">
 
         <TextView
-            android:layout_weight="0.2"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="10dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="신청서 작성"
-            android:textSize="60dp"
+            android:textSize="40dp"
             android:gravity="center"
             android:textColor="@color/thema5"/>
 
 
         <!--검색된 병원 정보 보여줄 공간-->
         <LinearLayout
-            android:layout_weight="5"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:layout_margin="10dp"
             android:background="@drawable/roundborder"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <ImageView
-                android:layout_weight="6"
                 android:id="@+id/authorityWrite_hospitalimage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_width="300dp"
+                android:layout_height="300dp"/>
 
             <TextView
-                android:layout_weight="0.1"
                 android:id="@+id/authorityWrite_hospitaldate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="개원 일자"
                 android:gravity="right"
-                android:textSize="15dp"
-                android:layout_marginTop="5dp"/>
+                android:textSize="15dp"/>
 
-            <LinearLayout
-                android:layout_weight="0.1"
+            <TextView
+                android:id="@+id/authorityWrite_hospitalname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp">
-                 <TextView
-                    android:id="@+id/authorityWrite_hospitalname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="병원 이름"
-                     android:layout_weight="10"
-                    android:textSize="20dp"/>
+                android:text="병원 이름"
+                android:layout_weight="10"
+                android:textSize="20dp"
+                android:ellipsize="marquee"/>
 
-                <TextView
-                    android:id="@+id/authorityWrite_hospitalcategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="병원 구분"
-                    android:layout_weight="1"
-                    android:textSize="15dp"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/authorityWrite_hospitalcategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="병원 구분"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:ellipsize="marquee"/>
 
             <TextView
                 android:layout_weight="0.1"
@@ -84,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="병원 위치"
                 android:textSize="15dp"
-                android:layout_marginTop="5dp"/>
+                android:ellipsize="marquee"/>
 
             <TextView
                 android:layout_weight="0.1"
@@ -93,33 +81,30 @@
                 android:layout_height="wrap_content"
                 android:text="병원 전화번호"
                 android:textSize="15dp"
-                android:layout_marginTop="5dp"/>
+                android:ellipsize="marquee"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="0.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="10dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_weight="0.5"
+            <EditText
                 android:id="@+id/authorityWrite_username"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="이름"
+                android:lines="1"
                 android:textColor="@color/thema4"
-                android:textSize="30dp"
-                android:background="@drawable/border"/>
+                android:textColorHint="@color/thema3"
+                android:textSize="20dp"
+                android:enabled="false"/>
 
         </LinearLayout>
 
         <EditText
-            android:layout_weight="0.2"
-            android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="10dp"
             android:id="@+id/authorityWrite_position"
             android:layout_width="match_parent"
@@ -129,12 +114,9 @@
             android:textColor="@color/thema4"
             android:ems="20"
             android:textSize="20dp"
-            android:background="@drawable/border"
-            android:padding="5dp"/>
+            android:lines="1"/>
 
         <EditText
-            android:layout_weight="0.2"
-            android:layout_marginVertical="5dp"
             android:id="@+id/authorityWrite_department"
             android:layout_marginHorizontal="10dp"
             android:layout_width="wrap_content"
@@ -143,12 +125,10 @@
             android:textColorHint="@color/thema3"
             android:textColor="@color/thema4"
             android:ems="20"
-            android:textSize="20dp"
-            android:background="@drawable/border"
-            android:padding="5dp"/>
+            android:lines="1"
+            android:textSize="20dp"/>
 
         <RadioGroup
-            android:layout_weight="0.2"
             android:id="@+id/authorityWrite_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -171,17 +151,15 @@
         </RadioGroup>
 
         <Button
-            android:layout_weight="0.3"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"
             android:id="@+id/authorityWrite_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="작성 완료"
             android:textColor="@color/thema4"
-            android:background="@drawable/roundborder"
-            android:textSize="40dp"/>
+            android:textSize="20dp"/>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

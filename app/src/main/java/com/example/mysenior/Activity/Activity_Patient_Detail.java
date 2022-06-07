@@ -37,6 +37,7 @@ import com.example.mysenior.Adapter.Adapter_log_listview;
 import com.example.mysenior.DTO.Patient;
 import com.example.mysenior.DTO.Patient_Log;
 import com.example.mysenior.DTO.User;
+import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.HospitalSearchRequest;
 import com.example.mysenior.Request.PatientAddRequest;
@@ -72,7 +73,6 @@ public class Activity_Patient_Detail extends AppCompatActivity {
     ListView patient_detail_log_listview;
     Adapter_log_listview patientlogadapter;
     ArrayList<Patient_Log> patient_logs;
-    User user;
     Patient patient;
     ActivityResultLauncher<Intent> launcher;
 
@@ -82,7 +82,6 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         setContentView(R.layout.activity_patient_detail);
 
         Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra("User");
         patient = (Patient) intent.getSerializableExtra("Patient");
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
@@ -274,7 +273,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
     View.OnClickListener patientaddLogonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String u_id = user.getU_id();
+            String u_id = Global.getInstance().getUser().getU_id();
             String p_id = patient.getP_id();
             String pl_contents = patient_detial_add_log.getText().toString();
             if (pl_contents.equals("")) {
@@ -306,7 +305,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
     View.OnClickListener patientFixOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (user.getIsAdmin() == 1) {
+            if ( Global.getInstance().getUser().getIsAdmin() == 1) {
                 Intent intent = new Intent(Activity_Patient_Detail.this, Activity_Patient_Fix.class);
                 intent.putExtra("Patient", patient);
                 launcher.launch(intent);
@@ -319,7 +318,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
     View.OnClickListener patientdeleteOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (user.getIsAdmin() == 1) {
+            if ( Global.getInstance().getUser().getIsAdmin() == 1) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(Activity_Patient_Detail.this);
                 dlg.setTitle("삭제")
                         .setMessage("환자 정보를 삭제하시겠습니까?")

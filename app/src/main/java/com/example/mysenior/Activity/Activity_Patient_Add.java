@@ -18,7 +18,9 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
+import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.PatientAddRequest;
 
@@ -37,7 +39,6 @@ public class Activity_Patient_Add extends Activity {
     Button patient_regist,patient_calender;
     String gender;
     Calendar cal;
-    User user;
 
     int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -48,7 +49,6 @@ public class Activity_Patient_Add extends Activity {
         setContentView(R.layout.activity_patient_add);
 
         Intent intent = getIntent();
-        user = (User)intent.getSerializableExtra("User");
 
         cal = new GregorianCalendar();
         mYear = cal.get(Calendar.YEAR);
@@ -82,7 +82,7 @@ public class Activity_Patient_Add extends Activity {
     View.OnClickListener registOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String h_id = user.getH_id();
+            String h_id = Global.getInstance().getHospital().getH_id();
             String p_name = patient_name.getText().toString();
             String p_id = patient_pid.getText().toString();
             String p_age = patient_age.getText().toString();
