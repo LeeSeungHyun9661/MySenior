@@ -13,6 +13,24 @@
         android:theme="@style/Theme.MySenior"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.Activity_Notification_Fix"
+            android:theme="@style/Theme.MySenior.Dialog"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Activity_Notification_Write"
+            android:theme="@style/Theme.MySenior.Dialog"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Activity_Notification_Detail"
+            android:theme="@style/Theme.MySenior.Dialog"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Activity_Notification"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Activity_Worker_Add"
             android:exported="false" />
         <activity
@@ -21,12 +39,12 @@
         <activity
             android:name=".Activity.Activity_Patient_Fix"
             android:exported="false"
-            android:theme="@android:style/Theme.Dialog"
+            android:theme="@style/Theme.MySenior.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Worker_Detail"
             android:exported="false"
-            android:theme="@android:style/Theme.Dialog"
+            android:theme="@style/Theme.MySenior.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Authority_Check"
@@ -41,7 +59,7 @@
         <activity
             android:name=".Activity.Activity_Patient_Add"
             android:exported="false"
-            android:theme="@android:style/Theme.Dialog"
+            android:theme="@style/Theme.MySenior.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Authority_Search"
@@ -56,7 +74,7 @@
         <activity
             android:name=".Activity.Activity_Authority_Write"
             android:exported="false"
-            android:theme="@android:style/Theme.Dialog"
+            android:theme="@style/Theme.MySenior.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Authority_List"
@@ -66,7 +84,7 @@
         <activity
             android:name=".Activity.Activity_Regist"
             android:exported="false"
-            android:theme="@android:style/Theme.Dialog"
+            android:theme="@style/Theme.MySenior.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Activity.Activity_Login"

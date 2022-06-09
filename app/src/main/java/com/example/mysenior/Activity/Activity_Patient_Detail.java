@@ -111,7 +111,15 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         });
 
         patient_detail_image = (ImageView) findViewById(R.id.patient_detail_image);
-        patient_detail_image.setOnClickListener(patientChangeImageClickListener);
+        patient_detail_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
         patient_detail_image.setImageResource(R.drawable.patient);
 
         if (patient.getP_image().equals("null")) patient_detail_image.setImageResource(R.drawable.patient);
@@ -256,18 +264,6 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         String image = Base64.encodeToString(arr, Base64.DEFAULT);
         return image;
     }
-
-    View.OnClickListener patientChangeImageClickListener = new View.OnClickListener() {
-        Intent intent = new Intent();
-
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, REQUEST_CODE);
-        }
-    };
 
     View.OnClickListener patientaddLogonClickListener = new View.OnClickListener() {
         @Override

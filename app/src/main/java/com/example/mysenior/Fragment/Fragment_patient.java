@@ -72,7 +72,15 @@ public class Fragment_patient extends Fragment {
     public void onResume() {
         super.onResume();
         getPatient();
-        fragment_patient_gridview.setOnItemClickListener(searchGridViewItemClickListener);
+//        fragment_patient_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Detail.class);
+//                intent.putExtra("User", user);
+//                intent.putExtra("Patient",  patientArrayList.get(i));
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void getPatient() {
@@ -169,17 +177,15 @@ public class Fragment_patient extends Fragment {
             if(search.length() >= 2){
                 searchPatient(search);
             }
-            fragment_patient_gridview.setOnItemClickListener(searchGridViewItemClickListener);
-        }
-    };
-
-    AdapterView.OnItemClickListener searchGridViewItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Detail.class);
-            intent.putExtra("User", user);
-            intent.putExtra("Patient",  patientArrayList.get(i));
-            startActivity(intent);
+            fragment_patient_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Detail.class);
+                    intent.putExtra("User", user);
+                    intent.putExtra("Patient",  patientArrayList.get(i));
+                    startActivity(intent);
+                }
+            });
         }
     };
 
