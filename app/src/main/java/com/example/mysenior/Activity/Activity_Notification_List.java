@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Activity_Notification extends AppCompatActivity {
+public class Activity_Notification_List extends AppCompatActivity {
     ArrayList<Notification> notifications = new ArrayList<>();
     ListView Notification_listview;
     Adapter_notification_listview notification_adapter;
@@ -40,22 +41,23 @@ public class Activity_Notification extends AppCompatActivity {
         Notification_write_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Activity_Notification.this, Activity_Notification_Write.class);
+                Intent intent = new Intent(Activity_Notification_List.this, Activity_Notification_Write.class);
                 startActivity(intent);
             }
         });
 
         Notification_listview = (ListView) findViewById(R.id.Notification_listview);
-        notification_adapter = new Adapter_notification_listview(Activity_Notification.this,notifications);
+        notification_adapter = new Adapter_notification_listview(Activity_Notification_List.this,notifications);
         Notification_listview.setAdapter(notification_adapter);
         Notification_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(Activity_Notification.this, Activity_Notification_Detail.class);
+                Intent intent = new Intent(Activity_Notification_List.this, Activity_Notification_Detail.class);
                 intent.putExtra("notification",notifications.get(i));
                 startActivity(intent);
             }
         });
+        Notification_listview.setEmptyView((TextView)findViewById(R.id.fragment_home_notification_noitem));
     }
 
     @Override
@@ -89,17 +91,15 @@ public class Activity_Notification extends AppCompatActivity {
                         images.add(item.getString("image2"));
                         images.add(item.getString("image3"));
                         notifications.add(new Notification(seq,h_id,u_id,u_name,title,date,contents,images));
-                        if (notifications.size() < 1) {
-                            notification_adapter.notifyDataSetChanged();
-                        }
                     }
+                    notification_adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         };
         NotificationRequest notificationRequest = new NotificationRequest(Global.getInstance().getHospital().getH_id(), responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Activity_Notification.this);
+        RequestQueue queue = Volley.newRequestQueue(Activity_Notification_List.this);
         queue.add(notificationRequest);
     }
 }

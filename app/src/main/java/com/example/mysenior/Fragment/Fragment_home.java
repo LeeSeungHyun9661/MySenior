@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.mysenior.Activity.Activity_Notification;
+import com.example.mysenior.Activity.Activity_Notification_List;
 import com.example.mysenior.Activity.Activity_Notification_Detail;
 import com.example.mysenior.Adapter.Adapter_notification_listview;
 import com.example.mysenior.DTO.Hospital;
@@ -72,8 +72,7 @@ public class Fragment_home extends Fragment {
         fragment_home_notification_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Notification.class);
-                intent.putExtra("notifications", notifications);
+                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Notification_List.class);
                 startActivity(intent);
             }
         });
@@ -120,7 +119,7 @@ public class Fragment_home extends Fragment {
                         images.add(item.getString("image2"));
                         images.add(item.getString("image3"));
                         notifications.add(new Notification(seq,h_id,u_id,u_name,title,date,contents,images));
-                        if (notifications.size() < 1) {
+                        if (notifications.size() < 2) {
                             notification_adapter.notifyDataSetChanged();
                         }
                     }

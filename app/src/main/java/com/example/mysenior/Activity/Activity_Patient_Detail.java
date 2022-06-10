@@ -126,7 +126,19 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         else patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
 
         patient_detail_fix = (TextView) findViewById(R.id.patient_detail_fix);
-        patient_detail_fix.setOnClickListener(patientFixOnClickListener);
+        patient_detail_fix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( Global.getInstance().getUser().getIsAdmin() == 1) {
+                    Intent intent = new Intent(Activity_Patient_Detail.this, Activity_Patient_Fix.class);
+                    intent.putExtra("Patient", patient);
+                    launcher.launch(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "관리자 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         patient_detail_delete = (TextView) findViewById(R.id.patient_detail_delete);
         patient_detail_delete.setOnClickListener(patientdeleteOnClickListener);
         patient_detail_log_more = (TextView) findViewById(R.id.patient_detail_log_more);
@@ -294,19 +306,6 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                 queue.add(patientaddLogRequest);
             }
 
-        }
-    };
-
-    View.OnClickListener patientFixOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if ( Global.getInstance().getUser().getIsAdmin() == 1) {
-                Intent intent = new Intent(Activity_Patient_Detail.this, Activity_Patient_Fix.class);
-                intent.putExtra("Patient", patient);
-                launcher.launch(intent);
-            } else {
-                Toast.makeText(getApplicationContext(), "관리자 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
-            }
         }
     };
 

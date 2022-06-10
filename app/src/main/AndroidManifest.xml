@@ -28,7 +28,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="false" />
         <activity
-            android:name=".Activity.Activity_Notification"
+            android:name=".Activity.Activity_Notification_List"
             android:exported="false" />
         <activity
             android:name=".Activity.Activity_Worker_Add"

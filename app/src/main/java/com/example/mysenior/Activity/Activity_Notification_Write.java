@@ -44,8 +44,6 @@ public class Activity_Notification_Write extends FragmentActivity {
     Adapter_notification_image_viewpager adapter_notification_imageViewpager;
     private CircleIndicator3 Notification_write_indicator;
     ArrayList<Bitmap> imageBitmaps;
-
-
     private static final int REQUEST_CODE = 99;
 
     @Override
@@ -67,11 +65,11 @@ public class Activity_Notification_Write extends FragmentActivity {
                 String image1 = "";
                 String image2 = "";
                 String image3 = "";
-                if (!notification.getImages().get(0).equals("null"))
+                if (!notification.getImages().get(0).equals(""))
                     image1 = notification.getImages().get(0);
-                if (!notification.getImages().get(1).equals("null"))
+                if (!notification.getImages().get(1).equals(""))
                     image2 = notification.getImages().get(1);
-                if (!notification.getImages().get(2).equals("null"))
+                if (!notification.getImages().get(2).equals(""))
                     image3 = notification.getImages().get(2);
                 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -108,7 +106,7 @@ public class Activity_Notification_Write extends FragmentActivity {
             }
         });
 
-        Button Notification_write_add_image = (Button) findViewById(R.id.Notification_write_add_image);
+        Notification_write_add_image = (Button) findViewById(R.id.Notification_write_add_image);
         Notification_write_add_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,8 +153,6 @@ public class Activity_Notification_Write extends FragmentActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bm;
-        String bms;
         if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 try {

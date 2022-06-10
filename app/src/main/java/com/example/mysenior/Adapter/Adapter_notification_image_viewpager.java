@@ -3,6 +3,7 @@ package com.example.mysenior.Adapter;
 import static androidx.viewpager.widget.PagerAdapter.POSITION_NONE;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -37,6 +38,7 @@ public class Adapter_notification_image_viewpager extends FragmentStateAdapter {
 
     @Override
     public long getItemId(int position) {
+        Log.w("Position",Integer.toString(position));
         return images.get(position).hashCode();
     }
 

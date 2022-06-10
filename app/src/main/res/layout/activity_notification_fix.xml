@@ -100,7 +100,7 @@
             android:layout_height="1dp"
             android:background="@color/thema3"/>
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="310dp"
             android:id="@+id/Notification_fix_contents"

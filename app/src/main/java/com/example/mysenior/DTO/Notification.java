@@ -27,9 +27,9 @@ public class Notification implements Serializable {
 
     public Notification() {
         images = new ArrayList<>();
-        images.add("null");
-        images.add("null");
-        images.add("null");
+        images.add("");
+        images.add("");
+        images.add("");
     }
 
     public String getU_name() {
@@ -68,7 +68,7 @@ public class Notification implements Serializable {
         ArrayList<Bitmap> bitmaps = new ArrayList<>();
         for (int i = 0; i < images.size(); i++){
             try {
-                if(!images.get(i).equals("null")){
+                if(!images.get(i).equals("")){
                     byte[] encodeByte = Base64.decode(images.get(i), Base64.DEFAULT);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
                     bitmaps.add(bitmap);
@@ -86,10 +86,11 @@ public class Notification implements Serializable {
     public int getImageMax() {
         return images.size();
     }
+
     public int getImageCount() {
         int cnt = 0;
         for (int i = 0; i<images.size(); i++){
-            if(!images.equals("null")){
+            if(!images.equals("")){
                 cnt+= 1;
             }
         }
@@ -99,5 +100,13 @@ public class Notification implements Serializable {
     public void addImage(String image){
         images.remove(images.size()-1);
         images.add(0,image);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 }
