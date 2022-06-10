@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -17,7 +18,9 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.mysenior.Activity.Activity_Patient_Detail;
 import com.example.mysenior.Activity.Activity_Worker_Add;
+import com.example.mysenior.Activity.Activity_Worker_Detail;
 import com.example.mysenior.Adapter.Adapter_worker_gridview;
 import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
@@ -62,7 +65,6 @@ public class Fragment_worker extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 String search = fragment_worker_search.getText().toString();
-                Log.w("Search : ", search);
                 if (search.length() >= 2) {
                     searchWorker(search);
                 } else {
@@ -72,6 +74,14 @@ public class Fragment_worker extends Fragment {
         });
 
         fragment_worker_gridview = (GridView) view.findViewById(R.id.fragment_worker_gridview);
+        fragment_worker_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Worker_Detail.class);
+                intent.putExtra("Worker",  userArrayList.get(i));
+                startActivity(intent);
+            }
+        });
 
         fragment_worker_add = (Button) view.findViewById(R.id.fragment_worker_add);
         fragment_worker_add.setOnClickListener(new View.OnClickListener() {

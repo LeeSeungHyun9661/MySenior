@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
 
     <LinearLayout
         android:id="@+id/item_worker_layout_info"
-        android:layout_width="100dp"
-        android:layout_height="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/thema2"
         android:orientation="vertical"
         android:gravity="center">
@@ -19,6 +19,12 @@
             android:scaleType="centerCrop"
             android:src="@drawable/hospital_test" />
 
+        <View
+            android:layout_width="80dp"
+            android:layout_height="1dp"
+            android:layout_margin="3dp"
+            android:background="@color/thema4"/>
+
         <TextView
             android:id="@+id/item_worker_name"
             android:layout_width="wrap_content"
@@ -26,7 +32,7 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:text="김둘리"
-            android:textSize="15dp" />
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/item_worker_position"

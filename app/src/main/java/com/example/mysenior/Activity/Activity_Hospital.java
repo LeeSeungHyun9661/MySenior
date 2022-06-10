@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,12 @@ public class Activity_Hospital extends AppCompatActivity {
         hospital_image = (ImageView) findViewById(R.id.hospital_image);
         if (Global.getInstance().getHospital().getH_image().equals("null")) hospital_image.setImageResource(R.drawable.no_image);
         else hospital_image.setImageBitmap(Global.getInstance().getHospital().getH_imageBitmap());
+        hospital_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         hospital_name = (TextView) findViewById(R.id.hospital_name);
         hospital_name.setText(Global.getInstance().getHospital().getH_name());

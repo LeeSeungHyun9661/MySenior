@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class Activity_Patient_Log extends AppCompatActivity {
     ListView Patient_log_listview;
     Patient patient;
-    ListView patient_detail_log_listview;
     Adapter_log_listview patientlogadapter;
     ArrayList<Patient_Log> patient_logs;
     @Override
@@ -66,7 +65,7 @@ public class Activity_Patient_Log extends AppCompatActivity {
                         String u_name = item.getString("u_name");
                         String pl_contents = item.getString("pl_contents");
                         String pl_time = item.getString("pl_time");
-                        patient_logs.add(new Patient_Log(seq, p_id, u_id,u_name, pl_contents, pl_time));
+                        patient_logs.add(new Patient_Log(seq, patient.getP_id(),patient.getP_name(), u_id,u_name, pl_contents, pl_time));
                         patientlogadapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {

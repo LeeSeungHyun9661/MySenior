@@ -7,31 +7,24 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.mysenior.Adapter.Adapter_authority_listview;
 import com.example.mysenior.Adapter.Adapter_worker_authority_listview;
 import com.example.mysenior.DTO.Authority;
-import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.AuthorityApproveRequest;
 import com.example.mysenior.Request.AuthorityRemoveRequest;
-import com.example.mysenior.Request.AuthorityRequest;
 import com.example.mysenior.Request.WorkerAuthorityRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Activity_Worker_Add extends AppCompatActivity {
     

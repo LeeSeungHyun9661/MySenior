@@ -146,17 +146,34 @@
             android:textColorHint="@color/thema3"
             android:textSize="15dp" />
 
-        <EditText
-            android:id="@+id/register_email_input"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            android:ems="20"
-            android:hint="E-MAIL"
-            android:textColor="@color/thema4"
-            android:textColorHint="@color/thema3"
-            android:textSize="15dp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/register_email_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="20"
+                android:hint="E-MAIL"
+                android:textColor="@color/thema4"
+                android:textColorHint="@color/thema3"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/register_email_check_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:src="@drawable/check_x" />
+
+        </LinearLayout>
+
+
 
         <Button
             android:id="@+id/register_registbutton"

@@ -47,11 +47,6 @@
             android:theme="@style/Theme.MySenior.Dialog"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".Activity.Activity_Authority_Check"
-            android:exported="false"
-            android:theme="@style/Theme.MySenior.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
             android:name=".Activity.Activity_Patient_Detail"
             android:exported="false"
             android:theme="@style/Theme.MySenior.NoActionBar"

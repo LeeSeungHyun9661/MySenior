@@ -6,21 +6,15 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,20 +26,14 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.mysenior.Adapter.Adapter_log_listview;
 import com.example.mysenior.DTO.Patient;
 import com.example.mysenior.DTO.Patient_Log;
-import com.example.mysenior.DTO.User;
 import com.example.mysenior.Global;
 import com.example.mysenior.R;
-import com.example.mysenior.Request.HospitalSearchRequest;
-import com.example.mysenior.Request.PatientAddRequest;
 import com.example.mysenior.Request.PatientDeleteRequest;
-import com.example.mysenior.Request.PatientFixRequest;
 import com.example.mysenior.Request.PatientImageRequest;
 import com.example.mysenior.Request.PatientLogRequest;
-import com.example.mysenior.Request.PatientSearchRequest;
 import com.example.mysenior.Request.PatientaddLogRequest;
 
 import org.json.JSONArray;
@@ -53,14 +41,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Activity_Patient_Detail extends AppCompatActivity {
 
@@ -91,7 +73,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                     patient = (Patient) intent.getSerializableExtra("Patient");
 
                     if (patient.getP_image() == null) {
-                        patient_detail_image.setImageResource(R.drawable.patient);
+                        patient_detail_image.setImageResource(R.drawable.default_user);
                     } else {
                         patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
                     }
@@ -120,9 +102,9 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
-        patient_detail_image.setImageResource(R.drawable.patient);
+        patient_detail_image.setImageResource(R.drawable.default_user);
 
-        if (patient.getP_image().equals("null")) patient_detail_image.setImageResource(R.drawable.patient);
+        if (patient.getP_image().equals("")) patient_detail_image.setImageResource(R.drawable.default_user);
         else patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
 
         patient_detail_fix = (TextView) findViewById(R.id.patient_detail_fix);
@@ -172,7 +154,6 @@ public class Activity_Patient_Detail extends AppCompatActivity {
     }
 
     private void getPatientLog() {
-        String p_id = patient.getP_id();
         patient_logs = new ArrayList<>();
         patientlogadapter = new Adapter_log_listview(Activity_Patient_Detail.this, patient_logs);
         patient_detail_log_listview.setAdapter(patientlogadapter);
@@ -190,7 +171,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                         String pl_contents = item.getString("pl_contents");
                         String pl_time = item.getString("pl_time");
                         if (patient_logs.size() < 4) {
-                            patient_logs.add(new Patient_Log(seq, p_id, u_id, u_name, pl_contents, pl_time));
+                            patient_logs.add(new Patient_Log(seq,patient.getP_id(), patient.getP_name(), u_id, u_name, pl_contents, pl_time));
                             patientlogadapter.notifyDataSetChanged();
                         }
                     }
@@ -199,7 +180,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                 }
             }
         };
-        PatientLogRequest patientLogRequest = new PatientLogRequest(p_id, responseListener);
+        PatientLogRequest patientLogRequest = new PatientLogRequest(patient.getP_id(), responseListener);
         RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Detail.this);
         queue.add(patientLogRequest);
 

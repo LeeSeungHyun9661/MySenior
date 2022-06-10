@@ -60,27 +60,51 @@ public class Fragment_patient extends Fragment {
         View view = inflater.inflate(R.layout.fragment_patient, container, false);
 
         fragment_patient_search = (EditText) view.findViewById(R.id.fragment_patient_search);
-        fragment_patient_search.addTextChangedListener(patientSearchTextWatcher);
+        fragment_patient_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String search = fragment_patient_search.getText().toString();
+                if(search.length() >= 2){
+                    searchPatient(search);
+                }
+
+            }
+        });
 
         fragment_patient_add = (Button) view.findViewById(R.id.fragment_patient_add);
-        fragment_patient_add.setOnClickListener(patientaddOnClickListener);
+        fragment_patient_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Add.class);
+                intent.putExtra("User", user);
+                startActivity(intent);
+            }
+        });
 
         fragment_patient_gridview = (GridView) view.findViewById(R.id.fragment_patient_gridView);
+        fragment_patient_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Detail.class);
+                intent.putExtra("User", user);
+                intent.putExtra("Patient",  patientArrayList.get(i));
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
     public void onResume() {
         super.onResume();
         getPatient();
-//        fragment_patient_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Detail.class);
-//                intent.putExtra("User", user);
-//                intent.putExtra("Patient",  patientArrayList.get(i));
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private void getPatient() {
@@ -111,8 +135,8 @@ public class Fragment_patient extends Fragment {
                         int p_age = Integer.parseInt(item.getString("p_age"));
                         String p_birth =  item.getString("p_birth");
                         patientArrayList.add(new Patient(h_id, p_id, p_name, p_gender, p_ward, p_NOK, p_NOK_phone, p_admin, p_addr,p_image, p_qr, p_age, p_birth));
-                        patient_gridview_adapter.notifyDataSetChanged();
                     }
+                    patient_gridview_adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -161,40 +185,4 @@ public class Fragment_patient extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         queue.add(patientSearchRequest);
     }
-
-    TextWatcher patientSearchTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            String search = fragment_patient_search.getText().toString();
-            if(search.length() >= 2){
-                searchPatient(search);
-            }
-            fragment_patient_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Detail.class);
-                    intent.putExtra("User", user);
-                    intent.putExtra("Patient",  patientArrayList.get(i));
-                    startActivity(intent);
-                }
-            });
-        }
-    };
-
-    View.OnClickListener patientaddOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Add.class);
-            intent.putExtra("User", user);
-            startActivity(intent);
-        }
-    };
 }

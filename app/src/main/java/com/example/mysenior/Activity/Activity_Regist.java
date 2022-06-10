@@ -33,10 +33,10 @@ import java.util.regex.Pattern;
 
 public class Activity_Regist extends Activity {
     EditText register_id_input, register_pw_input, register_pw_check_input, register_name_input, register_email_input;
-    ImageView register_id_image, register_pw_image,register_pw_check_image;
-    TextView register_pw_info,register_id_info;
+    ImageView register_id_image, register_pw_image, register_pw_check_image, register_email_check_image;
+    TextView register_pw_info, register_id_info;
     Button register_registbutton;
-    boolean checkID, checkPW, checkPWsame;
+    boolean checkID, checkPW, checkPWsame, checkEmailsame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class Activity_Regist extends Activity {
         checkID = false;
         checkPW = false;
         checkPWsame = false;
+        checkEmailsame = false;
 
         register_id_input = (EditText) findViewById(R.id.register_id_input);
         register_id_image = (ImageView) findViewById(R.id.register_id_image);
@@ -62,20 +63,23 @@ public class Activity_Regist extends Activity {
         register_pw_check_input.addTextChangedListener(pwcheckTextWatcher);
 
         register_name_input = (EditText) findViewById(R.id.register_name_input);
+
         register_email_input = (EditText) findViewById(R.id.register_email_input);
+        register_email_check_image = (ImageView) findViewById(R.id.register_email_check_image);
+        register_email_input.addTextChangedListener(emailcheckTextWatcher);
 
         register_registbutton = (Button) findViewById(R.id.register_registbutton);
         register_registbutton.setOnClickListener(registerClickListener);
     }
 
-    View.OnClickListener registerClickListener =  new View.OnClickListener() {
+    View.OnClickListener registerClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             String u_id = register_id_input.getText().toString();
             String u_pw = register_pw_input.getText().toString();
             String u_name = register_name_input.getText().toString();
             String u_email = register_email_input.getText().toString();
-            if (checkID && checkPW && checkPWsame && (!u_name.equals("")) && (!u_email.equals(""))) {
+            if (checkID && checkPW && checkPWsame && checkEmailsame && (!u_name.equals("")) && (!u_email.equals(""))) {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -99,41 +103,43 @@ public class Activity_Regist extends Activity {
                 RegistRequest registRequest = new RegistRequest(u_id, u_pw, u_name, u_email, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(Activity_Regist.this);
                 queue.add(registRequest);
-            }else{
+            } else {
                 Toast.makeText(getApplicationContext(), "회원 정보 기입을 확인해주세요", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
-    TextWatcher idTextWatcher = new TextWatcher(){
+    TextWatcher idTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         }
+
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         }
+
         @Override
         public void afterTextChanged(Editable editable) {
             String u_id = register_id_input.getText().toString();
-            Response.Listener<String> responseListener  = new Response.Listener<String>() {
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         boolean success = jsonResponse.getBoolean("success");
-                        if(success){
+                        if (success) {
                             checkID = false;
                             register_id_image.setImageResource(R.drawable.check_x);
-                        }else{
+                        } else {
                             Pattern passPattern = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9_]{7,11}$");
                             Matcher passMatcher = passPattern.matcher(u_id);
-                            if(!passMatcher.find()){
+                            if (!passMatcher.find()) {
                                 checkID = true;
                                 register_id_info.setVisibility(View.VISIBLE);
                                 register_id_image.setImageResource(R.drawable.check_x);
                                 return;
                             }
-                            checkID= true;
+                            checkID = true;
                             register_id_image.setImageResource(R.drawable.check_v);
                             register_id_info.setVisibility(View.INVISIBLE);
                         }
@@ -142,56 +148,85 @@ public class Activity_Regist extends Activity {
                     }
                 }
             };
-            IDCheckRequest idCheckRequest = new IDCheckRequest(u_id,responseListener);
+            IDCheckRequest idCheckRequest = new IDCheckRequest(u_id, responseListener);
             RequestQueue queue = Volley.newRequestQueue(Activity_Regist.this);
             queue.add(idCheckRequest);
         }
     };
 
-    TextWatcher pwTextWatcher = new TextWatcher(){
+    TextWatcher pwTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
+
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         }
+
         @Override
         public void afterTextChanged(Editable editable) {
             String u_pw = register_pw_input.getText().toString();
-            Pattern passPattern = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$");
+            Pattern passPattern = Pattern.compile("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$");
             Matcher passMatcher = passPattern.matcher(u_pw);
-            if(!passMatcher.find()){
-                checkPW= false;
+            if (!passMatcher.find()) {
+                checkPW = false;
                 register_pw_info.setVisibility(View.VISIBLE);
                 register_pw_image.setImageResource(R.drawable.check_x);
                 return;
             }
-            checkPW= true;
+            checkPW = true;
             register_pw_image.setImageResource(R.drawable.check_v);
             register_pw_info.setVisibility(View.INVISIBLE);
         }
     };
 
-    TextWatcher pwcheckTextWatcher = new TextWatcher(){
+    TextWatcher pwcheckTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
+
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
+
         @Override
         public void afterTextChanged(Editable editable) {
             String u_pw = register_pw_input.getText().toString();
             String u_pw_check = register_pw_check_input.getText().toString();
-            if (u_pw.equals(u_pw_check)){
+            if (u_pw.equals(u_pw_check)) {
                 checkPWsame = true;
                 register_pw_check_image.setImageResource(R.drawable.check_v);
-            }else{
+            } else {
                 checkPWsame = false;
                 register_pw_check_image.setImageResource(R.drawable.check_x);
+            }
+        }
+    };
+
+    TextWatcher emailcheckTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String u_email = register_email_input.getText().toString();
+            Pattern passPattern = android.util.Patterns.EMAIL_ADDRESS;
+            if (passPattern.matcher(u_email).matches()) {
+                checkEmailsame = true;
+                register_email_check_image.setImageResource(R.drawable.check_v);
+            } else {
+                checkEmailsame = false;
+                register_email_check_image.setImageResource(R.drawable.check_x);
             }
         }
     };

@@ -2,6 +2,7 @@ package com.example.mysenior.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,22 +10,33 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.mysenior.Activity.Activity_Authority_List;
 import com.example.mysenior.Activity.Activity_Notification_List;
 import com.example.mysenior.Activity.Activity_Notification_Detail;
+import com.example.mysenior.Activity.Activity_Patient_Detail;
+import com.example.mysenior.Activity.Activity_Patient_Log;
+import com.example.mysenior.Adapter.Adapter_log_listview;
 import com.example.mysenior.Adapter.Adapter_notification_listview;
 import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.Monitor_Detaction;
 import com.example.mysenior.DTO.Notification;
+import com.example.mysenior.DTO.Patient;
 import com.example.mysenior.DTO.Patient_Log;
 import com.example.mysenior.DTO.User;
+import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.NotificationRequest;
+import com.example.mysenior.Request.PatientLogRequest;
+import com.example.mysenior.Request.PatientLogRequest_hid;
+import com.example.mysenior.Request.PatientRequest;
+import com.example.mysenior.Request.PatientRequest_p_id;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +53,7 @@ public class Fragment_home extends Fragment {
     Button fragment_home_notification_more;
     ListView fragment_home_notification_Listview, fragment_home_detection_Listview, fragment_home_log_Listview;
     Adapter_notification_listview notification_adapter;
+    Adapter_log_listview patientlogadapter;
 
     ArrayList<Notification> notifications;
     ArrayList<Patient_Log> patient_logs;
@@ -80,6 +93,49 @@ public class Fragment_home extends Fragment {
         fragment_home_detection_Listview = (ListView) view.findViewById(R.id.fragment_home_detection_Listview);
 
         fragment_home_log_Listview = (ListView) view.findViewById(R.id.fragment_home_log_Listview);
+        fragment_home_log_Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String p_id  = patient_logs.get(position).getP_id();
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.w("RES",response);
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+                            if(success){
+                                String h_id = jsonResponse.getString("h_id");
+                                String p_id = jsonResponse.getString("p_id");
+                                String p_name = jsonResponse.getString("p_name");
+                                String p_gender = jsonResponse.getString("p_gender");
+                                String p_ward = jsonResponse.getString("p_ward");
+                                String p_NOK = jsonResponse.getString("p_NOK");
+                                String p_NOK_phone = jsonResponse.getString("p_NOK_phone");
+                                String p_admin = jsonResponse.getString("p_admin");
+                                String p_addr = jsonResponse.getString("p_addr");
+                                String p_qr = jsonResponse.getString("p_qr");
+                                String p_image = jsonResponse.getString("p_image");
+                                int p_age = Integer.parseInt(jsonResponse.getString("p_age"));
+                                String p_birth =  jsonResponse.getString("p_birth");
+                                Patient patient = new Patient(h_id, p_id, p_name, p_gender, p_ward, p_NOK, p_NOK_phone, p_admin, p_addr,p_image, p_qr, p_age, p_birth);
+
+                                Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Patient_Detail.class);
+                                intent.putExtra("Patient",  patient);
+                                startActivity(intent);
+
+                            }else{
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                PatientRequest_p_id patientRequest = new PatientRequest_p_id(p_id, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                queue.add(patientRequest);
+            }
+        });
 
         initWeeklyRoster(view);
         return view;
@@ -141,8 +197,38 @@ public class Fragment_home extends Fragment {
 
     }
 
-    private void getLogs() {
-
+    private void getLogs(){
+        String h_id = hospital.getH_id();
+        patient_logs = new ArrayList<>();
+        patientlogadapter = new Adapter_log_listview(getActivity().getApplicationContext(),patient_logs);
+        fragment_home_log_Listview.setAdapter(patientlogadapter);
+        Response.Listener<String> responseListener  = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.w("Res",response);
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONArray jsonArray = jsonResponse.getJSONArray("log");
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        String seq = item.getString("seq");
+                        String u_id = item.getString("u_id");
+                        String p_id = item.getString("p_id");
+                        String p_name = item.getString("p_name");
+                        String u_name = item.getString("u_name");
+                        String pl_contents = item.getString("pl_contents");
+                        String pl_time = item.getString("pl_time");
+                        patient_logs.add(new Patient_Log(seq, p_id,p_name, u_id,u_name, pl_contents, pl_time));
+                    }
+                    patientlogadapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        PatientLogRequest_hid patientLogRequest_hid = new PatientLogRequest_hid(h_id,responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        queue.add(patientLogRequest_hid);
     }
 
 

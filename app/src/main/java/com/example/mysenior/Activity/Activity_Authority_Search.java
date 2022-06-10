@@ -35,7 +35,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+액티비티 클래스
 
+이름 :  Activity_Authority_List
+역할 : 사용자가 접근 가능한 병원에 대해 권한을 확인하고 이를 목록으로 확인
+기능 :
+    1) 병원에 대한 권한 접근
+        - 사용자가 권한을 부여받은 경우 -> 병원 페이지로 연결됨 (Activity_Hospital)
+        - 사용자가 권한을 확인받지 못한 경우 -> 병원 접근 거부
+    2) 병원에 대한 권한 취소
+        - 아이템을 길게 눌러 접근 권한을 삭제
+    3) 병원에 대한 권한 신청서 작성을 위한 병원 검색 화면으로 연결 (Activity_Authority_Search)
+특이사항 : -
+ */
 public class Activity_Authority_Search extends AppCompatActivity {
     public static Activity activity_authority_search;
     EditText authoritySearch_hospitalsearch;

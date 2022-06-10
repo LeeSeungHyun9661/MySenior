@@ -25,6 +25,7 @@
         android:text="환자 추가하기"/>
 
         <GridView
+            android:gravity="center"
             android:id="@+id/fragment_patient_gridView"
             android:numColumns="2"
             android:layout_width="wrap_content"

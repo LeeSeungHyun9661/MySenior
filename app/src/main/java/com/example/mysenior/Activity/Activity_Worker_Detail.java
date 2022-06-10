@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import java.util.GregorianCalendar;
 
 public class Activity_Worker_Detail  extends Activity {
     TextView worker_detail_category,worker_detail_name,worker_detail_position,worker_detail_department;
+    ImageView worker_detail_image;
     Button worker_detail_remove;
     User worker;
 
@@ -44,6 +46,10 @@ public class Activity_Worker_Detail  extends Activity {
 
         Intent intent = getIntent();
         worker = (User)intent.getSerializableExtra("Worker");
+
+        worker_detail_image = (ImageView) findViewById(R.id.worker_detail_image);
+        if (worker.getU_image().equals("")) worker_detail_image.setImageResource(R.drawable.default_user);
+        else worker_detail_image.setImageBitmap(worker.getU_imageBitmap());
 
         worker_detail_category = (TextView) findViewById(R.id.worker_detail_category);
         if(worker.getIsAdmin() == 1){

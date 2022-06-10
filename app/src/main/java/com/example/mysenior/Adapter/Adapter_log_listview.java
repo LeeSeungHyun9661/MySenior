@@ -50,7 +50,7 @@ public class Adapter_log_listview extends BaseAdapter {
         TextView item_log_date = (TextView)view.findViewById(R.id.item_log_date);
         TextView item_log_content = (TextView)view.findViewById(R.id.item_log_content);
 
-        item_log_name.setText(log.getU_name());
+        item_log_name.setText(log.getP_name());
         item_log_date.setText(log.getPl_time());
         item_log_content.setText(log.getPl_contents());
 
