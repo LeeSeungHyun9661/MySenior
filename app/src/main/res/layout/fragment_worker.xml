@@ -11,25 +11,30 @@
         android:gravity="center|top"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/fragment_worker_search"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="직원 검색"
-            android:textSize="30dp"/>
-
-        <Button
-            android:id="@+id/fragment_worker_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="신청 확인"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <EditText
+                android:layout_weight="1"
+                android:id="@+id/fragment_worker_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="직원 검색"
+                android:textSize="20dp"/>
+            <Button
+                android:id="@+id/fragment_worker_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신청 확인"/>
+        </LinearLayout>
         <GridView
             android:id="@+id/fragment_worker_gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:numColumns="2"/>
-
+            android:numColumns="3"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

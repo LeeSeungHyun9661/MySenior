@@ -21,11 +21,11 @@
             android:layout_height="250dp"
             android:scaleType="centerCrop"/>
 
-        <TextView
-            android:id="@+id/worker_detail_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
         <TextView
             android:layout_weight="1"
             android:id="@+id/worker_detail_name"
@@ -36,6 +36,14 @@
             android:hint="직원 이름"
             android:textColor="@color/thema4"
             android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/worker_detail_category"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_gravity="left|center"/>
+
+    </LinearLayout>
 
         <TextView
             android:layout_weight="1"

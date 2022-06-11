@@ -174,8 +174,8 @@ public class Fragment_patient extends Fragment {
                         int p_age = Integer.parseInt(item.getString("p_age"));
                         String p_birth =  item.getString("p_birth");
                         patientArrayList.add(new Patient(h_id, p_id, p_name, p_gender, p_ward, p_NOK, p_NOK_phone, p_admin, p_addr,p_image, p_qr, p_age, p_birth));
-                        patient_gridview_adapter.notifyDataSetChanged();
                     }
+                    patient_gridview_adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

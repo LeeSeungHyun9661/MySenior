@@ -22,11 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="병원 검색"
-            android:textColorHint="@color/thema3"
+            android:textColorHint="@color/thema4"
             android:textColor="@color/thema4"
             android:ems="20"
-            android:textSize="30dp"
-            android:background="@drawable/border"
+            android:textSize="20dp"
             android:padding="10dp"
             android:layout_marginTop="20dp"/>
 
@@ -46,8 +45,8 @@
             android:padding="10dp"
             android:text="다음"
             android:textSize="20dp"
-            android:textColor="@color/thema4"
-            android:background="@drawable/roundborder"
+            android:textColor="@color/thema2"
+            android:background="@color/thema4"
             android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="20dp"/>
     </LinearLayout>

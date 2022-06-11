@@ -35,13 +35,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Fragment_worker extends Fragment {
-    User user;
-    Hospital hospital;
-    EditText fragment_worker_search;
-    ArrayList<User> userArrayList;
-    GridView fragment_worker_gridview;
-    Adapter_worker_gridview worker_gridview_adapter;
-    Button fragment_worker_add;
+    private User user;
+    private Hospital hospital;
+    private EditText fragment_worker_search;
+    private ArrayList<User> userArrayList;
+    private GridView fragment_worker_gridview;
+    private Adapter_worker_gridview worker_gridview_adapter;
+    private Button fragment_worker_add;
 
     public Fragment_worker(User user, Hospital hospital) {
         this.hospital = hospital;
@@ -67,8 +67,6 @@ public class Fragment_worker extends Fragment {
                 String search = fragment_worker_search.getText().toString();
                 if (search.length() >= 2) {
                     searchWorker(search);
-                } else {
-                    getWorker();
                 }
             }
         });
@@ -124,8 +122,8 @@ public class Fragment_worker extends Fragment {
                         String department = item.getString("department");
                         int isadmin = item.getInt("isadmin");
                         userArrayList.add(new User(a_id, u_id, u_name, h_id, position, department, u_image, isadmin));
-                        worker_gridview_adapter.notifyDataSetChanged();
                     }
+                    worker_gridview_adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -159,8 +157,8 @@ public class Fragment_worker extends Fragment {
                         String department = item.getString("department");
                         int isadmin = item.getInt("isadmin");
                         userArrayList.add(new User(a_id, u_id, u_name, h_id, position, department, u_image, isadmin));
-                        worker_gridview_adapter.notifyDataSetChanged();
                     }
+                    worker_gridview_adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

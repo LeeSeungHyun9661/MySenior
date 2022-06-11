@@ -75,8 +75,8 @@
             android:layout_height="wrap_content"
             android:text="시작하기"
             android:gravity="center"
-            android:textColor="@color/thema4"
-            android:background="@color/thema3"
+            android:textColor="@color/thema2"
+            android:background="@color/thema4"
             android:textSize="30dp"
             android:padding="10dp"/>
 

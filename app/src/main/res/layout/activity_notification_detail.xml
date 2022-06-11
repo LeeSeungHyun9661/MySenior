@@ -67,8 +67,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/thema3"/>
+            android:layout_height="2dp"
+            android:background="@color/thema4"/>
 
         <FrameLayout
             android:layout_gravity="center"
@@ -95,8 +95,8 @@
         </FrameLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/thema3"/>
+            android:layout_height="2dp"
+            android:background="@color/thema4"/>
 
         <TextView
             android:layout_width="match_parent"

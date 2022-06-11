@@ -60,7 +60,12 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/thema4"
+            app:tabTextColor="@color/thema2"
+            app:tabMode="fixed"
+            app:tabIndicatorColor="@color/thema3"
+            app:tabSelectedTextColor="@color/thema3"/>
 
         <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"

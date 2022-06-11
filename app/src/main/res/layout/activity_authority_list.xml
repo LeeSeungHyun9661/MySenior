@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:gravity="center"
-        android:padding="20dp"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
@@ -18,23 +18,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
         <TextView
-            android:layout_weight="8"
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="병원 목록"
-            android:textSize="40dp"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/thema5"/>
+            android:textSize="30dp"
+            android:textColor="@color/thema4"/>
         <Button
-            android:layout_weight="1"
             android:id="@+id/authorityList_authority_write"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="병원 추가"
-            android:background="@drawable/roundborder"/>
+            android:textSize="15dp"
+            android:textColor="@color/thema2"
+            android:background="@color/thema4"/>
     </LinearLayout>
         <ListView
             android:layout_marginTop="10dp"

@@ -60,10 +60,11 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/thema3"/>
+            android:layout_height="2dp"
+            android:background="@color/thema4"/>
 
         <Button
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="이미지 추가하기"
@@ -95,8 +96,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/thema3"/>
+            android:layout_height="2dp"
+            android:background="@color/thema4"/>
 
         <EditText
             android:layout_width="match_parent"
