@@ -225,58 +225,58 @@
                     android:id="@+id/fragment_home_roster_0"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:background="@color/thema3"/>
-                <TextView
+                    android:padding="3dp"
+                    android:background="@drawable/border_rect2"/>
+                <ImageView
                     android:id="@+id/fragment_home_roster_1"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:background="@color/thema3"/>
-                <TextView
+                    android:padding="3dp"
+                    android:background="@drawable/border_rect2"/>
+                <ImageView
                     android:id="@+id/fragment_home_roster_2"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:background="@color/thema3"/>
-                <TextView
+                    android:padding="3dp"
+                    android:background="@drawable/border_rect2"/>
+                <ImageView
                     android:id="@+id/fragment_home_roster_3"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:background="@color/thema3"/>
-                <TextView
+                    android:padding="3dp"
+                    android:background="@drawable/border_rect2"/>
+                <ImageView
                     android:id="@+id/fragment_home_roster_4"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:background="@color/thema3"/>
-                <TextView
+                    android:padding="3dp"
+                    android:background="@drawable/border_rect2"/>
+                <ImageView
                     android:id="@+id/fragment_home_roster_5"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:background="@color/thema3"/>
-                <TextView
+                    android:padding="3dp"
+                    android:background="@drawable/border_rect2"/>
+                <ImageView
                     android:id="@+id/fragment_home_roster_6"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:background="@color/thema3"/>
+                    android:padding="3dp"
+                    android:background="@drawable/border_rect2"/>
             </LinearLayout>
         </LinearLayout>
 

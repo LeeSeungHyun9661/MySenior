@@ -38,7 +38,7 @@ public class Activity_Hospital extends AppCompatActivity {
         setContentView(R.layout.activity_hospital);
 
         hospital_image = (ImageView) findViewById(R.id.hospital_image);
-        if (Global.getInstance().getHospital().getH_image().equals("null")) hospital_image.setImageResource(R.drawable.no_image);
+        if (Global.getInstance().getHospital().getH_image().equals("")) hospital_image.setImageResource(R.drawable.no_image);
         else hospital_image.setImageBitmap(Global.getInstance().getHospital().getH_imageBitmap());
         hospital_image.setOnClickListener(new View.OnClickListener() {
             @Override

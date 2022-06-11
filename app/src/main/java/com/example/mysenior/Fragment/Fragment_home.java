@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import com.example.mysenior.Request.PatientLogRequest;
 import com.example.mysenior.Request.PatientLogRequest_hid;
 import com.example.mysenior.Request.PatientRequest;
 import com.example.mysenior.Request.PatientRequest_p_id;
+import com.example.mysenior.Request.WeeklyRosterRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +46,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,7 +60,10 @@ public class Fragment_home extends Fragment {
 
     ArrayList<Notification> notifications;
     ArrayList<Patient_Log> patient_logs;
+    ArrayList<String> weeklyRoster;
     ArrayList<Monitor_Detaction> detactionArrayList;
+    ArrayList<TextView> date_textviews;
+    ArrayList<ImageView> roster_imageviews;
 
     public Fragment_home(User user, Hospital hospital){
         this.user = user;
@@ -145,7 +151,6 @@ public class Fragment_home extends Fragment {
     public void onResume() {
         super.onResume();
         getNotifications();
-        getRoster();
         getDetactions();
         getLogs();
     }
@@ -189,8 +194,50 @@ public class Fragment_home extends Fragment {
         queue.add(notificationRequest);
     }
 
-    private void getRoster() {
+    private void getWeeklyRoster(int year, int month, int startDay) {
+        weeklyRoster = new ArrayList<>();
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.w("RESPONSE",response);
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONArray jsonArray = jsonResponse.getJSONArray("roster");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        String r_type = item.getString("r_type");
+                        weeklyRoster.add(r_type);
+                    }
+                    for (int i=0; i<7; i++){
+                        date_textviews.get(i).setText(Integer.toString(startDay+i));
+                        switch (weeklyRoster.get(i)){
+                            case "D":
+                                roster_imageviews.get(i).setImageResource(R.drawable.roster_d);
+                                break;
+                            case "O":
+                                roster_imageviews.get(i).setImageResource(R.drawable.roster_o);
+                                break;
+                            case "E":
+                                roster_imageviews.get(i).setImageResource(R.drawable.roster_e);
+                                break;
+                            case "N":
+                                roster_imageviews.get(i).setImageResource(R.drawable.roster_n);
+                                break;
+                            default:
+                                roster_imageviews.get(i).setImageResource(R.drawable.roster_x);
+                                break;
+                        }
+                    }
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        String startdayString = Integer.toString(year) + "-" + Integer.toString(month+1) + "-" + Integer.toString(startDay);
+        WeeklyRosterRequest weeklyRosterRequest = new WeeklyRosterRequest(Global.getInstance().getHospital().getH_id(),Global.getInstance().getUser().getU_id(),startdayString, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        queue.add(weeklyRosterRequest);
     }
 
     private void getDetactions() {
@@ -205,7 +252,6 @@ public class Fragment_home extends Fragment {
         Response.Listener<String> responseListener  = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.w("Res",response);
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("log");
@@ -239,22 +285,27 @@ public class Fragment_home extends Fragment {
         int startDay = getStartdayofWeek();
 
         TextView fragment_home_year_month = (TextView) view.findViewById(R.id.fragment_home_year_month);
-        fragment_home_year_month.setText(Integer.toString(year) + "-" + Integer.toString(month));
+        fragment_home_year_month.setText(Integer.toString(year) + "년 " + Integer.toString(month+1) + "월");
 
-        TextView fragment_home_date_0 = (TextView) view.findViewById(R.id.fragment_home_date_0);
-        fragment_home_date_0.setText(Integer.toString(startDay));
-        TextView fragment_home_date_1 = (TextView) view.findViewById(R.id.fragment_home_date_1);
-        fragment_home_date_1.setText(Integer.toString(startDay+1));
-        TextView fragment_home_date_2 = (TextView) view.findViewById(R.id.fragment_home_date_2);
-        fragment_home_date_2.setText(Integer.toString(startDay+2));
-        TextView fragment_home_date_3 = (TextView) view.findViewById(R.id.fragment_home_date_3);
-        fragment_home_date_3.setText(Integer.toString(startDay+3));
-        TextView fragment_home_date_4 = (TextView) view.findViewById(R.id.fragment_home_date_4);
-        fragment_home_date_4.setText(Integer.toString(startDay+4));
-        TextView fragment_home_date_5 = (TextView) view.findViewById(R.id.fragment_home_date_5);
-        fragment_home_date_5.setText(Integer.toString(startDay+5));
-        TextView fragment_home_date_6 = (TextView) view.findViewById(R.id.fragment_home_date_6);
-        fragment_home_date_6.setText(Integer.toString(startDay+6));
+        date_textviews = new ArrayList<>(Arrays.asList(
+                (TextView) view.findViewById(R.id.fragment_home_date_0),
+                (TextView) view.findViewById(R.id.fragment_home_date_1),
+                (TextView) view.findViewById(R.id.fragment_home_date_2),
+                (TextView) view.findViewById(R.id.fragment_home_date_3),
+                (TextView) view.findViewById(R.id.fragment_home_date_4),
+                (TextView) view.findViewById(R.id.fragment_home_date_5),
+                (TextView) view.findViewById(R.id.fragment_home_date_6)
+        ));
+        roster_imageviews = new ArrayList<>(Arrays.asList(
+                (ImageView) view.findViewById(R.id.fragment_home_roster_0),
+                (ImageView) view.findViewById(R.id.fragment_home_roster_1),
+                (ImageView) view.findViewById(R.id.fragment_home_roster_2),
+                (ImageView) view.findViewById(R.id.fragment_home_roster_3),
+                (ImageView) view.findViewById(R.id.fragment_home_roster_4),
+                (ImageView) view.findViewById(R.id.fragment_home_roster_5),
+                (ImageView) view.findViewById(R.id.fragment_home_roster_6)
+        ));
+        getWeeklyRoster(year,month,startDay);
     }
     private int getStartdayofWeek(){
         Calendar currentDate = Calendar.getInstance();
