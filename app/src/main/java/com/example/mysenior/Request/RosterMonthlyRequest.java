@@ -7,17 +7,18 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WeeklyRosterRequest extends StringRequest {
+public class RosterMonthlyRequest extends StringRequest {
 
-    final static private String URL = "https://dippingai.com/mysenior/getWeeklyRoster.php";
+    final static private String URL = "https://dippingai.com/mysenior/getMonthlyRoster.php";
     private Map<String, String> parameters;
 
-    public WeeklyRosterRequest(String h_id, String u_id,String r_date, Response.Listener<String> listener) {
+    public RosterMonthlyRequest(String h_id, String u_id, String startday,String endday, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
-        parameters.put("r_date", r_date);
         parameters.put("h_id", h_id);
         parameters.put("u_id", u_id);
+        parameters.put("startday", startday);
+        parameters.put("endday", endday);
     }
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {

@@ -11,18 +11,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.mysenior.Activity.Activity_Authority_List;
 import com.example.mysenior.Activity.Activity_Notification_List;
 import com.example.mysenior.Activity.Activity_Notification_Detail;
 import com.example.mysenior.Activity.Activity_Patient_Detail;
-import com.example.mysenior.Activity.Activity_Patient_Log;
 import com.example.mysenior.Adapter.Adapter_log_listview;
 import com.example.mysenior.Adapter.Adapter_notification_listview;
 import com.example.mysenior.DTO.Hospital;
@@ -34,11 +31,9 @@ import com.example.mysenior.DTO.User;
 import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.NotificationRequest;
-import com.example.mysenior.Request.PatientLogRequest;
 import com.example.mysenior.Request.PatientLogRequest_hid;
-import com.example.mysenior.Request.PatientRequest;
 import com.example.mysenior.Request.PatientRequest_p_id;
-import com.example.mysenior.Request.WeeklyRosterRequest;
+import com.example.mysenior.Request.RosterWeeklyRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -199,7 +194,6 @@ public class Fragment_home extends Fragment {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.w("RESPONSE",response);
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("roster");
@@ -235,9 +229,9 @@ public class Fragment_home extends Fragment {
             }
         };
         String startdayString = Integer.toString(year) + "-" + Integer.toString(month+1) + "-" + Integer.toString(startDay);
-        WeeklyRosterRequest weeklyRosterRequest = new WeeklyRosterRequest(Global.getInstance().getHospital().getH_id(),Global.getInstance().getUser().getU_id(),startdayString, responseListener);
+        RosterWeeklyRequest rosterWeeklyRequest = new RosterWeeklyRequest(Global.getInstance().getHospital().getH_id(),Global.getInstance().getUser().getU_id(),startdayString, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        queue.add(weeklyRosterRequest);
+        queue.add(rosterWeeklyRequest);
     }
 
     private void getDetactions() {
