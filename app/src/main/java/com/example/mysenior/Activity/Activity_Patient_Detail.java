@@ -47,7 +47,7 @@ import java.util.ArrayList;
 public class Activity_Patient_Detail extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 99;
-    ImageView patient_detail_image;
+    ImageView patient_detail_image,patient_detail_image_change;
     TextView patient_detail_fix, patient_detail_delete, patient_detail_name, patient_detail_id, patient_detail_age, patient_detail_gender,
             patient_detail_birthday, patient_detail_ward, patient_detail_NOK, patient_detail_NOK_phone, patient_detail_addr, patient_detail_log_more;
     EditText patient_detial_add_log;
@@ -73,7 +73,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                     patient = (Patient) intent.getSerializableExtra("Patient");
 
                     if (patient.getP_image() == null) {
-                        patient_detail_image.setImageResource(R.drawable.default_user);
+                        patient_detail_image.setImageResource(R.drawable.default_user_128);
                     } else {
                         patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
                     }
@@ -93,7 +93,8 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         });
 
         patient_detail_image = (ImageView) findViewById(R.id.patient_detail_image);
-        patient_detail_image.setOnClickListener(new View.OnClickListener() {
+        patient_detail_image_change = (ImageView) findViewById(R.id.patient_detail_image_change);
+        patient_detail_image_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -102,9 +103,8 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
-        patient_detail_image.setImageResource(R.drawable.default_user);
 
-        if (patient.getP_image().equals("")) patient_detail_image.setImageResource(R.drawable.default_user);
+        if (patient.getP_image().equals("")) patient_detail_image.setImageResource(R.drawable.default_user_128);
         else patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
 
         patient_detail_fix = (TextView) findViewById(R.id.patient_detail_fix);

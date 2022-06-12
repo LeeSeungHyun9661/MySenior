@@ -49,7 +49,7 @@ public class Adapter_patient_gridview extends BaseAdapter {
         TextView item_patient_gender = (TextView)view.findViewById(R.id.item_patient_gender);
         TextView item_patient_age = (TextView)view.findViewById(R.id.item_patient_age);
 
-        if (patientArrayList.get(position).getP_image().equals("")) item_patient_image.setImageResource(R.drawable.default_user);
+        if (patientArrayList.get(position).getP_image().equals("")) item_patient_image.setImageResource(R.drawable.default_user_64);
         else item_patient_image.setImageBitmap(patientArrayList.get(position).getP_imageBitmap());
 
         item_patient_name.setText(patientArrayList.get(position).getP_name());

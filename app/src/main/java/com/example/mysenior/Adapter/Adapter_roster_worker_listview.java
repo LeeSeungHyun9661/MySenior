@@ -52,7 +52,7 @@ public class Adapter_roster_worker_listview extends BaseAdapter {
         TextView item_roster_worker_position = (TextView)view.findViewById(R.id.item_roster_worker_position);
         ImageView item_roster_worker_roster = (ImageView)view.findViewById(R.id.item_roster_worker_roster);
 
-        if (workerArrayList.get(position).getU_image().equals("")) item_roster_worker_image.setImageResource(R.drawable.default_worker);
+        if (workerArrayList.get(position).getU_image().equals("")) item_roster_worker_image.setImageResource(R.drawable.default_worker_64);
         else item_roster_worker_image.setImageBitmap(workerArrayList.get(position).getU_imageBitmap());
 
         item_roster_worker_name.setText(workerArrayList.get(position).getU_name());

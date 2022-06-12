@@ -11,13 +11,13 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_worker_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/hospital_test" />
+            android:src="@drawable/default_worker_64" />
 
         <View
             android:layout_width="80dp"

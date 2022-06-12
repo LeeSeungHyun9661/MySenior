@@ -27,7 +27,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class Activity_Hospital extends AppCompatActivity {
 
-    ImageView hospital_image;
+    ImageView hospital_image,hospital_image_change;
     TextView hospital_name;
     PagerAdapter adapter_viewpager;
 
@@ -38,6 +38,8 @@ public class Activity_Hospital extends AppCompatActivity {
         setContentView(R.layout.activity_hospital);
 
         hospital_image = (ImageView) findViewById(R.id.hospital_image);
+        hospital_image_change = (ImageView) findViewById(R.id.hospital_image_change);
+
         if (Global.getInstance().getHospital().getH_image().equals("")) hospital_image.setImageResource(R.drawable.no_image);
         else hospital_image.setImageBitmap(Global.getInstance().getHospital().getH_imageBitmap());
         hospital_image.setOnClickListener(new View.OnClickListener() {

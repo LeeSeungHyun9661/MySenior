@@ -34,7 +34,7 @@ import java.util.GregorianCalendar;
 
 public class Activity_Worker_Detail  extends Activity {
     TextView worker_detail_name,worker_detail_position,worker_detail_department;
-    ImageView worker_detail_image,worker_detail_category;
+    ImageView worker_detail_image,worker_detail_category,worker_detail_image_change;
     Button worker_detail_remove;
     User worker;
 
@@ -48,8 +48,11 @@ public class Activity_Worker_Detail  extends Activity {
         worker = (User)intent.getSerializableExtra("Worker");
 
         worker_detail_image = (ImageView) findViewById(R.id.worker_detail_image);
-        if (worker.getU_image().equals("")) worker_detail_image.setImageResource(R.drawable.default_worker);
+        if (worker.getU_image().equals("")) worker_detail_image.setImageResource(R.drawable.default_worker_128);
         else worker_detail_image.setImageBitmap(worker.getU_imageBitmap());
+
+
+        worker_detail_image_change = (ImageView) findViewById(R.id.worker_detail_image_change);
 
         worker_detail_category = (ImageView) findViewById(R.id.worker_detail_category);
         if(worker.getIsAdmin() == 1) worker_detail_category.setImageResource(R.drawable.icon_admin);
