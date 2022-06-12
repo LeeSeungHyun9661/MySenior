@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,11 +21,14 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.example.mysenior.Adapter.Adapter_roster_worker_listview;
+import com.example.mysenior.Adapter.Adapter_worker_gridview;
 import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.User;
 import com.example.mysenior.Global;
 import com.example.mysenior.R;
 import com.example.mysenior.Request.RosterMonthlyRequest;
+import com.example.mysenior.Request.RosterWorkerRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,9 +42,12 @@ public class Fragment_roster extends Fragment {
     User user;
     Hospital hospital;
     CalendarView roster_calendarview;
+    TextView roster_date;
     List<EventDay> events;
     Calendar calendar;
-    int move;
+    private ArrayList<User> userArrayList;
+    private ListView fragment_roster_listview;
+    private Adapter_roster_worker_listview roster_worker_adapter;
 
     public Fragment_roster(User user, Hospital hospital) {
         this.hospital = hospital;
@@ -47,22 +56,36 @@ public class Fragment_roster extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_roster, container, false);
-        move = 0;
 
+        roster_date = (TextView) view.findViewById(R.id.roster_date);
         roster_calendarview = (CalendarView) view.findViewById(R.id.roster_calendarview);
+        fragment_roster_listview = (ListView) view.findViewById(R.id.fragment_roster_listview);
+
         calendar = Calendar.getInstance();
-//        getMonthlyRoster();
+        roster_calendarview.setOnDayClickListener(new OnDayClickListener() {
+            @Override
+            public void onDayClick(EventDay eventDay) {
+                Calendar clickedCalendar = eventDay.getCalendar();
+                int year = clickedCalendar.get(Calendar.YEAR);
+                int month = clickedCalendar.get(Calendar.MONTH)+1;
+                int day = clickedCalendar.get(Calendar.DATE);
+                String ClickedDate = Integer.toString(year) + "년 " + Integer.toString(month) + "월 " + Integer.toString(day) + "일";
+                roster_date.setText(ClickedDate);
+                getWorkerRoster(year, month, day);
+            }
+        });
+
         roster_calendarview.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
             @Override
             public void onChange() {
-                calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1);
+                calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
                 getMonthlyRoster();
             }
         });
         roster_calendarview.setOnForwardPageChangeListener(new OnCalendarPageChangeListener() {
             @Override
             public void onChange() {
-                calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)+1);
+                calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + 1);
                 getMonthlyRoster();
             }
         });
@@ -73,14 +96,10 @@ public class Fragment_roster extends Fragment {
         //이벤트 리스트 초기화
         events = new ArrayList<>();
         //지정한 년월에 대해 첫째 날로 초기화
-        Log.w("ADMINISTRATOR","일자를 첫 일자로 변경");
-        calendar.set(Calendar.DATE,calendar.getMinimum(DAY_OF_MONTH));
+        calendar.set(Calendar.DATE, calendar.getMinimum(DAY_OF_MONTH));
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH)+1;
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DATE);
-        Log.w("ADMINISTRATOR : 변경 년",Integer.toString(calendar.get(Calendar.YEAR)));
-        Log.w("ADMINISTRATOR : 변경 월",Integer.toString(calendar.get(Calendar.MONTH)));
-        Log.w("ADMINISTRATOR : 변경 일",Integer.toString(calendar.get(Calendar.DATE)));
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -88,11 +107,10 @@ public class Fragment_roster extends Fragment {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("roster");
-                    Log.w("ADMINISTRATOR : ","서버에서 받아온 데이터 배열");
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         Calendar res_cal = Calendar.getInstance();
-                        res_cal.set(year,month-1,day);
+                        res_cal.set(year, month - 1, day);
 
                         res_cal.add(Calendar.DAY_OF_MONTH, i);
                         String res_year = Integer.toString(res_cal.get(Calendar.YEAR));
@@ -101,7 +119,6 @@ public class Fragment_roster extends Fragment {
 
                         JSONObject item = jsonArray.getJSONObject(i);
                         String r_type = item.getString("r_type");
-                        Log.w("ADMINISTRATOR : 데이터 값 ", res_year+ "-" + res_month + "-" + res_day + ": " + r_type);
                         switch (r_type) {
                             case "D":
                                 events.add(new EventDay(res_cal, R.drawable.roster_d));
@@ -132,6 +149,47 @@ public class Fragment_roster extends Fragment {
         RosterMonthlyRequest monthlyRosterRequest = new RosterMonthlyRequest(Global.getInstance().getHospital().getH_id(), Global.getInstance().getUser().getU_id(), startday, endday, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         queue.add(monthlyRosterRequest);
+    }
+
+    private void getWorkerRoster(int year, int month, int day) {
+        userArrayList = new ArrayList<>();
+        roster_worker_adapter = new Adapter_roster_worker_listview(getActivity(), userArrayList);
+        fragment_roster_listview.setAdapter(roster_worker_adapter);
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    System.out.print(response);
+                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONArray jsonArray = jsonResponse.getJSONArray("worker");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        String a_id = item.getString("a_id");
+                        String u_id = item.getString("u_id");
+                        String u_name = item.getString("u_name");
+                        String u_image = item.getString("u_image");
+                        String h_id = item.getString("h_id");
+                        String position = item.getString("position");
+                        String department = item.getString("department");
+                        int isadmin = item.getInt("isadmin");
+                        String r_type = item.getString("r_type");
+                        if(!r_type.equals("")){
+                            User wokrer = new User(a_id, u_id, u_name, h_id, position, department, u_image, isadmin);
+                            wokrer.setRoster(r_type);
+                            userArrayList.add(wokrer);
+                        }
+                    }
+                    roster_worker_adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        String searchday = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
+        Log.w("RESPONSE",searchday);
+        RosterWorkerRequest rosterWorkerRequest = new RosterWorkerRequest(Global.getInstance().getHospital().getH_id(), searchday, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        queue.add(rosterWorkerRequest);
     }
 
     @Override

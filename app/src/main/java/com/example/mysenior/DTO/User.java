@@ -14,6 +14,7 @@ public class User implements Serializable {
     String position; //사용자 직책
     String department; //사용자 소속
     String u_image; //사용자 소속
+    String r_type;
     int isAdmin; //사용자가 관리자인지 아닌지
 
     public User(){
@@ -84,5 +85,12 @@ public class User implements Serializable {
             e.getMessage();
             return null;
         }
+    }
+    public void setRoster(String r_type){
+        this.r_type = r_type;
+    }
+
+    public String getRoster(){
+        return r_type;
     }
 }

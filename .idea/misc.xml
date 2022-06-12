@@ -41,7 +41,7 @@
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_monitor.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_patient.xml" value="0.25" />
-        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_roster.xml" value="0.2" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_roster.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_work.xml" value="0.1633176571184267" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/fragment_worker.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_application_list.xml" value="0.33" />
@@ -53,6 +53,7 @@
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_notification_noitem.xml" value="0.25" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_patient_list.xml" value="0.3983402489626556" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_patient_log.xml" value="0.33" />
+        <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_roster_worker_list.xml" value="0.5" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_viewpager_frame.xml" value="0.19" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_viewpager_image.xml" value="0.1464688675302967" />
         <entry key="..\:/Users/dlrjf/AndroidStudioProjects/MySenior/app/src/main/res/layout/item_worker_authority.xml" value="0.25" />

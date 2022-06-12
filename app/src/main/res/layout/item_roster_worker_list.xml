@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <LinearLayout
+        android:id="@+id/item_worker_layout_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/thema2"
+        android:orientation="horizontal"
+        android:gravity="center|left">
+
+        <ImageView
+            android:id="@+id/item_roster_worker_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/hospital_test" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:background="@color/thema4"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/thema2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_roster_worker_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="김둘리"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:id="@+id/item_roster_worker_roster"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="top"
+                    android:src="@drawable/roster_d"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_roster_worker_department"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="소속"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/item_roster_worker_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="직책"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
