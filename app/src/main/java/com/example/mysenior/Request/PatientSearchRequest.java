@@ -6,7 +6,17 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
 import java.util.Map;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+리퀘스트 클래스
 
+이름 : PatientSearchRequest
+역할 : 환자 검색에 따른 결과 요청
+ */
 public class PatientSearchRequest extends StringRequest {
 
     final static private String URL = "https://dippingai.com/mysenior/searchPatient.php";

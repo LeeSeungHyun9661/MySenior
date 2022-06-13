@@ -19,15 +19,25 @@ import com.example.mysenior.DTO.User;
 import com.example.mysenior.R;
 
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+어댑터 클래스
 
-public class Adapter_authority_listview extends BaseAdapter {
+이름 : Adapter_AuthorityListview
+역할 :병원에 대한 사용자의 권한 리스트뷰를 처리할 어댑터
+ */
+public class Adapter_AuthorityListview extends BaseAdapter {
 
     Context context = null;
     LayoutInflater layoutInflater = null;
     ArrayList<Authority> authorityArrayList;
     ArrayList<Hospital> hospitalArrayList;
 
-    public Adapter_authority_listview(Context context, ArrayList<Authority> authorityArrayList,ArrayList<Hospital> hospitalArrayList) {
+    public Adapter_AuthorityListview(Context context, ArrayList<Authority> authorityArrayList, ArrayList<Hospital> hospitalArrayList) {
         this.authorityArrayList = authorityArrayList;
         this.hospitalArrayList = hospitalArrayList;
         this.context = context;
@@ -66,12 +76,13 @@ public class Adapter_authority_listview extends BaseAdapter {
         item_authority_list_department.setText(authorityArrayList.get(position).getDepartment());
         item_authority_list_position.setText(authorityArrayList.get(position).getPosition());
 
+        //병원 권한에 따라 다르게 표현하는 부분
         if(authorityArrayList.get(position).isCheck()){
         }else{
             item_authority_list_h_name.setBackgroundResource(R.drawable.border_disable);
             item_authority_list_department.setBackgroundResource(R.drawable.border_disable);
             item_authority_list_position.setBackgroundResource(R.drawable.border_disable);
-            view.setBackgroundResource(R.drawable.roundborder_disable);
+            view.setBackgroundResource(R.drawable.disable);
         }
         return view;
     }

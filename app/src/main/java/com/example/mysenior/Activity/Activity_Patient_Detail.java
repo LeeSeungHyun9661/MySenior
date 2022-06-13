@@ -9,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +23,9 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.mysenior.Adapter.Adapter_log_listview;
+import com.example.mysenior.Adapter.Adapter_LogListview;
+import com.example.mysenior.BitmapController;
+import com.example.mysenior.CODES;
 import com.example.mysenior.DTO.Patient;
 import com.example.mysenior.DTO.Patient_Log;
 import com.example.mysenior.Global;
@@ -40,31 +39,52 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+액티비티 클래스
 
+이름 : Activity_Patient_Detail
+역할 : 환자의 상세 정보를 확인할 수 있는 페이지
+기능 :
+    1) 사용자 권한에 따라 사용자가 수정 및 제거가 가능함
+    2) 사용자에게 기록을 남기긱 가능
+특이사항 :
+    - 환자 제거의 경우 연결된 로그와 병원 서버에 연결된 환자 이미지 또한 삭제할 수 있도록 기능 추가 예정
+    - 환자 추가에 따른 객체 인식을 위한 데이터를 병원에 설치된 프로그램으로 보낼 수 있도록 조정할 예정
+ */
 public class Activity_Patient_Detail extends AppCompatActivity {
 
-    private static final int REQUEST_CODE = 99;
-    ImageView patient_detail_image,patient_detail_image_change;
-    TextView patient_detail_fix, patient_detail_delete, patient_detail_name, patient_detail_id, patient_detail_age, patient_detail_gender,
-            patient_detail_birthday, patient_detail_ward, patient_detail_NOK, patient_detail_NOK_phone, patient_detail_addr, patient_detail_log_more;
-    EditText patient_detial_add_log;
-    Button patient_detial_add_log_button;
-    ListView patient_detail_log_listview;
-    Adapter_log_listview patientlogadapter;
-    ArrayList<Patient_Log> patient_logs;
-    Patient patient;
-    ActivityResultLauncher<Intent> launcher;
+    private ImageView imageview_imagepatient, imageview_imageChange;
+    private TextView textview_fix, textview_delete, textview_name, textview_pid, textview_age, textview_gender,
+            textview_birthday, textview_ward, textview_NOK, textview_NOKPhone, textview_addr, textview_logs;
+    private EditText edittext_addLog;
+    private Button button_addLog;
+    private ListView listview_logs;
+    private Adapter_LogListview adapter_loglistview;
+    private ArrayList<Patient_Log> logs;
+    private Patient patient;
+    private ActivityResultLauncher<Intent> launcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_detail);
+        
+        setUI();
 
         Intent intent = getIntent();
         patient = (Patient) intent.getSerializableExtra("Patient");
+
+        //환자 이미지가 없을 경우 기본 이미지를, 아니면 환자 이미지를 표시한다.
+        if (patient.getP_image().equals("")) imageview_imagepatient.setImageResource(R.drawable.default_user_128);
+        else imageview_imagepatient.setImageBitmap(patient.getP_imageBitmap());
+
+        //환자 정보 수정 시에 반환된 수정값을 받아 액티비티를 수정하는 기능
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -73,45 +93,46 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                     patient = (Patient) intent.getSerializableExtra("Patient");
 
                     if (patient.getP_image() == null) {
-                        patient_detail_image.setImageResource(R.drawable.default_user_128);
+                        imageview_imagepatient.setImageResource(R.drawable.default_user_128);
                     } else {
-                        patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
+                        imageview_imagepatient.setImageBitmap(patient.getP_imageBitmap());
                     }
-                    patient_detail_NOK_phone.setText(patient.getP_NOK_phone());
-                    patient_detail_NOK.setText(patient.getP_NOK());
-                    patient_detail_ward.setText(patient.getP_ward());
-                    patient_detail_addr.setText(patient.getP_addr());
-                    patient_detail_birthday.setText(patient.getP_birth());
-                    patient_detail_gender.setText(patient.getP_gender());
-                    patient_detail_age.setText(Integer.toString(patient.getP_age()));
-                    patient_detail_name.setText(patient.getP_name());
-                    patient_detail_id.setText(patient.getP_id());
+                    textview_NOKPhone.setText(patient.getP_NOK_phone());
+                    textview_NOK.setText(patient.getP_NOK());
+                    textview_ward.setText(patient.getP_ward());
+                    textview_addr.setText(patient.getP_addr());
+                    textview_birthday.setText(patient.getP_birth());
+                    textview_gender.setText(patient.getP_gender());
+                    textview_age.setText(Integer.toString(patient.getP_age()));
+                    textview_name.setText(patient.getP_name());
+                    textview_pid.setText(patient.getP_id());
                 } else if (false) {
 
                 }
             }
         });
 
-        patient_detail_image = (ImageView) findViewById(R.id.patient_detail_image);
-        patient_detail_image_change = (ImageView) findViewById(R.id.patient_detail_image_change);
-        patient_detail_image_change.setOnClickListener(new View.OnClickListener() {
+        //이미지 변경 버튼을 누른 경우 갤러리에 접근
+        if(Global.getInstance().getUser().getIsAdmin()){
+            imageview_imageChange.setVisibility(View.VISIBLE);
+            imageview_imageChange.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, CODES.REQUEST_CODE);
+                }
+            });
+        }else{
+            imageview_imageChange.setVisibility(View.INVISIBLE);
+        }
+
+        //수정 버튼을 눌렀을 경우 수정 페이지로 이동
+        textview_fix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, REQUEST_CODE);
-            }
-        });
-
-        if (patient.getP_image().equals("")) patient_detail_image.setImageResource(R.drawable.default_user_128);
-        else patient_detail_image.setImageBitmap(patient.getP_imageBitmap());
-
-        patient_detail_fix = (TextView) findViewById(R.id.patient_detail_fix);
-        patient_detail_fix.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( Global.getInstance().getUser().getIsAdmin() == 1) {
+                if ( Global.getInstance().getUser().getIsAdmin()) {
                     Intent intent = new Intent(Activity_Patient_Detail.this, Activity_Patient_Fix.class);
                     intent.putExtra("Patient", patient);
                     launcher.launch(intent);
@@ -121,42 +142,131 @@ public class Activity_Patient_Detail extends AppCompatActivity {
             }
         });
 
-        patient_detail_delete = (TextView) findViewById(R.id.patient_detail_delete);
-        patient_detail_delete.setOnClickListener(patientdeleteOnClickListener);
-        patient_detail_log_more = (TextView) findViewById(R.id.patient_detail_log_more);
-        patient_detail_log_more.setOnClickListener(patientLogOnClickListener);
-        patient_detial_add_log = (EditText) findViewById(R.id.patient_detial_add_log);
-        patient_detial_add_log_button = (Button) findViewById(R.id.patient_detial_add_log_button);
-        patient_detial_add_log_button.setOnClickListener(patientaddLogonClickListener);
+        //삭제 버튼을 눌렀을 경우 환자 삭제를 진행
+        textview_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Global.getInstance().getUser().getIsAdmin()) {
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(Activity_Patient_Detail.this);
+                    dlg.setTitle("삭제")
+                            .setMessage("환자 정보를 삭제하시겠습니까?")
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            })
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    String p_id = patient.getP_id();
+                                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            try {
+                                                JSONObject jsonResponse = new JSONObject(response);
+                                                boolean success = jsonResponse.getBoolean("success");
+                                                if (success) {
+                                                    finish();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    };
+                                    PatientDeleteRequest patientDeleteRequest = new PatientDeleteRequest(p_id, responseListener);
+                                    RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Detail.this);
+                                    queue.add(patientDeleteRequest);
+                                }
+                            }).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "관리자 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        
+        //환자에 대한 기록 목록으로 이동
+        textview_logs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Activity_Patient_Detail.this, Activity_Patient_Log.class);
+                intent.putExtra("Patient", patient);
+                startActivity(intent);
+            }
+        });
 
-        patient_detail_name = (TextView) findViewById(R.id.patient_detail_name);
-        patient_detail_id = (TextView) findViewById(R.id.patient_detail_id);
-        patient_detail_age = (TextView) findViewById(R.id.patient_detail_age);
-        patient_detail_gender = (TextView) findViewById(R.id.patient_detail_gender);
-        patient_detail_birthday = (TextView) findViewById(R.id.patient_detail_birthday);
-        patient_detail_addr = (TextView) findViewById(R.id.patient_detail_addr);
-        patient_detail_ward = (TextView) findViewById(R.id.patient_detail_ward);
-        patient_detail_NOK = (TextView) findViewById(R.id.patient_detail_NOK);
-        patient_detail_NOK_phone = (TextView) findViewById(R.id.patient_detail_NOK_phone);
+        //환자 기록을 새롭게 작성하기 위한 기능 수행
+        button_addLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String u_id = Global.getInstance().getUser().getU_id();
+                String p_id = patient.getP_id();
+                String pl_contents = edittext_addLog.getText().toString();
+                if (pl_contents.equals("")) {
+                    return;
+                } else {
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+                                if (success) {
+                                    edittext_addLog.setText("");
+                                    getPatientLog();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    PatientaddLogRequest patientaddLogRequest = new PatientaddLogRequest(p_id, u_id, pl_contents, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Detail.this);
+                    queue.add(patientaddLogRequest);
+                }
 
-        patient_detail_NOK_phone.setText(patient.getP_NOK_phone());
-        patient_detail_NOK.setText(patient.getP_NOK());
-        patient_detail_ward.setText(patient.getP_ward());
-        patient_detail_addr.setText(patient.getP_addr());
-        patient_detail_birthday.setText(patient.getP_birth());
-        patient_detail_gender.setText(patient.getP_gender());
-        patient_detail_age.setText(Integer.toString(patient.getP_age()));
-        patient_detail_name.setText(patient.getP_name());
-        patient_detail_id.setText(patient.getP_id());
+            }
+        });
+        
+        //환자 정보를 채워넣음
+        textview_NOKPhone.setText(patient.getP_NOK_phone());
+        textview_NOK.setText(patient.getP_NOK());
+        textview_ward.setText(patient.getP_ward());
+        textview_addr.setText(patient.getP_addr());
+        textview_birthday.setText(patient.getP_birth());
+        textview_gender.setText(patient.getP_gender());
+        textview_age.setText(Integer.toString(patient.getP_age()));
+        textview_name.setText(patient.getP_name());
+        textview_pid.setText(patient.getP_id());
 
-        patient_detail_log_listview = (ListView) findViewById(R.id.patient_detail_log_listview);
+        //환자 기록을 불러와 리스트에 적용하는 기능을 수행함
         getPatientLog();
     }
 
+    private void setUI() {
+        textview_fix = (TextView) findViewById(R.id.patient_detail_fix);
+        imageview_imagepatient = (ImageView) findViewById(R.id.patient_detail_image);
+        imageview_imageChange = (ImageView) findViewById(R.id.patient_detail_image_change);
+        textview_delete = (TextView) findViewById(R.id.patient_detail_delete);
+        textview_logs = (TextView) findViewById(R.id.patient_detail_log_more);
+        edittext_addLog = (EditText) findViewById(R.id.patient_detial_add_log);
+        button_addLog = (Button) findViewById(R.id.patient_detial_add_log_button);
+        textview_name = (TextView) findViewById(R.id.patient_detail_name);
+        textview_pid = (TextView) findViewById(R.id.patient_detail_id);
+        textview_age = (TextView) findViewById(R.id.patient_detail_age);
+        textview_gender = (TextView) findViewById(R.id.patient_detail_gender);
+        textview_birthday = (TextView) findViewById(R.id.patient_detail_birthday);
+        textview_addr = (TextView) findViewById(R.id.patient_detail_addr);
+        textview_ward = (TextView) findViewById(R.id.patient_detail_ward);
+        textview_NOK = (TextView) findViewById(R.id.patient_detail_NOK);
+        textview_NOKPhone = (TextView) findViewById(R.id.patient_detail_NOK_phone);
+        listview_logs = (ListView) findViewById(R.id.patient_detail_log_listview);
+    }
+
+    //환자 기록 불러오기 수행
     private void getPatientLog() {
-        patient_logs = new ArrayList<>();
-        patientlogadapter = new Adapter_log_listview(Activity_Patient_Detail.this, patient_logs);
-        patient_detail_log_listview.setAdapter(patientlogadapter);
+        logs = new ArrayList<>();
+        adapter_loglistview = new Adapter_LogListview(Activity_Patient_Detail.this, logs);
+        listview_logs.setAdapter(adapter_loglistview);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -170,9 +280,9 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                         String u_name = item.getString("u_name");
                         String pl_contents = item.getString("pl_contents");
                         String pl_time = item.getString("pl_time");
-                        if (patient_logs.size() < 4) {
-                            patient_logs.add(new Patient_Log(seq,patient.getP_id(), patient.getP_name(), u_id, u_name, pl_contents, pl_time));
-                            patientlogadapter.notifyDataSetChanged();
+                        if (logs.size() < 4) {
+                            logs.add(new Patient_Log(seq,patient.getP_id(), patient.getP_name(), u_id, u_name, pl_contents, pl_time));
+                            adapter_loglistview.notifyDataSetChanged();
                         }
                     }
                 } catch (JSONException e) {
@@ -191,19 +301,16 @@ public class Activity_Patient_Detail extends AppCompatActivity {
         getPatientLog();
     }
 
+    //갤러리에서 받아온 이미지를 적용하고 새롭게 데이터베이스에 수정
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bm;
         String bms;
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == CODES.REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 try {
-                    InputStream in = getContentResolver().openInputStream(data.getData());
-                    Bitmap img = resize(BitmapFactory.decodeStream(in));
-
-                    patient_detail_image.setImageBitmap(img);
-                    bms = BitMapToString(img);
-
+                    BitmapController bitmapController = new BitmapController(getContentResolver().openInputStream(data.getData()),getResources().getConfiguration());
+                    imageview_imagepatient.setImageBitmap(bitmapController.resize());
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -213,7 +320,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                                 boolean success = jsonResponse.getBoolean("success");
                                 if (success) {
                                     Toast.makeText(getApplicationContext(), "수정 완료", Toast.LENGTH_SHORT).show();
-                                    patient_detail_image.setImageBitmap(img);
+                                    imageview_imagepatient.setImageBitmap(bitmapController.resize());
                                 } else {
                                     Toast.makeText(getApplicationContext(), "수정 실패", Toast.LENGTH_SHORT).show();
                                     return;
@@ -223,7 +330,7 @@ public class Activity_Patient_Detail extends AppCompatActivity {
                             }
                         }
                     };
-                    PatientImageRequest patientImageRequest = new PatientImageRequest(patient.getP_id(), bms, responseListener);
+                    PatientImageRequest patientImageRequest = new PatientImageRequest(patient.getP_id(), bitmapController.toString(), responseListener);
                     RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Detail.this);
                     queue.add(patientImageRequest);
 
@@ -235,108 +342,5 @@ public class Activity_Patient_Detail extends AppCompatActivity {
             }
         }
     }
-
-    private Bitmap resize(Bitmap bm) {
-        Configuration config = getResources().getConfiguration();
-        if (config.smallestScreenWidthDp >= 800)
-            bm = Bitmap.createScaledBitmap(bm, 400, 240, true);
-        else if (config.smallestScreenWidthDp >= 600)
-            bm = Bitmap.createScaledBitmap(bm, 300, 180, true);
-        else if (config.smallestScreenWidthDp >= 400)
-            bm = Bitmap.createScaledBitmap(bm, 200, 120, true);
-        else if (config.smallestScreenWidthDp >= 360)
-            bm = Bitmap.createScaledBitmap(bm, 180, 108, true);
-        else bm = Bitmap.createScaledBitmap(bm, 160, 96, true);
-        return bm;
-    }
-
-    public String BitMapToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] arr = baos.toByteArray();
-        String image = Base64.encodeToString(arr, Base64.DEFAULT);
-        return image;
-    }
-
-    View.OnClickListener patientaddLogonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String u_id = Global.getInstance().getUser().getU_id();
-            String p_id = patient.getP_id();
-            String pl_contents = patient_detial_add_log.getText().toString();
-            if (pl_contents.equals("")) {
-                return;
-            } else {
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                patient_detial_add_log.setText("");
-                                getPatientLog();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                PatientaddLogRequest patientaddLogRequest = new PatientaddLogRequest(p_id, u_id, pl_contents, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Detail.this);
-                queue.add(patientaddLogRequest);
-            }
-
-        }
-    };
-
-    View.OnClickListener patientdeleteOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if ( Global.getInstance().getUser().getIsAdmin() == 1) {
-                AlertDialog.Builder dlg = new AlertDialog.Builder(Activity_Patient_Detail.this);
-                dlg.setTitle("삭제")
-                        .setMessage("환자 정보를 삭제하시겠습니까?")
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String p_id = patient.getP_id();
-                                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        try {
-                                            JSONObject jsonResponse = new JSONObject(response);
-                                            boolean success = jsonResponse.getBoolean("success");
-                                            if (success) {
-                                                finish();
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                };
-                                PatientDeleteRequest patientDeleteRequest = new PatientDeleteRequest(p_id, responseListener);
-                                RequestQueue queue = Volley.newRequestQueue(Activity_Patient_Detail.this);
-                                queue.add(patientDeleteRequest);
-                            }
-                        }).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "관리자 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
-
-    View.OnClickListener patientLogOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(Activity_Patient_Detail.this, Activity_Patient_Log.class);
-            intent.putExtra("Patient", patient);
-            startActivity(intent);
-        }
-    };
+    
 }

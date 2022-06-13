@@ -9,7 +9,17 @@ import com.example.mysenior.R;
 
 import java.io.Serializable;
 import java.util.Date;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+데이터 테이블 오브젝트 클래스
 
+이름 : Patient
+역할 : 병원 소속 환자들의 데이터
+ */
 public class Patient implements Serializable {
     String h_id; //소속 병원 ID
     String p_id; //환자 고유 ID

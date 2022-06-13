@@ -6,7 +6,17 @@ import android.util.Base64;
 
 import java.io.Serializable;
 import java.util.Date;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+데이터 테이블 오브젝트 클래스
 
+이름 : Hospital
+역할 : 병원 정보 데이터
+ */
 public class Hospital implements Serializable {
     
     String h_id; //병원 ID
@@ -38,6 +48,9 @@ public class Hospital implements Serializable {
     public String getH_location() {return h_location;}
     public String getH_phone() {return h_phone;}
     public String getH_image() { return h_image;}
+    public void setH_image(String h_image) {
+        this.h_image = h_image;
+    }
     public Bitmap getH_imageBitmap() {
         try {
             byte[] encodeByte = Base64.decode(h_image, Base64.DEFAULT);

@@ -1,30 +1,26 @@
 package com.example.mysenior.Adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
-import com.example.mysenior.Activity.Activity_Authority_List;
 import com.example.mysenior.DTO.Authority;
-import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.R;
-import com.example.mysenior.Request.AuthorityRemoveRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+어댑터 클래스
 
+이름 : Adapter_worker_authority_listview
+역할 : 직원의 권한 신청을 확인하기 위한 신청서 목록의 리스트뷰 어댑터
+ */
 public class Adapter_worker_authority_listview extends BaseAdapter {
 
     Context context = null;

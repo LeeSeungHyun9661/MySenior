@@ -24,32 +24,53 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+액티비티 클래스
 
+이름 : Activity_Notification_List
+역할 : 병원에 작성된 공지사항의 목록 확인
+기능 :
+    1) 병원에서 작성된 공지사항 목록 불러오기
+특이사항 :
+    - 작성자가 읽었는지 여부를 추가로 표시할 수 있도록 데이터베이스에 읽음을 추가할 예정임
+    - 병원 정책에 차별을 둬 작성자 등급이 다양하질 경우 작성에 권한을 상세하게 부여할 예정
+ */
 public class Activity_Notification_List extends AppCompatActivity {
-    ArrayList<Notification> notifications = new ArrayList<>();
-    ListView Notification_listview;
-    Adapter_notification_listview notification_adapter;
-    Button Notification_write_button;
+    private ArrayList<Notification> notifications = new ArrayList<>();
+    private ListView listview_Notification;
+    private Adapter_notification_listview adapter_Notification;
+    private Button button_writeNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
-        Intent intent = getIntent();
+        
+        setUI();
+        
+        //사용자가 관리자일 경우에만 작성 가능 - 공지 작성 버튼 선택시 새로 작성하기 위한 페이지로 이동함
+        if(Global.getInstance().getUser().getIsAdmin()){
+            button_writeNotification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Activity_Notification_List.this, Activity_Notification_Write.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
-        Notification_write_button= (Button) findViewById(R.id.Notification_write_button);
-        Notification_write_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Activity_Notification_List.this, Activity_Notification_Write.class);
-                startActivity(intent);
-            }
-        });
 
-        Notification_listview = (ListView) findViewById(R.id.Notification_listview);
-        notification_adapter = new Adapter_notification_listview(Activity_Notification_List.this,notifications);
-        Notification_listview.setAdapter(notification_adapter);
-        Notification_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //공지 사항 목록을 불러와 리스트로 적용
+        adapter_Notification = new Adapter_notification_listview(Activity_Notification_List.this,notifications);
+        listview_Notification.setAdapter(adapter_Notification);
+
+        listview_Notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //공지 사항을 자세히 보기위한 페이지로 이동
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(Activity_Notification_List.this, Activity_Notification_Detail.class);
@@ -57,7 +78,14 @@ public class Activity_Notification_List extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Notification_listview.setEmptyView((TextView)findViewById(R.id.fragment_home_notification_noitem));
+
+        //공지사항이 빈 경우 이미지를 적용
+        listview_Notification.setEmptyView((TextView)findViewById(R.id.fragment_home_notification_noitem));
+    }
+
+    private void setUI() {
+        listview_Notification = (ListView) findViewById(R.id.Notification_listview);
+        button_writeNotification = (Button) findViewById(R.id.Notification_write_button);
     }
 
     @Override
@@ -66,10 +94,11 @@ public class Activity_Notification_List extends AppCompatActivity {
         getNotifications();
     }
 
+    //공지사항 목록을 불러와 리스트로 표시합니다.
     private void getNotifications() {
         notifications = new ArrayList<>();
-        notification_adapter = new Adapter_notification_listview(this, notifications);
-        Notification_listview.setAdapter(notification_adapter);
+        adapter_Notification = new Adapter_notification_listview(this, notifications);
+        listview_Notification.setAdapter(adapter_Notification);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -92,7 +121,7 @@ public class Activity_Notification_List extends AppCompatActivity {
                         images.add(item.getString("image3"));
                         notifications.add(new Notification(seq,h_id,u_id,u_name,title,date,contents,images));
                     }
-                    notification_adapter.notifyDataSetChanged();
+                    adapter_Notification.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

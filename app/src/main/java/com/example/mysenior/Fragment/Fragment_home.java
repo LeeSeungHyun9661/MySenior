@@ -20,7 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.mysenior.Activity.Activity_Notification_List;
 import com.example.mysenior.Activity.Activity_Notification_Detail;
 import com.example.mysenior.Activity.Activity_Patient_Detail;
-import com.example.mysenior.Adapter.Adapter_log_listview;
+import com.example.mysenior.Adapter.Adapter_LogListview;
 import com.example.mysenior.Adapter.Adapter_notification_listview;
 import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.DTO.Monitor_Detaction;
@@ -51,7 +51,7 @@ public class Fragment_home extends Fragment {
     Button fragment_home_notification_more;
     ListView fragment_home_notification_Listview, fragment_home_detection_Listview, fragment_home_log_Listview;
     Adapter_notification_listview notification_adapter;
-    Adapter_log_listview patientlogadapter;
+    Adapter_LogListview patientlogadapter;
 
     ArrayList<Notification> notifications;
     ArrayList<Patient_Log> patient_logs;
@@ -241,7 +241,7 @@ public class Fragment_home extends Fragment {
     private void getLogs(){
         String h_id = hospital.getH_id();
         patient_logs = new ArrayList<>();
-        patientlogadapter = new Adapter_log_listview(getActivity().getApplicationContext(),patient_logs);
+        patientlogadapter = new Adapter_LogListview(getActivity().getApplicationContext(),patient_logs);
         fragment_home_log_Listview.setAdapter(patientlogadapter);
         Response.Listener<String> responseListener  = new Response.Listener<String>() {
             @Override
@@ -270,7 +270,6 @@ public class Fragment_home extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         queue.add(patientLogRequest_hid);
     }
-
 
     private void initWeeklyRoster(View view) {
         Calendar currentDate = Calendar.getInstance();
@@ -301,6 +300,7 @@ public class Fragment_home extends Fragment {
         ));
         getWeeklyRoster(year,month,startDay);
     }
+
     private int getStartdayofWeek(){
         Calendar currentDate = Calendar.getInstance();
         int year = currentDate.get(Calendar.YEAR);

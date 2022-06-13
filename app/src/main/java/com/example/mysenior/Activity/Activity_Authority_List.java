@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.mysenior.Adapter.Adapter_authority_listview;
+import com.example.mysenior.Adapter.Adapter_AuthorityListview;
 import com.example.mysenior.DTO.Authority;
 import com.example.mysenior.DTO.Hospital;
 import com.example.mysenior.Global;
@@ -44,29 +44,27 @@ _________
 역할 : 사용자가 접근 가능한 병원에 대해 권한을 확인하고 이를 목록으로 확인
 기능 :
     1) 병원에 대한 권한 접근
-        - 사용자가 권한을 부여받은 경우 -> 병원 페이지로 연결됨 (Activity_Hospital)
-        - 사용자가 권한을 확인받지 못한 경우 -> 병원 접근 거부
     2) 병원에 대한 권한 취소
-        - 아이템을 길게 눌러 접근 권한을 삭제
     3) 병원에 대한 권한 신청서 작성을 위한 병원 검색 화면으로 연결 (Activity_Authority_Search)
-특이사항 : -
+특이사항:
  */
 
 public class Activity_Authority_List extends AppCompatActivity {
-    private ArrayList<Authority> authorityArrayList; //권한 목록 배열
-    private ArrayList<Hospital> hospitalArrayList; //권한과 연결된 병원 배열
-    private Adapter_authority_listview authorityList_listview_adapter;
-    private ListView authorityList_listview;
-    private Button authorityList_authority_write;
+    private ArrayList<Authority> authoritys; //권한 목록 배열
+    private ArrayList<Hospital> hospitals; //권한과 연결된 병원 배열
+    private Adapter_AuthorityListview adapter_authorityList;
+    private ListView listview_authorityList;
+    private Button button_athorityWrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authority_list);
 
+        setUI();
+
         //병원에 대한 권한 신청 작성을 위한 병원 검색 화면으로 연결되는 버튼
-        authorityList_authority_write = (Button) findViewById(R.id.authorityList_authority_write);
-        authorityList_authority_write.setOnClickListener(new View.OnClickListener() {
+        button_athorityWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //병원 검색 화면 시작
@@ -75,19 +73,17 @@ public class Activity_Authority_List extends AppCompatActivity {
             }
         });
 
-        //리스트뷰에 대한 정의
-        authorityList_listview = (ListView) findViewById(R.id.authorityList_listview);
         //리스트뷰 아이템 선택 시 병원에 대한 접근을 시도
-        authorityList_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview_authorityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //해당 권한이 체크된 경우 병원 페이지로 이동
-                if (authorityArrayList.get(position).isCheck()) {
+                if (authoritys.get(position).isCheck()) {
                     Intent intent = new Intent(getApplicationContext(), Activity_Hospital.class);
                     //글로벌 변수에 병원 정보를 저장
-                    Global.getInstance().setHospital(hospitalArrayList.get(position));
+                    Global.getInstance().setHospital(hospitals.get(position));
                     //현재 사용자의 정보에 권한으로부터 받은 직책과 소속을 추가함
-                    Global.getInstance().getUser().setHospitalAccess(authorityArrayList.get(position).getDepartment(), authorityArrayList.get(position).getPosition(), authorityArrayList.get(position).isAdmin());
+                    Global.getInstance().getUser().setHospitalAccess(authoritys.get(position).getDepartment(), authoritys.get(position).getPosition(), authoritys.get(position).isAdmin());
                     //Activity_Hospital을 시작하면서 현재 액티비티를 종료함
                     startActivity(intent);
                     finish();
@@ -99,7 +95,7 @@ public class Activity_Authority_List extends AppCompatActivity {
         });
 
         //리스트뷰 아이템 을 길게 선택 시 병원에 대한 접근 제거
-        authorityList_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listview_authorityList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //AlertDialog를 통해 삭제를 확인
@@ -115,7 +111,7 @@ public class Activity_Authority_List extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //삭제 확인 시 해당 접근 데이터 삭제
-                                String a_id = authorityArrayList.get(position).getA_id();
+                                String a_id = authoritys.get(position).getA_id();
                                 removeAuthority(a_id);
                             }
                         }).show();
@@ -124,23 +120,32 @@ public class Activity_Authority_List extends AppCompatActivity {
         });
     }
 
+    private void setUI() {
+        listview_authorityList = (ListView) findViewById(R.id.authorityList_listview);
+        button_athorityWrite = (Button) findViewById(R.id.authorityList_authority_write);
+    }
+
     //액티비티 시작 및 다시 돌아온 경우 권한 목록 정보를 다시 받아옴
     public void onResume() {
         super.onResume();
-        getAuthority_HospitalArrayList();
+        getAuthoritys();
     }
 
     //서버로부터 사용자와 연결된 권한 정보 목록을 받아오는 기능
-    private void getAuthority_HospitalArrayList() {
-        authorityArrayList = new ArrayList<>();
-        hospitalArrayList = new ArrayList<>();
-        authorityList_listview_adapter = new Adapter_authority_listview(this, authorityArrayList, hospitalArrayList);
-        authorityList_listview.setAdapter(authorityList_listview_adapter);
+    private void getAuthoritys() {
+        //배열 초기화
+        authoritys = new ArrayList<>();
+        hospitals = new ArrayList<>();
+        
+        //어댑터 설정 및 리스트뷰와 연결
+        adapter_authorityList = new Adapter_AuthorityListview(this, authoritys, hospitals);
+        listview_authorityList.setAdapter(adapter_authorityList);
+        
+        //서버에 데이터를 요청 및 처리
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    System.out.print(response);
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("response");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -159,12 +164,12 @@ public class Activity_Authority_List extends AppCompatActivity {
                         Date h_date = new SimpleDateFormat("yyyy-MM-dd").parse(item.getString("h_date"));
                         String h_image = item.getString("h_image");
 
-                        Authority authority = new Authority(a_id, u_id, h_id, position, department, ischeck, isadmin);
-                        authorityArrayList.add(authority);
-                        Hospital hospital = new Hospital(h_id, h_name, h_category, h_location, h_phone, h_image, h_date);
-                        hospitalArrayList.add(hospital);
+                        //응답받은 내용을 배열에 추가
+                        authoritys.add(new Authority(a_id, u_id, h_id, position, department, ischeck, isadmin));
+                        hospitals.add(new Hospital(h_id, h_name, h_category, h_location, h_phone, h_image, h_date));
                     }
-                    authorityList_listview_adapter.notifyDataSetChanged();
+                    //리스트를 새로 갱신
+                    adapter_authorityList.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
@@ -185,8 +190,10 @@ public class Activity_Authority_List extends AppCompatActivity {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
+                    //제거에 성공한 경우
                     if (success) {
-                        getAuthority_HospitalArrayList();
+                        //권한에 대한 목록을 새롭게 갱신
+                        getAuthoritys();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

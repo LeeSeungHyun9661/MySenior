@@ -5,7 +5,17 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import java.io.Serializable;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+데이터 테이블 오브젝트 클래스
 
+이름 : User
+역할 : 사용자와 직원 정보를 위한 데이터베이스
+ */
 public class User implements Serializable {
 
     String a_id;
@@ -68,8 +78,9 @@ public class User implements Serializable {
     }
 
 
-    public int getIsAdmin() {
-        return isAdmin;
+    public boolean getIsAdmin() {
+        if (isAdmin == 1)  return true;
+        else return false;
     }
 
     public String getU_image() {

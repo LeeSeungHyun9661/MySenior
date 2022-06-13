@@ -25,21 +25,40 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+액티비티 클래스
 
+이름 : Activity_Worker_Add
+역할 : 해당 병원에 권한을 요청한 사람을 처리하는 액티비티
+기능 :
+    1) 권한 요청자 중 처리되지 않은 사람의 목록 불러오기 가능
+    2) 권한 체크를 통해 새롭게 직원으로 변경 가능
+    3) 길게 눌러 권한을 거부할 수 있음
+특이사항 :
+    - 이미 권한을 거부한 사람에 대한 목록을 통해 권한 거부를 상세하게 처리할 예정
+    - 병원 권한이 다양하게 지정될 경우 권한 등급을 선택해줄 수 있도록 조치할 예정
+ */
 public class Activity_Worker_Add extends AppCompatActivity {
-    
-    ListView worker_authority_listview;
-    ArrayList<Authority> authorityArrayList;
-    ArrayList<String> nameList;
-    Adapter_worker_authority_listview adapter_worker_authority_listview;
+
+    private ListView listview_worker;
+    private ArrayList<Authority> authorities;
+    private ArrayList<String> names;
+    private Adapter_worker_authority_listview adapter_worker_authority_listview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_add);
 
-        worker_authority_listview = (ListView) findViewById(R.id.worker_authority_listview);
-        worker_authority_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        setUI();
+
+        //아직 병원 직원이 아니지만 권한을 신청한 인원에 대해 권한을 승인하고 병원 직원으로 추가함
+        listview_worker.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(Activity_Worker_Add.this);
@@ -48,19 +67,23 @@ public class Activity_Worker_Add extends AppCompatActivity {
                         .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int position) {
-                                String a_id = authorityArrayList.get(i).getA_id();
+                                String a_id = authorities.get(i).getA_id();
                                 approveAuthority(a_id);
                             }
                         })
                         .setPositiveButton("거절", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int position) {
-                                String a_id = authorityArrayList.get(i).getA_id();
+                                String a_id = authorities.get(i).getA_id();
                                 removeAuthority(a_id);
                             }
                         }).show();
             }
         });
+    }
+
+    private void setUI() {
+        listview_worker = (ListView) findViewById(R.id.worker_authority_listview);
     }
 
     @Override
@@ -69,12 +92,13 @@ public class Activity_Worker_Add extends AppCompatActivity {
         getAuthorityList();
     }
 
+    //권한 신청 목록을 받아와 리스트뷰에 적용
     private void getAuthorityList() {
         String h_id = Global.getInstance().getHospital().getH_id();
-        authorityArrayList = new ArrayList<>();
-        nameList = new ArrayList<>();
-        adapter_worker_authority_listview = new Adapter_worker_authority_listview(this, authorityArrayList,nameList);
-        worker_authority_listview.setAdapter(adapter_worker_authority_listview);
+        authorities = new ArrayList<>();
+        names = new ArrayList<>();
+        adapter_worker_authority_listview = new Adapter_worker_authority_listview(this, authorities, names);
+        listview_worker.setAdapter(adapter_worker_authority_listview);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -92,8 +116,8 @@ public class Activity_Worker_Add extends AppCompatActivity {
                         int ischeck = item.getInt("ischeck");
                         int isadmin = item.getInt("isadmin");
                         Authority authority = new Authority(a_id, u_id, h_id, position, department, ischeck, isadmin);
-                        authorityArrayList.add(authority);
-                        nameList.add(item.getString("u_name"));
+                        authorities.add(authority);
+                        names.add(item.getString("u_name"));
                     }
                     adapter_worker_authority_listview.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -106,6 +130,7 @@ public class Activity_Worker_Add extends AppCompatActivity {
         queue.add(authorityRequest);
     }
 
+    //권한 삭제를 통해 리스트에서 제거함
     private void removeAuthority(String a_id){
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -126,6 +151,7 @@ public class Activity_Worker_Add extends AppCompatActivity {
         queue.add(authorityRemoveRequest);
     }
 
+    //권한 승인을 통해 병원 직원으로 업로드함
     private void approveAuthority(String a_id){
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -134,6 +160,7 @@ public class Activity_Worker_Add extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
+
                         getAuthorityList();
                     }
                 } catch (JSONException e) {

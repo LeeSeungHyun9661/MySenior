@@ -13,14 +13,24 @@ import com.example.mysenior.DTO.Patient_Log;
 import com.example.mysenior.R;
 
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+어댑터 클래스
 
-public class Adapter_log_listview extends BaseAdapter {
+이름 : Adapter_LogListview
+역할 : 환자의 기록사항을 표시하기 위한 어댑터
+ */
+public class Adapter_LogListview extends BaseAdapter {
 
     Context context = null;
     LayoutInflater layoutInflater = null;
     ArrayList<Patient_Log> patient_logs;
 
-    public Adapter_log_listview(Context context, ArrayList<Patient_Log> patient_logs) {
+    public Adapter_LogListview(Context context, ArrayList<Patient_Log> patient_logs) {
         this.patient_logs = patient_logs;
         this.context = context;
         this.layoutInflater =  LayoutInflater.from(context);

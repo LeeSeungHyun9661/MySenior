@@ -14,15 +14,25 @@ import com.example.mysenior.DTO.User;
 import com.example.mysenior.R;
 
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+어댑터 클래스
 
-public class Adapter_hospital_search_listview extends BaseAdapter {
+이름 : Adapter_HospitalSearchListview
+역할 : 검색어에 따른 병원 정보를 불러오는 리스트뷰 어댑터
+ */
+public class Adapter_HospitalSearchListview extends BaseAdapter {
 
     Context context = null;
     LayoutInflater layoutInflater = null;
     ArrayList<Hospital> hospitalArrayList;
     User user;
 
-    public Adapter_hospital_search_listview(Context context, ArrayList<Hospital> hospitalArrayList, User user) {
+    public Adapter_HospitalSearchListview(Context context, ArrayList<Hospital> hospitalArrayList, User user) {
         this.hospitalArrayList = hospitalArrayList;
         this.context = context;
         this.layoutInflater =  LayoutInflater.from(context);

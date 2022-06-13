@@ -14,23 +14,19 @@ MySenior
 _________
 리퀘스트 클래스
 
-이름 : NotificationFixRequest
-역할 : 환자 기록 수정 요청
+이름 : HospitalImageRequest
+역할 : 병원의 이미지를 수정 요청
  */
-public class NotificationFixRequest extends StringRequest {
+public class HospitalImageRequest extends StringRequest {
 
-    final static private String URL = "https://dippingai.com/mysenior/fixNotification.php";
+    final static private String URL = "https://dippingai.com/mysenior/uploadImageHospital.php";
     private Map<String, String> parameters;
 
-    public NotificationFixRequest(String seq,String title,String contents,String image1,String image2,String image3, Response.Listener<String> listener) {
+    public HospitalImageRequest(String h_id, String h_image, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
-        parameters.put("seq", seq);
-        parameters.put("title", title);
-        parameters.put("contents", contents);
-        parameters.put("image1", image1);
-        parameters.put("image2", image2);
-        parameters.put("image3", image3);
+        parameters.put("h_id", h_id);
+        parameters.put("h_image", h_image);
     }
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {

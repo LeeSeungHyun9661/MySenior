@@ -9,7 +9,17 @@ import com.example.mysenior.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+데이터 테이블 오브젝트 클래스
 
+이름 : Notification
+역할 : 병원의 공지사항 데이터
+ */
 public class Notification implements Serializable {
     String seq, h_id, u_id,u_name, title, date, contents;
     ArrayList<String> images;

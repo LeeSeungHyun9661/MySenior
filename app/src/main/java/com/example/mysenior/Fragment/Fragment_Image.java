@@ -1,4 +1,4 @@
-package com.example.mysenior.Activity;
+package com.example.mysenior.Fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,18 +12,19 @@ import android.widget.ImageView;
 
 import com.example.mysenior.R;
 
-public class Fragment_Frame extends Fragment {
-    Bitmap image;
-    ImageView item_notification_viewpater_image;
+public class Fragment_Image extends Fragment {
+    private Bitmap image;
+    private ImageView imageview;
 
-    public Fragment_Frame(Bitmap image) {
+    //이미지 프레임에 적용할 이미지를 불러옴
+    public Fragment_Image(Bitmap image) {
         this.image = image;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.item_viewpager_frame, container, false);
-        item_notification_viewpater_image = (ImageView) rootView.findViewById(R.id.item_notification_viewpater_image);
-        item_notification_viewpater_image.setImageBitmap(image);
+        imageview = (ImageView) rootView.findViewById(R.id.item_notification_viewpater_image);
+        imageview.setImageBitmap(image);
         return rootView;
     }
 }

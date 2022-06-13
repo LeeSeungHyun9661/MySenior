@@ -12,7 +12,17 @@ import com.example.mysenior.DTO.User;
 import com.example.mysenior.R;
 
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-13
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+어댑터 클래스
 
+이름 : Adapter_worker_gridview
+역할 : 병원 직원 목록을 보여주기 위한 그리드뷰 어댑터
+ */
 public class Adapter_worker_gridview extends BaseAdapter {
 
     Context context = null;
