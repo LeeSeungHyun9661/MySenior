@@ -44,22 +44,41 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+/*
+MySenior
+작성일자 : 2022-06-14
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+프래그먼트 클래스
 
+이름 :  Fragment_home
+역할 : 병원 전반의 공지, 주간일정, 최근감지, 최근 환자 메모등을 볼수 있는 프래그먼트
+기능 :
+    1) 병원 공지사항 중 최근 공지 사항을 표시하고, 공지사항에 대한 목록으로 안내
+    2) 사용자의 주간 일정을 확인하고 일주일 근무표를 표시
+    3) 최근 위험 감지 목록을 확인
+    4) 최근 새롭게 추가된 환자 기록을 보여주고 환자 액티비티로 안내
+특이사항 :
+    - 병원 공지사항의 경우 읽음 여부에 따라 계속 보여질건지를 확인하고 반영할 예정
+    - 병원 모니터와 이에 따른 감지 기록은 미구현(이후 추가 구현할 예정임)
+ */
 public class Fragment_home extends Fragment {
-    Hospital hospital;
-    User user;
-    Button fragment_home_notification_more;
-    ListView fragment_home_notification_Listview, fragment_home_detection_Listview, fragment_home_log_Listview;
-    Adapter_notification_listview notification_adapter;
-    Adapter_LogListview patientlogadapter;
+    private Hospital hospital;
+    private User user;
+    private Button button_notificationMore;
+    private ListView listview_notification, listview_detection, listview_log;
+    private Adapter_notification_listview adapter_notificationListview;
+    private Adapter_LogListview adapter_logListview;
+    private ArrayList<Notification> notifications;
+    private ArrayList<Patient_Log> logs;
+    private ArrayList<String> weeklyRoster;
+    private ArrayList<Monitor_Detaction> detactionArrayList; //추가 구현 예정임
+    private ArrayList<TextView> dates;
+    private ArrayList<ImageView> rosters;
+    private TextView textview_yearmonth;
 
-    ArrayList<Notification> notifications;
-    ArrayList<Patient_Log> patient_logs;
-    ArrayList<String> weeklyRoster;
-    ArrayList<Monitor_Detaction> detactionArrayList;
-    ArrayList<TextView> date_textviews;
-    ArrayList<ImageView> roster_imageviews;
-
+    //프래그먼트 기본 생성시 병원과 사용자 데이터를 받아옴
     public Fragment_home(User user, Hospital hospital){
         this.user = user;
         this.hospital = hospital;
@@ -69,9 +88,10 @@ public class Fragment_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //공지사항 리스트뷰
-        fragment_home_notification_Listview = (ListView) view.findViewById(R.id.fragment_home_notification_Listview);
-        fragment_home_notification_Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        setUI(view);
+
+        //공지사항 클릭시 해당 내용을 볼 수 있는 페이지로 이동
+        listview_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Notification_Detail.class);
@@ -79,11 +99,12 @@ public class Fragment_home extends Fragment {
                 startActivity(intent);
             }
         });
-        fragment_home_notification_Listview.setEmptyView((TextView)view.findViewById(R.id.fragment_home_notification_noitem));
+
+        //공지사항이 비어있는 경우
+        listview_notification.setEmptyView((TextView)view.findViewById(R.id.fragment_home_notification_noitem));
         
-        //공지사항 리스트 아이템 클릭 리스너
-        fragment_home_notification_more = (Button) view.findViewById(R.id.fragment_home_notification_more);
-        fragment_home_notification_more.setOnClickListener(new View.OnClickListener() {
+        //병원의 모든 공지사항을 볼 수 있도록 이동하는 버튼 기능
+        button_notificationMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), Activity_Notification_List.class);
@@ -91,13 +112,11 @@ public class Fragment_home extends Fragment {
             }
         });
 
-        fragment_home_detection_Listview = (ListView) view.findViewById(R.id.fragment_home_detection_Listview);
-
-        fragment_home_log_Listview = (ListView) view.findViewById(R.id.fragment_home_log_Listview);
-        fragment_home_log_Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //환자 기록 목록을 통해 환자 데이터베이스에 접근할 수 있는 기능
+        listview_log.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String p_id  = patient_logs.get(position).getP_id();
+                String p_id  = logs.get(position).getP_id();
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -138,8 +157,17 @@ public class Fragment_home extends Fragment {
             }
         });
 
+        //사용자의 주간 근무표를 불러오는 기능
         initWeeklyRoster(view);
         return view;
+    }
+
+    private void setUI(View view) {
+        textview_yearmonth = (TextView) view.findViewById(R.id.fragment_home_year_month);
+        listview_notification = (ListView) view.findViewById(R.id.fragment_home_notification_Listview);
+        button_notificationMore = (Button) view.findViewById(R.id.fragment_home_notification_more);
+        listview_detection = (ListView) view.findViewById(R.id.fragment_home_detection_Listview);
+        listview_log = (ListView) view.findViewById(R.id.fragment_home_log_Listview);
     }
 
     @Override
@@ -150,10 +178,11 @@ public class Fragment_home extends Fragment {
         getLogs();
     }
 
+    //병원의 공지사항 리스트를 서버에 요청
     private void getNotifications() {
         notifications = new ArrayList<>();
-        notification_adapter = new Adapter_notification_listview(getActivity(), notifications);
-        fragment_home_notification_Listview.setAdapter(notification_adapter);
+        adapter_notificationListview = new Adapter_notification_listview(getActivity(), notifications);
+        listview_notification.setAdapter(adapter_notificationListview);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -176,7 +205,7 @@ public class Fragment_home extends Fragment {
                         images.add(item.getString("image3"));
                         notifications.add(new Notification(seq,h_id,u_id,u_name,title,date,contents,images));
                         if (notifications.size() < 2) {
-                            notification_adapter.notifyDataSetChanged();
+                            adapter_notificationListview.notifyDataSetChanged();
                         }
                     }
                 } catch (JSONException e) {
@@ -189,6 +218,7 @@ public class Fragment_home extends Fragment {
         queue.add(notificationRequest);
     }
 
+    //년월일에 따른 주간 근무표 내용을 서버에 요청
     private void getWeeklyRoster(int year, int month, int startDay) {
         weeklyRoster = new ArrayList<>();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -203,22 +233,22 @@ public class Fragment_home extends Fragment {
                         weeklyRoster.add(r_type);
                     }
                     for (int i=0; i<7; i++){
-                        date_textviews.get(i).setText(Integer.toString(startDay+i));
+                        dates.get(i).setText(Integer.toString(startDay+i));
                         switch (weeklyRoster.get(i)){
                             case "D":
-                                roster_imageviews.get(i).setImageResource(R.drawable.roster_d);
+                                rosters.get(i).setImageResource(R.drawable.roster_d);
                                 break;
                             case "O":
-                                roster_imageviews.get(i).setImageResource(R.drawable.roster_o);
+                                rosters.get(i).setImageResource(R.drawable.roster_o);
                                 break;
                             case "E":
-                                roster_imageviews.get(i).setImageResource(R.drawable.roster_e);
+                                rosters.get(i).setImageResource(R.drawable.roster_e);
                                 break;
                             case "N":
-                                roster_imageviews.get(i).setImageResource(R.drawable.roster_n);
+                                rosters.get(i).setImageResource(R.drawable.roster_n);
                                 break;
                             default:
-                                roster_imageviews.get(i).setImageResource(R.drawable.roster_x);
+                                rosters.get(i).setImageResource(R.drawable.roster_x);
                                 break;
                         }
                     }
@@ -234,15 +264,17 @@ public class Fragment_home extends Fragment {
         queue.add(rosterWeeklyRequest);
     }
 
+    //(구현예정) 최근 위험 감지 내용 호출
     private void getDetactions() {
 
     }
 
+    //병원의 환자 기록을 불러오는 기능
     private void getLogs(){
         String h_id = hospital.getH_id();
-        patient_logs = new ArrayList<>();
-        patientlogadapter = new Adapter_LogListview(getActivity().getApplicationContext(),patient_logs);
-        fragment_home_log_Listview.setAdapter(patientlogadapter);
+        logs = new ArrayList<>();
+        adapter_logListview = new Adapter_LogListview(getActivity().getApplicationContext(), logs);
+        listview_log.setAdapter(adapter_logListview);
         Response.Listener<String> responseListener  = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -258,9 +290,9 @@ public class Fragment_home extends Fragment {
                         String u_name = item.getString("u_name");
                         String pl_contents = item.getString("pl_contents");
                         String pl_time = item.getString("pl_time");
-                        patient_logs.add(new Patient_Log(seq, p_id,p_name, u_id,u_name, pl_contents, pl_time));
+                        logs.add(new Patient_Log(seq, p_id,p_name, u_id,u_name, pl_contents, pl_time));
                     }
-                    patientlogadapter.notifyDataSetChanged();
+                    adapter_logListview.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -271,16 +303,20 @@ public class Fragment_home extends Fragment {
         queue.add(patientLogRequest_hid);
     }
 
+    //최근 일주일의 주간 근무표를 생성하기 위한 기능
     private void initWeeklyRoster(View view) {
         Calendar currentDate = Calendar.getInstance();
         int year = currentDate.get(Calendar.YEAR);
         int month = currentDate.get(Calendar.MONTH);
-        int startDay = getStartdayofWeek();
 
-        TextView fragment_home_year_month = (TextView) view.findViewById(R.id.fragment_home_year_month);
-        fragment_home_year_month.setText(Integer.toString(year) + "년 " + Integer.toString(month+1) + "월");
+        //현재 주차의 첫 번째 일자
+        int startDay = startofWeek();
 
-        date_textviews = new ArrayList<>(Arrays.asList(
+        //현재 년도와 월을 추가함
+        textview_yearmonth.setText(Integer.toString(year) + "년 " + Integer.toString(month+1) + "월");
+
+        //일자와 근무표를 레이아웃에서 찾아 배열로 지정
+        dates = new ArrayList<>(Arrays.asList(
                 (TextView) view.findViewById(R.id.fragment_home_date_0),
                 (TextView) view.findViewById(R.id.fragment_home_date_1),
                 (TextView) view.findViewById(R.id.fragment_home_date_2),
@@ -289,7 +325,7 @@ public class Fragment_home extends Fragment {
                 (TextView) view.findViewById(R.id.fragment_home_date_5),
                 (TextView) view.findViewById(R.id.fragment_home_date_6)
         ));
-        roster_imageviews = new ArrayList<>(Arrays.asList(
+        rosters = new ArrayList<>(Arrays.asList(
                 (ImageView) view.findViewById(R.id.fragment_home_roster_0),
                 (ImageView) view.findViewById(R.id.fragment_home_roster_1),
                 (ImageView) view.findViewById(R.id.fragment_home_roster_2),
@@ -298,10 +334,13 @@ public class Fragment_home extends Fragment {
                 (ImageView) view.findViewById(R.id.fragment_home_roster_5),
                 (ImageView) view.findViewById(R.id.fragment_home_roster_6)
         ));
+        
+        //주간 일정을 서버에서 불러와 배열에 추가하고, 레이아웃을 다시 표현함
         getWeeklyRoster(year,month,startDay);
     }
 
-    private int getStartdayofWeek(){
+    //현재 주차를 찾아서 주차의 시작 일자 값을 구하기 위한 기능
+    private int startofWeek(){
         Calendar currentDate = Calendar.getInstance();
         int year = currentDate.get(Calendar.YEAR);
         int weekofyear = currentDate.get(Calendar.WEEK_OF_YEAR);

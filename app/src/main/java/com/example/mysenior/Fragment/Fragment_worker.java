@@ -33,7 +33,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+/*
+MySenior
+작성일자 : 2022-06-14
+작성자 : 이승현(팀원)
+작성목적 : 2022년 종합설계 팀프로젝트 - 요양원 관리 애플리케이션 'MySenior'
+_________
+프래그먼트 클래스
 
+이름 :  Fragment_home
+역할 : 병원 전반의 공지, 주간일정, 최근감지, 최근 환자 메모등을 볼수 있는 프래그먼트
+기능 :
+    1) 병원 공지사항 중 최근 공지 사항을 표시하고, 공지사항에 대한 목록으로 안내
+    2) 사용자의 주간 일정을 확인하고 일주일 근무표를 표시
+    3) 최근 위험 감지 목록을 확인
+    4) 최근 새롭게 추가된 환자 기록을 보여주고 환자 액티비티로 안내
+특이사항 :
+    - 병원 공지사항의 경우 읽음 여부에 따라 계속 보여질건지를 확인하고 반영할 예정
+    - 병원 모니터와 이에 따른 감지 기록은 미구현(이후 추가 구현할 예정임)
+ */
 public class Fragment_worker extends Fragment {
     private User user;
     private Hospital hospital;
