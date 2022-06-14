@@ -2,32 +2,30 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/roster_scrollview"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:background="@color/thema2"
         android:gravity="center"
         android:orientation="vertical">
-
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/roster_calendarview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content"
+            android:padding="10dp"/>
         <TextView
             android:id="@+id/roster_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:textSize="20dp"/>
-
         <ListView
             android:id="@+id/fragment_roster_listview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="180dp"/>
     </LinearLayout>
 
 

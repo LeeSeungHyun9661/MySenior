@@ -5,9 +5,11 @@ import static java.util.Calendar.DAY_OF_MONTH;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -62,6 +64,7 @@ public class Fragment_roster extends Fragment {
     private ArrayList<User> users;
     private ListView listview_roster;
     private Adapter_roster_worker_listview adapter_worker_listview;
+    private ScrollView roster_scrollview;
 
     public Fragment_roster(User user, Hospital hospital) {
         this.hospital = hospital;
@@ -72,6 +75,13 @@ public class Fragment_roster extends Fragment {
         View view = inflater.inflate(R.layout.fragment_roster, container, false);
         
         setUI(view);
+
+        listview_roster.setOnTouchListener(new View.OnTouchListener() {
+            @Override public boolean onTouch(View v, MotionEvent event) {
+                roster_scrollview.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         
         //현재 날짜를 받아와 캘린더를 초기화함
         calendar = Calendar.getInstance();
@@ -98,6 +108,7 @@ public class Fragment_roster extends Fragment {
                 getMonthlyRoster();
             }
         });
+
         calendarView.setOnForwardPageChangeListener(new OnCalendarPageChangeListener() {
             @Override
             public void onChange() {
@@ -109,6 +120,7 @@ public class Fragment_roster extends Fragment {
     }
 
     private void setUI(View view) {
+        roster_scrollview = (ScrollView) view.findViewById(R.id.roster_scrollview);
         textview_date = (TextView) view.findViewById(R.id.roster_date);
         calendarView = (CalendarView) view.findViewById(R.id.roster_calendarview);
         listview_roster = (ListView) view.findViewById(R.id.fragment_roster_listview);
@@ -186,7 +198,7 @@ public class Fragment_roster extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
-                    System.out.print(response);
+                    Log.w("RESPONDE",response);
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("worker");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -200,10 +212,15 @@ public class Fragment_roster extends Fragment {
                         String department = item.getString("department");
                         int isadmin = item.getInt("isadmin");
                         String r_type = item.getString("r_type");
-                        if(!r_type.equals("")){
-                            User wokrer = new User(a_id, u_id, u_name, h_id, position, department, u_image, isadmin);
-                            wokrer.setRoster(r_type);
-                            users.add(wokrer);
+
+                        User worker = new User(a_id, u_id, u_name, h_id, position, department, u_image, isadmin);
+                        worker.setRoster(r_type);
+                        Log.w("NAME",worker.getU_name());
+                        Log.w("ROSTER",worker.getRoster());
+
+                        if(!(worker.getRoster().equals("") | worker.getRoster().equals("O"))){
+                            Log.w("RESPONSE","Worker added");
+                            users.add(worker);
                         }
                     }
                     adapter_worker_listview.notifyDataSetChanged();
